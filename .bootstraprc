@@ -1,0 +1,14 @@
+---
+loglevel: disabled
+bootstrapVersion: 3
+styleLoaders:
+  - style
+  - css
+  - sass
+env:
+  development:
+    extractStyles: false
+  production:
+    extractStyles: true
+styles: true
+scripts: false
