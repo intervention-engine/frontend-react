@@ -1,0 +1,178 @@
+/* ------------------------- IMPORT 3RD PARTY VENDORS ---------------------- */
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+
+/* ------------------------- IMPORT VARIABLES ------------------------------ */
+@import "elements/variables";
+
+/* ------------------------- IMPORT CUSTOM FONTS --------------------------- */
+@import "vendors/fontcustom";
+
+/* ------------------------- IMPORT CUSTOM SCSS ---------------------------- */
+@import "components/header";
+// @import "filters";
+// @import "drag-and-drop";
+// @import "panes";
+// @import "forms";
+// @import "panels";
+// @import "tables";
+// @import "login";
+// @import "patients";
+// @import "timeline";
+// @import "tooltip";
+// @import "login-register";
+// @import "register";
+// @import "select-fx";
+// @import "search";
+@import "vendors/bootstrap";
+// @import "charts";
+// @import "interventions";
+// @import "patient-viewer";
+// @import "print";
+// @import "modals";
+
+/* -------------------------------- DOM -------------------------------- */
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  padding-bottom: 2em;
+}
+
+h1 {
+  font-size: 4.8em;
+  font-weight: 100;
+}
+
+h2 {
+  font-size: 2.2em;
+}
+
+ul {
+  text-decoration: none;
+}
+
+/* -------------------------------- LOGO -------------------------------- */
+.logo {
+  margin-top: -20px;
+}
+
+/* -------------------------------- NAV -------------------------------- */
+.nav {
+  padding-right: 44px;
+
+  a {
+    min-width: 150px;
+    text-align: center;
+  }
+}
+
+@media (max-width: $grid-float-breakpoint) {
+  .nav {
+    padding-right: 0;
+  }
+}
+
+/* -------------------------------- BUTTONS -------------------------------- */
+.btn-circle {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  border-width: 5px;
+  background-color: #fff;
+  border-color: $body-bg;
+
+  &.btn-active {
+    background-color: $brand-primary;
+    border-color: $brand-primary;
+    color: #fff;
+  }
+}
+
+.btn-primary,
+.btn-ie,
+.btn-ie-lg {
+  border-radius: 0;
+  font-size: 20px;
+  height: 45px;
+}
+
+.btn-primary,
+.btn-ie-lg {
+  width: 200px;
+  height: 45px;
+}
+
+.btn-primary {
+  background-color: $brand-primary;
+  border-color: darken($brand-primary, 10%);
+}
+
+.fa-rounded {
+  color: $brand-secondary;
+  background-color: $table-bg-accent;
+  border-radius: 50%;
+  font-size: 14px;
+  padding: 0.28em;
+}
+
+/* -------------------------------- OTHER -------------------------------- */
+#ember-fhir {
+  overflow: hidden;
+}
+
+.spin-box {
+  height: 200px;
+  position: relative;
+}
+
+.sub-text {
+  color: lighten($brand-secondary, 40%);
+  font-style: italic;
+  font-size: 1.2em;
+  padding: 10px;
+}
+
+svg {
+  fill: $brand-primary;
+  shape-rendering: geometricPrecision;
+
+  .event {
+    stroke: white;
+  }
+}
+
+.active {
+  stroke: black;
+  stroke-width: 4px;
+}
+
+.background {
+  fill: $gray-lighter;
+}
+
+.svg-risk {
+  .bar {
+    background-color: $brand-primary;
+  }
+}
+
+.row {
+  margin: 0;
+}
+
+.col-reset {
+  margin: 0;
+  padding: 0;
+}
+
+.pagination-centered {
+  text-align: center;
+
+  .pagination > li > a {
+    border-radius: 0;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
