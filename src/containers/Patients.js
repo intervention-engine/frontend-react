@@ -5,8 +5,9 @@ import PageHeader from '../components/Header/PageHeader';
 export default class Patients extends Component {
   render() {
     return (
-      <div>
+      <div className="container">
         <PageHeader title="Patients" />
+
         <div>Patients</div>
       </div>
     );

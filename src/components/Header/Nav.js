@@ -7,56 +7,47 @@ import Logo from './Logo';
 export default class Nav extends Component {
   render() {
     return (
-      <nav className="navbar navbar-fixed-top navbar-inverse">
-        <div className="container">
-          <div className="navbar-header">
-            <Logo />
+      <nav className="navbar navbar-static-top navbar-inverse">
+        <div className="navbar-header">
+          <Logo />
 
-            <button type="button"
-                    className="navbar-toggle collapsed"
-                    data-toggle="collapse"
-                    data-target="#navbar"
-                    aria-expanded="false"
-                    aria-controls="navbar">
-              <span className="sr-only">Toggle navigation</span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-            </button>
-          </div>
+          <button type="button"
+                  className="navbar-toggle collapsed"
+                  data-toggle="collapse"
+                  data-target="#navbar"
+                  aria-expanded="false"
+                  aria-controls="navbar">
+            <span className="sr-only">Toggle navigation</span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+          </button>
+        </div>
 
-          <div id="navbar" className="collapse navbar-collapse">
-            <ul className="nav navbar-nav">
-              <li>
-                <Link to="/" activeClassName="active">
-                  <FontAwesome name="users" /> Patients
-                </Link>
-              </li>
+        <div id="navbar" className="collapse navbar-collapse">
+          <ul className="nav navbar-nav navbar-right">
+            <li>
+              <Link to="/" activeClassName="active">
+                <FontAwesome name="user" /> Patients
+              </Link>
+            </li>
 
-              <li>
-                <Link to="/FilterBuilder" activeClassName="active">
-                  <FontAwesome name="filter" /> Filter Builder
-                </Link>
-              </li>
+            <li>
+              <Link to="/FilterBuilder" activeClassName="active">
+                <FontAwesome name="filter" /> Filter Builder
+              </Link>
+            </li>
 
-              <li role="presentation" className="dropdown">
-                <a href="#"
-                   className="dropdown-toggle"
-                   data-toggle="dropdown"
-                   role="button"
-                   aria-haspopup="true"
-                   aria-expanded="false">
-                  Name <span className="caret"></span>
-                </a>
-
-                <ul className="dropdown-menu">
-                  <li><a href="#">Logout</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
+            <li>
+              <Link to="/" onClick={(event) => event.preventDefault()}>
+                <FontAwesome name="sign-out" /> Logout
+              </Link>
+            </li>
+          </ul>
         </div>
       </nav>
     );
   }
 }
+
+Nav.displayName = 'Nav';

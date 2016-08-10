@@ -1,17 +1,50 @@
 @import "../elements/variables";
 
+/* ------------------------- NAV ------------------------------------------- */
+
+nav {
+  .navbar-nav {
+    margin: 0;
+
+    a {
+      padding: 30px;
+      min-width: 140px;
+      text-align: center;
+
+      &.active,
+      &.active:focus,
+      &.active:hover {
+        background-color: $navbar-inverse-link-active-bg;
+      }
+    }
+  }
+}
+
+.navbar-inverse .navbar-nav > .open > a:focus {
+  background-color: inherit;
+}
+
+/* ------------------------- LOGO ------------------------------------------ */
+
+.logo {
+  margin-top: -20px;
+}
+
+/* ------------------------- PAGE HEADER ----------------------------------- */
+
 .page-header {
   background-color: $white;
   margin: -20px -9999rem 20px -9999rem;
   padding: 0.25rem 9999rem;
 
+  @include respond-to(mobile) { text-align: center; }
+  @include respond-to(tablet) {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
   .page-header-text {
-    padding: 20px;
-    font-size: 3em;
+    font-size: 4.8em;
     font-weight: 100;
   }
-}
-
-.header-logo {
-  margin: 0 10px 0 20px;
 }

@@ -8,7 +8,7 @@ export default class App extends Component {
     const { children } = this.props; //eslint-disable-line
 
     return (
-      <div className="container">
+      <div>
         <Header />
         {children}
       </div>
