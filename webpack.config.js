@@ -31,7 +31,7 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
     }),
     new CopyWebpackPlugin([
-      { from: 'src/images', to: 'assets/images' }
+      { from: 'public' }
     ]),
     new WriteFilePlugin(),
     new HtmlWebpackPlugin({
