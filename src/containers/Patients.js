@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import PageHeader from '../components/Header/PageHeader';
 
-export default class Patients extends Component {
-  render() {
-    return (
-      <div className="container">
-        <PageHeader title="Patients" />
+const Patients = () => {
+  return (
+    <div className="patients container">
+      <PageHeader title="Patients" />
 
-        <div>Patients</div>
-      </div>
-    );
-  }
-}
+      <div>Patients</div>
+    </div>
+  );
+};
 
 Patients.displayName = 'Patients';
+
+export default Patients;

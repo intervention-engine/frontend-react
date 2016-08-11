@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import PageHeader from '../components/Header/PageHeader';
 
-export default class FilterBuilder extends Component {
-  render() {
-    return (
-      <div className="container">
-        <PageHeader title="Filter Builder" />
-        
-        <div>Filter Builder</div>
-      </div>
-    );
-  }
-}
+const FilterBuilder = () => {
+  return (
+    <div className="filter-builder container">
+      <PageHeader title="Filter Builder" />
+
+      <div>Filter Builder</div>
+    </div>
+  );
+};
 
 FilterBuilder.displayName = 'FilterBuilder';
+
+export default FilterBuilder;
