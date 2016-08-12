@@ -27,14 +27,20 @@ module.exports = {
 
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+      VERSION: JSON.stringify(require('git-repo-version')())
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "src", "index.tmpl.html")
     }),
     new CopyWebpackPlugin([
+      { from: 'public' },
       { from: 'src/images', to: 'assets/images' }
     ]),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery"
+    }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
     new ExtractTextPlugin("assets/[name]-[hash].css")

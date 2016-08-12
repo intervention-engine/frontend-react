@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Header from '../components/Header/Header';
+import Footer from '../components/Footer';
 
 const App = (props) => {
   const { children } = props; // eslint-disable-line
@@ -9,6 +10,7 @@ const App = (props) => {
     <div className="app">
       <Header />
       {children}
+      <Footer />
     </div>
   );
 };
