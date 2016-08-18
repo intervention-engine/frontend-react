@@ -1,0 +1,121 @@
+/* ------------------------- IMPORT VARIABLES ------------------------------ */
+
+@import "elements/variables";
+
+/* ------------------------- IMPORT 3RD PARTY VENDORS ---------------------- */
+
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+/* ------------------------- IMPORT CUSTOM FONTS --------------------------- */
+
+@import "vendors/fontcustom";
+
+/* ------------------------- IMPORT CUSTOM SCSS ---------------------------- */
+
+@import "components/header";
+@import "elements/buttons";
+// @import "filters";
+// @import "drag-and-drop";
+// @import "panes";
+// @import "forms";
+// @import "panels";
+// @import "tables";
+// @import "login";
+// @import "patients";
+// @import "timeline";
+// @import "tooltip";
+// @import "login-register";
+// @import "register";
+// @import "select-fx";
+// @import "search";
+@import "vendors/bootstrap";
+// @import "charts";
+// @import "interventions";
+// @import "patient-viewer";
+// @import "print";
+// @import "modals";
+
+/* ------------------------- DOM ------------------------------------------- */
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  padding-bottom: 2em;
+  overflow-x: hidden;
+}
+
+h1 {
+  font-size: 4.8em;
+  font-weight: 100;
+}
+
+h2 {
+  font-size: 2.2em;
+}
+
+ul {
+  text-decoration: none;
+}
+
+/* ------------------------- OTHER ----------------------------------------- */
+
+#ember-fhir {
+  overflow: hidden;
+}
+
+.spin-box {
+  height: 200px;
+  position: relative;
+}
+
+.sub-text {
+  color: lighten($brand-secondary, 40%);
+  font-style: italic;
+  font-size: 1.2em;
+  padding: 10px;
+}
+
+svg {
+  fill: $brand-primary;
+  shape-rendering: geometricPrecision;
+
+  .event {
+    stroke: white;
+  }
+}
+
+.active {
+  stroke: black;
+  stroke-width: 4px;
+}
+
+.background {
+  fill: $gray-lighter;
+}
+
+.svg-risk {
+  .bar {
+    background-color: $brand-primary;
+  }
+}
+
+.row {
+  margin: 0;
+}
+
+.col-reset {
+  margin: 0;
+  padding: 0;
+}
+
+.pagination-centered {
+  text-align: center;
+
+  .pagination > li > a {
+    border-radius: 0;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
