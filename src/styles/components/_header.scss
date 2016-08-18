@@ -1,33 +1,34 @@
 @import "../elements/variables";
 
+.header {
+
 /* ------------------------- NAV ------------------------------------------- */
 
-nav {
-  .navbar-nav {
-    margin: 0;
+  .navbar-inverse {
+    background-color: darken($brand-secondary, 10%);
 
-    a {
-      padding: 30px;
-      min-width: 140px;
-      text-align: center;
+    .navbar-nav {
+      margin: 0;
 
-      &.active,
-      &.active:focus,
-      &.active:hover {
-        background-color: $navbar-inverse-link-active-bg;
+      a {
+        padding: 30px;
+        min-width: 140px;
+        text-align: center;
+
+        &.active,
+        &.active:focus,
+        &.active:hover {
+          background-color: $navbar-inverse-link-active-bg;
+        }
       }
     }
   }
-}
 
-.navbar-inverse .navbar-nav > .open > a:focus {
-  background-color: inherit;
-}
+  /* ----------------------- LOGO ------------------------------------------ */
 
-/* ------------------------- LOGO ------------------------------------------ */
-
-.logo {
-  margin-top: -20px;
+  .logo {
+    margin-top: -20px;
+  }
 }
 
 /* ------------------------- PAGE HEADER ----------------------------------- */

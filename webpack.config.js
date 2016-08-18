@@ -28,7 +28,8 @@ module.exports = {
 
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+      VERSION: JSON.stringify(require('git-repo-version')())
     }),
     new CopyWebpackPlugin([
       { from: 'public' }
@@ -38,8 +39,8 @@ module.exports = {
       template: path.join(__dirname, "src", "index.tmpl.html")
     }),
     new webpack.ProvidePlugin({
-           $: "jquery",
-           jQuery: "jquery"
+      $: "jquery",
+      jQuery: "jquery"
     }),
     new webpack.HotModuleReplacementPlugin()
   ],

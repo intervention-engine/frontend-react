@@ -1,0 +1,72 @@
+@import "../elements/variables";
+
+/* ------------------------- FOOTER ---------------------------------------- */
+
+.footer {
+  background-color: darken($brand-secondary, 10%);
+  bottom: 0;
+  color: $white;
+  height: 80px;
+  line-height: 80px;
+  position: absolute;
+  width: 100%;
+
+  @include respond-to(mobile) {
+    height: 140px;
+    line-height: 20px;
+  }
+
+  .footer-contents {
+    margin: 0 auto;
+    width: 640px;
+
+    @include respond-to(mobile) { width: 300px; }
+    @include respond-to(mobile) {
+      text-align: center;
+      width: 250px;
+    }
+
+    /* --------------------- LOGO ------------------------------------------ */
+
+    .logo img {
+      margin-top: -20px;
+      width: 225px;
+    }
+
+    /* --------------------- DEVELOPED BY ---------------------------------- */
+
+    .mitre {
+      display: inline-block;
+      margin-left: 10px;
+
+      .mitre-developed {
+
+      }
+
+      .mitre-name {
+        color: lighten($brand-primary, 5%);
+        font-weight: 400;
+
+        a:hover,
+        a:visited,
+        a:focus {
+          color: lighten($brand-primary, 5%);
+          text-decoration: none;
+        }
+
+        a:hover {
+          color: $white;
+        }
+      }
+    }
+
+    /* --------------------- VERSION --------------------------------------- */
+
+    .version {
+      display: inline-block;
+      margin-left: 30px;
+
+      @include respond-to(mobile) { margin-left: 0; }
+    }
+  }
+}
