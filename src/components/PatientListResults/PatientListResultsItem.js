@@ -1,12 +1,18 @@
 import React, { PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
+import moment from 'moment';
 
-const PatientListResultsItem = ({name, age, gender}) => {
-	let genderIconClassName = 'fa-user';
-	if (gender === 'Male') {
-		genderIconClassName = 'fa-male';
-	} else if (gender === 'Female') {
-		genderIconClassName = 'fa-female';
+const PatientListResultsItem = ({patient}) => {
+	const { gender } = patient;
+	const age = moment().diff(moment(patient.birthDate), 'years');
+	// TODO This isn't a viable way to extract names
+	const name = `${patient.name[0].family}, ${patient.name[0].given}`
+
+	let genderIconClassName = 'user';
+	if (gender === 'male') {
+		genderIconClassName = 'male';
+	} else if (gender === 'female') {
+		genderIconClassName = 'female';
 	}
 
 
@@ -14,7 +20,7 @@ const PatientListResultsItem = ({name, age, gender}) => {
 		<div className='patient-info patient-media'>
 			<div className='media'>
 				<div className='media-left media-middle'>
-					<FontAwesome name='fa-user'/>
+					<FontAwesome name='user'/>
 				</div>
 			</div>
 			<div className='media-body'>
@@ -27,12 +33,11 @@ const PatientListResultsItem = ({name, age, gender}) => {
 					<div className='col-md-6'>
 						<div className='patient-age-gender-location'>
 							<span className='patient-age'>
-								<FontAwesome name='fa-elderly'/>
+								<FontAwesome name='elderly'/>
 								{age} yrs
 							</span>
 							<span className='patient-gender'>
-								<FontAwesome name={genderIconClassName}/>
-								{gender}
+								<FontAwesome name={genderIconClassName}/> {gender}
 							</span>
 						</div>
 					</div>
@@ -44,9 +49,7 @@ const PatientListResultsItem = ({name, age, gender}) => {
 };
 
 PatientListResultsItem.propTypes = {
-	name: PropTypes.string.isRequired,
-	age: PropTypes.number.isRequired,
-	gender: PropTypes.string.isRequired
+	patient: PropTypes.object.isRequired
 };
 
 PatientListResultsItem.displayName = 'PatientListResultsItem';
