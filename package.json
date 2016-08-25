@@ -7,7 +7,8 @@
     "test:watch": "npm test -- --watch",
     "start": "webpack-dev-server --progress",
     "build": "NODE_ENV=production webpack --config ./webpack.production.config.js --progress",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "storybook": "start-storybook -p 9001"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/intervention-engine/frontend-react",
   "devDependencies": {
+    "@kadira/storybook": "^2.3.0",
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
     "babel-plugin-react-transform": "^2.0.2",
@@ -52,10 +54,10 @@
     "mocha": "^2.3.4",
     "moment": "^2.13.0",
     "node-sass": "^3.8.0",
-    "react": "^0.14.6",
+    "react": "^15.3.1",
     "react-addons-test-utils": "^0.14.7",
     "react-bootstrap": "^0.29.4",
-    "react-dom": "^0.14.7",
+    "react-dom": "^15.3.1",
     "react-fontawesome": "^1.1.0",
     "react-redux": "^4.2.1",
     "react-router": "^2.6.1",
