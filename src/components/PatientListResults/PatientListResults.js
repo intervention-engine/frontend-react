@@ -7,7 +7,7 @@ import PatientListResultsItem from './PatientListResultsItem';
 
 class PatientListResults extends Component {
   componentWillMount(){
-    this.props.loadPatients({page:1, perPage: 8});
+    this.props.loadPatients({page:1, perPage: 8, params: {_sort: 'family'}});
   }
   render() {
     const { patientEntries } = this.props.patients;
