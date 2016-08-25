@@ -6,7 +6,7 @@ const PatientListResultsItem = ({patient}) => {
 	const { gender } = patient;
 	const age = moment().diff(moment(patient.birthDate), 'years');
 	// TODO This isn't a viable way to extract names
-	const name = `${patient.name[0].family}, ${patient.name[0].given}`
+	const name = `${patient.name[0].family}, ${patient.name[0].given}`;
 
 	let genderIconClassName = 'user';
 	if (gender === 'male') {
