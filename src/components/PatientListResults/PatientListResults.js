@@ -6,8 +6,9 @@ import { loadPatients } from '../../actions/PatientListResults/index';
 import PatientListResultsItem from './PatientListResultsItem';
 
 class PatientListResults extends Component {
-  componentWillMount(){
-    this.props.loadPatients({page:1, perPage: 8, params: {_sort: 'family'}});
+
+  componentWillMount() {
+    this.props.loadPatients(this.props.queryParams);
   }
   render() {
     const { patientEntries } = this.props.patients;
@@ -26,9 +27,13 @@ class PatientListResults extends Component {
 
 PatientListResults.propTypes = {
   loadPatients: PropTypes.func,
-  patients: PropTypes.object
+  patients: PropTypes.object,
+  queryParams: PropTypes.object
 };
 
+PatientListResults.contextTypes = {
+  router: PropTypes.object
+};
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ loadPatients }, dispatch);
 }
