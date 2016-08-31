@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { fetchPopulations } from '../../../../actions/population';
+import { fetchPopulations, selectPopulation } from '../../../../actions/population';
 import CollapsiblePanel from '../../../../elements/CollapsiblePanel';
 import populationProps from '../../../../prop-types/population';
 
@@ -19,12 +19,12 @@ class PopulationFilterSelector extends Component {
     this.props.fetchPopulations();
   }
 
-  isSelected(/* population */) {
-    return false;
+  isSelected(population) {
+    return this.props.selectedPopulation === population;
   }
 
-  selectPopulation(/* population */) {
-    return null;
+  selectPopulation(population) {
+    this.props.selectPopulation(population);
   }
 
   renderedPopulation(population) {
@@ -32,12 +32,14 @@ class PopulationFilterSelector extends Component {
       <div key={population.id}>
         <div className="form-group">
           <input type="radio"
-            id={population.id}
-            checked={this.isSelected(population)}
+            name="population"
+            id={`population-radio-${population.id}`}
+            value={population.id}
+            defaultChecked={this.isSelected(population)}
             className="css-checkbox"
-            onChange={this.selectPopulation(population)} />
+            onChange={() => this.selectPopulation(population)} />
 
-          <label htmlFor={population.id} className="css-label css-label-circle checkbox-label">
+          <label htmlFor={`population-radio-${population.id}`} className="css-label css-label-circle checkbox-label">
             {population.name}
           </label>
 
@@ -70,12 +72,13 @@ class PopulationFilterSelector extends Component {
 
 function mapStateToProps(state) {
   return {
-    populations: state.populations
+    populations: state.population.populations,
+    selectedPopulation: state.population.selectedPopulation
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchPopulations }, dispatch);
+  return bindActionCreators({ fetchPopulations, selectPopulation }, dispatch);
 }
 
 PopulationFilterSelector.displayName = 'PopulationFilterSelector';

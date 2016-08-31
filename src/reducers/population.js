@@ -1,17 +1,14 @@
 import {
-  FETCH_POPULATIONS_FULFILLED
-  // SELECT_POPULATION
+  FETCH_POPULATIONS_RESOLVED,
+  SELECT_POPULATION
 } from '../actions/types';
 
-export default function(state = [], action)  {
+export default function populationReducer(state = { populations: [], selectedPopulation: null }, action)  {
   switch (action.type) {
-    case FETCH_POPULATIONS_FULFILLED:
-      return action.payload;
-    // case SELECT_POPULATION:
-    //   let clonedState = Object.assign({}, state);
-    //   clonedState.forEach((population) => population.selected = false);
-    //   clonedState[action.payload].selected = true;
-    //   return clonedState;
+    case FETCH_POPULATIONS_RESOLVED:
+      return { ...state, populations: action.payload };
+    case SELECT_POPULATION:
+      return { ...state, selectedPopulation: action.payload };
     default:
       return state;
   }

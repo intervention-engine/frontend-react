@@ -1,6 +1,7 @@
 // Restructures the response of the Group endpoint for use in populations
 import {
-  FETCH_POPULATIONS_FULFILLED
+  FETCH_POPULATIONS_FULFILLED,
+  FETCH_POPULATIONS_RESOLVED
 } from '../actions/types';
 
 function restructureAndFilter(populations, payload) {
@@ -17,13 +18,12 @@ function restructureAndFilter(populations, payload) {
   return populations;
 }
 
-// Tells which actions to apply this middleware to
-export default function() {
+export default function({ dispatch }) {
   return next => action => {
     switch (action.type) {
       case FETCH_POPULATIONS_FULFILLED:
-        action.payload = action.payload.data.entry.reduce(restructureAndFilter, []);
-        break;
+        dispatch({ type: FETCH_POPULATIONS_RESOLVED, payload: action.payload.data.entry.reduce(restructureAndFilter, []) })
+        return;
     }
 
     return next(action);
