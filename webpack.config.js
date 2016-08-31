@@ -12,7 +12,7 @@ module.exports = {
     'font-awesome-sass-loader',
     path.join(__dirname, "src", "index.js")
   ],
-  
+
   output: {
     path: path.join(__dirname, "dist"),
     filename: "/assets/bundle.js"
@@ -29,7 +29,9 @@ module.exports = {
 
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+      VERSION: JSON.stringify(require('git-repo-version')()),
+      FHIR_SERVER: JSON.stringify('http://localhost:3001')
     }),
     new CopyWebpackPlugin([
       { from: 'public' }

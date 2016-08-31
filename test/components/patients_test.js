@@ -1,15 +1,15 @@
 import { renderComponent , expect } from '../test_helper';
-import FilterBuilder from '../../src/containers/FilterBuilder';
+import Patients from '../../src/components/Patients';
 
-describe('FilterBuilder' , () => {
+describe('Patients' , () => {
   let component;
 
   beforeEach(() => {
-    component = renderComponent(FilterBuilder);
+    component = renderComponent(Patients);
   });
 
   it('has the correct class', () => {
-    expect(component).to.have.class('filter-builder');
+    expect(component).to.have.class('patients');
   });
 
   it('shows a page header', () => {

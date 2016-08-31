@@ -28,7 +28,8 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-      VERSION: JSON.stringify(require('git-repo-version')())
+      VERSION: JSON.stringify(require('git-repo-version')()),
+      FHIR_SERVER: JSON.stringify('http://localhost:3001')
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "src", "index.tmpl.html")
