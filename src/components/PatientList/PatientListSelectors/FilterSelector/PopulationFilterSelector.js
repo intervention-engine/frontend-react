@@ -26,35 +26,40 @@ class PopulationFilterSelector extends Component {
     this.props.selectPopulation(population);
   }
 
-  renderedPopulation(population) {
+  renderedPopulation(type, population) {
     return (
-      <div key={population.id}>
-        <div className="form-group">
-          <input type="radio"
-            name="population"
-            id={`population-radio-${population.id}`}
-            value={population.id}
-            defaultChecked={this.isSelected(population)}
-            className="css-checkbox"
-            onChange={() => this.selectPopulation(population)} />
-
-          <label htmlFor={`population-radio-${population.id}`} className="css-label css-label-circle checkbox-label">
+      <div key={population.id} className="population">
+        <div className="control-group">
+          <label htmlFor={`population-${type}-${population.id}`} className={`control control-${type}`}>
             {population.name}
-          </label>
 
-          <Link to="/FilterBuilder">
-            <FontAwesome name="edit" className="pull-right" />
-          </Link>
+            <input type={type}
+              name="population"
+              id={`population-${type}-${population.id}`}
+              value={population.id}
+              defaultChecked={this.isSelected(population)}
+              onChange={() => this.selectPopulation(population)} />
+
+            <div className="control-indicator"></div>
+
+            <Link to="/FilterBuilder">
+              <FontAwesome name="edit" className="pull-right" />
+            </Link>
+          </label>
         </div>
       </div>
     );
+  }
+
+  debugSelected() {
+    if (this.props.selectedPopulation) { return this.props.selectedPopulation.name; }
   }
 
   render() {
     return (
       <div className="population-filter-selector">
         <form className="form-horizontal form-group-striped">
-          {this.props.populations.map((population) => this.renderedPopulation(population))}
+          {this.props.populations.map((population) => this.renderedPopulation("radio", population))}
 
           <div className="add-new-filter">
             <Link to="/FilterBuilder">
@@ -62,6 +67,8 @@ class PopulationFilterSelector extends Component {
             </Link>
           </div>
         </form>
+
+        SELECTED: {this.debugSelected()}
       </div>
     );
   }

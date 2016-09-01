@@ -14,10 +14,6 @@ export default class CollapsiblePanel extends Component {
     };
   }
 
-  getDefaultProps() {
-    return { isNested: false, hasNested: false };
-  }
-
   panelIcon() {
     if (this.props.panelIcon == null || this.props.panelIcon === '') {
       return;
@@ -61,3 +57,5 @@ CollapsiblePanel.propTypes = {
   hasNested: PropTypes.bool,
   children: PropTypes.element.isRequired
 };
+
+CollapsiblePanel.defaultProps = { isNested: false, hasNested: false };

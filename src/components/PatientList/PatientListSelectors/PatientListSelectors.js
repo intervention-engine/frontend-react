@@ -7,7 +7,7 @@ import CollapsiblePanel from '../../../elements/CollapsiblePanel';
 
 const PatientListSelectors = () => {
   return (
-    <div className="patient-list-selectors col-xs-3">
+    <div className="patient-list-selectors col-md-3 col-sm-4">
       <CollapsiblePanel panelTitle="Risk Assessment">
         <RiskAssessmentSelector />
       </CollapsiblePanel>

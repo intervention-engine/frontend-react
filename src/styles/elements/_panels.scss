@@ -37,12 +37,6 @@
   .panel-body {
     border-left: 10px solid $navbar-inverse-bg;
     margin: 0;
-    padding: 20px;
-  }
-}
-
-.collapsible-panel.has-nested {
-  .panel-body {
     padding: 0;
   }
 }
@@ -53,7 +47,6 @@
   }
 
   .panel-body {
-    border-left: 10px solid $white;
-    padding: 20px;
+    border-left: none;
   }
 }
