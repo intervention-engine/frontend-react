@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchPopulations, selectPopulation } from '../../../../actions/population';
-import CollapsiblePanel from '../../../../elements/CollapsiblePanel';
 import populationProps from '../../../../prop-types/population';
 
 class PopulationFilterSelector extends Component {
@@ -54,17 +53,15 @@ class PopulationFilterSelector extends Component {
   render() {
     return (
       <div className="population-filter-selector">
-        <CollapsiblePanel panelTitle="Populations">
-          <form className="form-horizontal form-group-striped">
-            {this.props.populations.map((population) => this.renderedPopulation(population))}
+        <form className="form-horizontal form-group-striped">
+          {this.props.populations.map((population) => this.renderedPopulation(population))}
 
-            <div className="add-new-filter">
-              <Link to="/FilterBuilder">
-                <FontAwesome name="plus-circle" /> add new
-              </Link>
-            </div>
-          </form>
-        </CollapsiblePanel>
+          <div className="add-new-filter">
+            <Link to="/FilterBuilder">
+              <FontAwesome name="plus-circle" /> add new
+            </Link>
+          </div>
+        </form>
       </div>
     );
   }

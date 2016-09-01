@@ -3,13 +3,22 @@ import React from 'react';
 import RiskAssessmentSelector from './RiskAssessmentSelector';
 import FilterSelector from './FilterSelector/FilterSelector';
 import SortBySelector from './SortBySelector';
+import CollapsiblePanel from '../../../elements/CollapsiblePanel';
 
 const PatientListSelectors = () => {
   return (
-    <div className="patient-list-selectors">
-      <RiskAssessmentSelector />
-      <FilterSelector />
-      <SortBySelector />
+    <div className="patient-list-selectors col-xs-3">
+      <CollapsiblePanel panelTitle="Risk Assessment">
+        <RiskAssessmentSelector />
+      </CollapsiblePanel>
+
+      <CollapsiblePanel panelTitle="Filters" hasNested={true}>
+        <FilterSelector />
+      </CollapsiblePanel>
+
+      <CollapsiblePanel panelTitle="Sort">
+        <SortBySelector />
+      </CollapsiblePanel>
     </div>
   );
 };

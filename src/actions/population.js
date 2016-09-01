@@ -6,7 +6,7 @@ import {
 } from './types';
 
 export function fetchPopulations() {
-  const FETCH_POPULATIONS_URL = `${FHIR_SERVER}/Group`;
+  const FETCH_POPULATIONS_URL = `${FHIR_SERVER}/Group?actual=false`;
   return {
     type: FETCH_POPULATIONS,
     payload: axios.get(FETCH_POPULATIONS_URL)

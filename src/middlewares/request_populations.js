@@ -4,25 +4,24 @@ import {
   FETCH_POPULATIONS_RESOLVED
 } from '../actions/types';
 
-function restructureAndFilter(populations, payload) {
-  let { resource } = payload;
-  if (resource.actual === false) {
-    populations.push({
-      id: resource.id,
-      meta: resource.meta,
-      name: resource.name,
-      characteristic: resource.characteristic
-    });
-  }
-
-  return populations;
+function restructurePopulation(population) {
+  let { resource } = population;
+  return {
+    id: resource.id,
+    meta: resource.meta,
+    name: resource.name,
+    characteristic: resource.characteristic
+  };
 }
 
 export default function({ dispatch }) {
   return next => action => {
     switch (action.type) {
       case FETCH_POPULATIONS_FULFILLED:
-        dispatch({ type: FETCH_POPULATIONS_RESOLVED, payload: action.payload.data.entry.reduce(restructureAndFilter, []) })
+        dispatch({
+          type: FETCH_POPULATIONS_RESOLVED,
+          payload: action.payload.data.entry.map((population) => restructurePopulation(population))
+        })
         return;
     }
 

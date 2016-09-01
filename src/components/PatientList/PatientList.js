@@ -4,7 +4,7 @@ import PatientListSelectors from './PatientListSelectors/PatientListSelectors';
 
 const PatientList = () => {
   return (
-    <div className="patient-list">
+    <div className="patient-list row">
       <PatientListSelectors />
     </div>
   );

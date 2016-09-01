@@ -1,7 +1,7 @@
 // ------------------------- COLORS ---------------------------------------- //
 
 $brand-primary: #5D8FAE;
-$brand-secondary: #5C5C5C;
+$brand-secondary: #595959;
 $brand-alert: #E2495C;
 $brand-success: #41C682;
 $body-bg: #EEEEEE;
@@ -11,7 +11,7 @@ $headings-color: $brand-secondary;
 $navbar-inverse-bg: #454545;
 $navbar-inverse-color: $body-bg-inverse;
 $navbar-inverse-link-color: $navbar-inverse-color;
-$navbar-inverse-link-active-bg: #595959;
+$navbar-inverse-link-active-bg: $brand-secondary;
 
 // ------------------------- BOOTSTRAP VARIABLES --------------------------- //
 

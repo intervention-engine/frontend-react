@@ -14,37 +14,23 @@
 
 @import "components/header";
 @import "components/footer";
+@import "components/patient-list/patient-list-selectors/patient-list-selectors";
+@import "components/patient-list/patient-list-selectors/filter-selector/population-filter-selector";
+@import "elements/animation";
 @import "elements/buttons";
-// @import "filters";
-// @import "drag-and-drop";
-// @import "panes";
-// @import "forms";
-// @import "panels";
-// @import "tables";
-// @import "login";
-// @import "patients";
-// @import "timeline";
-// @import "tooltip";
-// @import "login-register";
-// @import "register";
-// @import "select-fx";
-// @import "search";
+@import "elements/panels";
 @import "vendors/bootstrap";
-// @import "charts";
-// @import "interventions";
-// @import "patient-viewer";
-// @import "print";
-// @import "modals";
 
 /* ------------------------- DOM ------------------------------------------- */
 
 html {
   position: relative;
   min-height: 100%;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
   font-weight: 300;
   padding-bottom: 2em;
   overflow-x: hidden;
