@@ -20,7 +20,8 @@ describe('PopulationFilterSelector' , () => {
     state = {
       population: {
         populations: [ populationObject ],
-        selectedPopulations: [ populationObject ]
+        selectedPopulations: [ populationObject ],
+        populationSelectorType: 'union'
       }
     };
 
@@ -66,6 +67,21 @@ describe('PopulationFilterSelector' , () => {
 
     let component = renderComponent(PopulationFilterSelector, props);
     component.find('input[type=checkbox]').simulate('change');
+    expect(executed).to.be.true;
+  });
+
+  it('can select a population type', () => {
+    let executed = false;
+    let props = {
+      populations: [ populationObject ],
+      selectedPopulations: [ populationObject ],
+      populationSelectorType: 'union',
+      fetchPopulations() {},
+      changePopulationSelectorType(type) { executed = (type === 'intersection'); }
+    };
+
+    let component = renderComponent(PopulationFilterSelector, props);
+    component.find('.selector-type-intersection').simulate('click');
     expect(executed).to.be.true;
   });
 });

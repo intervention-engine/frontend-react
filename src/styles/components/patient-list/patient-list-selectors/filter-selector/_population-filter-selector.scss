@@ -19,4 +19,23 @@
     margin: 10px;
     text-align: center;
   }
+
+  .selector-type {
+    display: inline-block;
+    width: 50%;
+    height: 48px;
+    border-radius: 0;
+    background-color: lighten($brand-secondary, 50%);
+    box-shadow: none;
+
+    &.active {
+      background-color: $brand-primary;
+      color: $white;
+    }
+
+    &.btn:active,
+    &.btn:focus {
+      outline: none;
+    }
+  }
 }
