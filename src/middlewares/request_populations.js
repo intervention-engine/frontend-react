@@ -21,7 +21,7 @@ export default function({ dispatch }) {
         dispatch({
           type: FETCH_POPULATIONS_RESOLVED,
           payload: action.payload.data.entry.map((population) => restructurePopulation(population))
-        })
+        });
         return;
     }
 

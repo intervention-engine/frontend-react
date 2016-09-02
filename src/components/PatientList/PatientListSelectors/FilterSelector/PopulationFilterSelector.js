@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { fetchPopulations, selectPopulation } from '../../../../actions/population';
 import populationProps from '../../../../prop-types/population';
 
-class PopulationFilterSelector extends Component {
+export class PopulationFilterSelector extends Component {
   constructor(...args) {
     super(...args);
 
@@ -22,23 +22,27 @@ class PopulationFilterSelector extends Component {
     return this.props.selectedPopulation === population;
   }
 
-  selectPopulation(population) {
-    this.props.selectPopulation(population);
+  handleInputChange(population) {
+    if (this.props.selectedPopulation === population) {
+      this.props.selectPopulation(null);
+    } else {
+      this.props.selectPopulation(population);
+    }
   }
 
-  renderedPopulation(type, population) {
+  renderedPopulation(population) {
     return (
       <div key={population.id} className="population">
         <div className="control-group">
-          <label htmlFor={`population-${type}-${population.id}`} className={`control control-${type}`}>
-            {population.name}
+          <label htmlFor={`population-radio-${population.id}`} className={`control control-radio`}>
+            <span className="population-name">{population.name}</span>
 
-            <input type={type}
+            <input type="radio"
               name="population"
-              id={`population-${type}-${population.id}`}
+              id={`population-radio-${population.id}`}
               value={population.id}
-              defaultChecked={this.isSelected(population)}
-              onChange={() => this.selectPopulation(population)} />
+              checked={this.isSelected(population)}
+              onChange={() => this.handleInputChange(population)} />
 
             <div className="control-indicator"></div>
 
@@ -59,7 +63,7 @@ class PopulationFilterSelector extends Component {
     return (
       <div className="population-filter-selector">
         <form className="form-horizontal form-group-striped">
-          {this.props.populations.map((population) => this.renderedPopulation("radio", population))}
+          {this.props.populations.map((population) => this.renderedPopulation(population))}
 
           <div className="add-new-filter">
             <Link to="/FilterBuilder">
@@ -68,13 +72,13 @@ class PopulationFilterSelector extends Component {
           </div>
         </form>
 
-        SELECTED: {this.debugSelected()}
+        <div className="debug">SELECTED: {this.debugSelected()}</div>
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   return {
     populations: state.population.populations,
     selectedPopulation: state.population.selectedPopulation
@@ -89,7 +93,9 @@ PopulationFilterSelector.displayName = 'PopulationFilterSelector';
 
 PopulationFilterSelector.propTypes = {
   populations: PropTypes.arrayOf(populationProps).isRequired,
-  fetchPopulations: PropTypes.func.isRequired
+  selectedPopulation: populationProps,
+  fetchPopulations: PropTypes.func.isRequired,
+  selectPopulation: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PopulationFilterSelector);
