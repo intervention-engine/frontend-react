@@ -20,7 +20,7 @@ describe('PopulationFilterSelector' , () => {
     state = {
       population: {
         populations: [ populationObject ],
-        selectedPopulation: populationObject
+        selectedPopulations: [ populationObject ]
       }
     };
 
@@ -34,7 +34,7 @@ describe('PopulationFilterSelector' , () => {
   it('maps state to props', () => {
     let stateProps = mapStateToProps(state);
     expect(stateProps.populations.length).to.equal(1);
-    expect(stateProps.selectedPopulation).to.equal(populationObject);
+    expect(stateProps.selectedPopulations[0]).to.equal(populationObject);
   });
 
   it('displays the population name', () => {
@@ -45,13 +45,13 @@ describe('PopulationFilterSelector' , () => {
     let executed = false;
     let props = {
       populations: [ populationObject ],
-      selectedPopulation: null,
+      selectedPopulations: [],
       fetchPopulations() {},
       selectPopulation(population) { executed = (population === populationObject); }
     };
 
     let component = renderComponent(PopulationFilterSelector, props);
-    component.find('input[type=radio]').simulate('change');
+    component.find('input[type=checkbox]').simulate('change');
     expect(executed).to.be.true;
   });
 
@@ -59,13 +59,13 @@ describe('PopulationFilterSelector' , () => {
     let executed = false;
     let props = {
       populations: [ populationObject ],
-      selectedPopulation: populationObject,
+      selectedPopulations: [ populationObject ],
       fetchPopulations() {},
-      selectPopulation(population) { executed = (population === null); }
+      unselectPopulation(population) { executed = (population === populationObject); }
     };
 
     let component = renderComponent(PopulationFilterSelector, props);
-    component.find('input[type=radio]').simulate('change');
+    component.find('input[type=checkbox]').simulate('change');
     expect(executed).to.be.true;
   });
 });

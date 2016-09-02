@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { fetchPopulations, selectPopulation } from '../../../../actions/population';
+import { fetchPopulations, selectPopulation, unselectPopulation } from '../../../../actions/population';
 import populationProps from '../../../../prop-types/population';
 
 export class PopulationFilterSelector extends Component {
@@ -19,12 +19,16 @@ export class PopulationFilterSelector extends Component {
   }
 
   isSelected(population) {
-    return this.props.selectedPopulation === population;
+    return this.props.selectedPopulations.indexOf(population) !== -1;
   }
 
   handleInputChange(population) {
-    if (this.props.selectedPopulation === population) {
-      this.props.selectPopulation(null);
+    let found = this.props.selectedPopulations.some((pop) => {
+      return pop.id === population.id;
+    });
+
+    if (found) {
+      this.props.unselectPopulation(population);
     } else {
       this.props.selectPopulation(population);
     }
@@ -34,12 +38,12 @@ export class PopulationFilterSelector extends Component {
     return (
       <div key={population.id} className="population">
         <div className="control-group">
-          <label htmlFor={`population-radio-${population.id}`} className={`control control-radio`}>
+          <label htmlFor={`population-checkbox-${population.id}`} className={`control control-checkbox`}>
             <span className="population-name">{population.name}</span>
 
-            <input type="radio"
+            <input type="checkbox"
               name="population"
-              id={`population-radio-${population.id}`}
+              id={`population-checkbox-${population.id}`}
               value={population.id}
               checked={this.isSelected(population)}
               onChange={() => this.handleInputChange(population)} />
@@ -56,7 +60,9 @@ export class PopulationFilterSelector extends Component {
   }
 
   debugSelected() {
-    if (this.props.selectedPopulation) { return this.props.selectedPopulation.name; }
+    if (this.props.selectedPopulations) {
+      return this.props.selectedPopulations.map((pop) => pop.name + ', ');
+    }
   }
 
   render() {
@@ -81,21 +87,22 @@ export class PopulationFilterSelector extends Component {
 export function mapStateToProps(state) {
   return {
     populations: state.population.populations,
-    selectedPopulation: state.population.selectedPopulation
+    selectedPopulations: state.population.selectedPopulations
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchPopulations, selectPopulation }, dispatch);
+  return bindActionCreators({ fetchPopulations, selectPopulation, unselectPopulation }, dispatch);
 }
 
 PopulationFilterSelector.displayName = 'PopulationFilterSelector';
 
 PopulationFilterSelector.propTypes = {
   populations: PropTypes.arrayOf(populationProps).isRequired,
-  selectedPopulation: populationProps,
+  selectedPopulations: PropTypes.arrayOf(populationProps),
   fetchPopulations: PropTypes.func.isRequired,
-  selectPopulation: PropTypes.func.isRequired
+  selectPopulation: PropTypes.func.isRequired,
+  unselectPopulation: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PopulationFilterSelector);

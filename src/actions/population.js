@@ -2,7 +2,8 @@ import axios from 'axios';
 
 import {
   FETCH_POPULATIONS,
-  SELECT_POPULATION
+  SELECT_POPULATION,
+  UNSELECT_POPULATION
 } from './types';
 
 export function fetchPopulations() {
@@ -16,6 +17,13 @@ export function fetchPopulations() {
 export function selectPopulation(population) {
   return {
     type: SELECT_POPULATION,
+    payload: population
+  };
+}
+
+export function unselectPopulation(population) {
+  return {
+    type: UNSELECT_POPULATION,
     payload: population
   };
 }
