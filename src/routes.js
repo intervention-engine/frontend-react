@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route } from 'react-router';
 
-import App from './containers/App';
-import Patients from './containers/Patients';
-import FilterBuilder from './containers/FilterBuilder';
+import App from './components/App';
+import Patients from './components/Patients';
+import FilterBuilder from './components/FilterBuilder';
 
 export default (
   <Route component={App}>

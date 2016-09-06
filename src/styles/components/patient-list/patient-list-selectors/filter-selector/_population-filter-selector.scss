@@ -1,0 +1,41 @@
+@import "../../../../elements/variables";
+
+.population-filter-selector {
+  .form-group-striped {
+    .population:nth-child(odd) {
+      background-color: $table-bg-accent;
+    }
+
+    .population {
+      .fa {
+        line-height: 1.8em;
+      }
+    }
+  }
+
+  .add-new-filter {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 10px;
+    text-align: center;
+  }
+
+  .selector-type {
+    display: inline-block;
+    width: 50%;
+    height: 48px;
+    border-radius: 0;
+    background-color: lighten($brand-secondary, 50%);
+    box-shadow: none;
+
+    &.active {
+      background-color: $brand-primary;
+      color: $white;
+    }
+
+    &.btn:active,
+    &.btn:focus {
+      outline: none;
+    }
+  }
+}

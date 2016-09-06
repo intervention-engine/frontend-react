@@ -1,0 +1,61 @@
+# =============================================================================
+# Font Custom Configuration
+#   This file should live in the directory where you run `fontcustom compile`.
+#   For more info, visit <https://github.com/FontCustom/fontcustom>.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Project Info
+# -----------------------------------------------------------------------------
+
+# The font's name. Also determines the file names of generated templates.
+font_name: fontcustom
+
+# Format of CSS selectors. {{glyph}} is substituted for the glyph name.
+css_selector: .fc-{{glyph}}
+
+# Generate fonts without asset-busting hashes.
+no_hash: false
+
+# Encode WOFF fonts into the generated CSS.
+#base64: true
+
+# Forces compilation, even if inputs have not changed
+#force: true
+
+# Display (possibly useful) debugging messages.
+#debug: true
+
+# Hide status messages.
+#quiet: true
+
+input:
+  vectors: fontcustom
+
+output:
+  fonts: public/assets/fonts
+  css: src/styles/vendors
+
+templates:
+- scss
+
+preprocessor_path: /assets/fonts/
+
+
+# -----------------------------------------------------------------------------
+# Font Settings (defaults shown)
+# -----------------------------------------------------------------------------
+
+# Size (in pica points) for which your font is designed.
+#font_design_size: 16
+
+# The em size. Setting this will scale the entire font to the given size.
+#font_em: 512
+
+# The font's ascent and descent. Used to calculate the baseline.
+#font_ascent: 448
+#font_descent: 64
+
+# Horizontally fit glyphs to their individual vector widths.
+#autowidth: false

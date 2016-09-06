@@ -1,9 +1,11 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import promiseMiddleware from 'redux-promise-middleware';
 import rootReducer from '../reducers';
+import requestPopulationsMiddleware from '../middlewares/request_populations';
 
 export default function configureStore(initialState) {
-  // creates a Redux store that holds the complete state tree of the app
-  let store = createStore(rootReducer, initialState);
+  let middleware = applyMiddleware(promiseMiddleware(), requestPopulationsMiddleware);
+  let store = createStore(rootReducer, initialState, middleware);
 
   return store;
 }

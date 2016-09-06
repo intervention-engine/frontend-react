@@ -1,0 +1,71 @@
+@import "variables";
+
+/* ------------------------- CHECKBOXES & RADIO BUTTONS -------------------- */
+
+.control-group {
+  height: 100%;
+  padding: 10px;
+  width: 100%;
+
+  .control {
+    cursor: pointer;
+    display: block;
+    font-size: 16px;
+    font-weight: normal;
+    padding-left: 35px;
+    position: relative;
+
+    &:hover input {
+      background-color: darken($brand-primary, 20%);
+    }
+
+    input {
+      opacity: 0;
+
+      &:checked ~ .control-indicator:after {
+        display: block;
+      }
+    }
+
+    .control-indicator {
+      background-color: $white;
+      border: 5px solid $brand-secondary;
+      height: 26px;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 26px;
+
+      &:after {
+        background-color: $brand-primary;
+        content: '';
+        display: none;
+        height: 12px;
+        left: 2px;
+        position: absolute;
+        top: 2px;
+        width: 12px;
+      }
+    }
+
+    &.control-radio {
+      .control-indicator {
+        border-radius: 50%;
+
+        &:after {
+          border-radius: 50%;
+        }
+      }
+    }
+
+    &.control-checkbox {
+      .control-indicator {
+        border-radius: 20%;
+
+        &:after {
+          border-radius: 20%;
+        }
+      }
+    }
+  }
+}
