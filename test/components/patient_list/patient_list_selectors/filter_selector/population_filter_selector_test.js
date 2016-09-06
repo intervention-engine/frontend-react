@@ -8,7 +8,7 @@ describe('PopulationFilterSelector' , () => {
 
   beforeEach(() => {
     populationObject = {
-      'id': 1,
+      'id': '1',
       'meta': { 'createdOn': '2016-05-12T12:45:11.429-04:00',
                 'lastUpdatedOn': '2016-05-12T12:45:11.429-04:00' },
       'name': 'Sample Population',
