@@ -1,4 +1,11 @@
 // Restructures the response of the Group endpoint for use in huddles
+// STRUCTURE:
+// Payload
+// ├── Object
+// |   ├── name: string
+// |   ├── dates: array of objects
+// |       ├── Object
+// |           ├── RiskAssessmentSelector.js
 import _ from 'lodash';
 
 import {
@@ -8,52 +15,36 @@ import {
 
 function groupHuddles(huddles) {
   // Groups huddles by name
-  let result = _.chain(huddles)
+  return _.chain(huddles)
     .groupBy((object) => object.resource.name)
     .toPairs()
     .map((item) => _.zipObject(['name', 'dates'], item))
     .value();
-  console.log("groupHuddles, result: ", result);
-  return result;
 }
 
 function restructureHuddles(huddleGroup) {
-  console.log("restructureHuddles, huddleGroup: ", huddleGroup);
-  let result = {
+  return {
     name: huddleGroup.name,
-    dates: huddleGroup.dates.map((huddle) => {
-      restructureHuddle(huddle)
-    })
+    dates: huddleGroup.dates.map((huddle) => restructureHuddle(huddle))
   };
-  console.log("END: ", result);
-  return result;
 }
 
 function restructureHuddle(huddle) {
   let { resource } = huddle;
-    console.log("restructureHuddle START: ", resource);
-  let result = {
+  return {
     datetime: resource.extension[0].valueDateTime,
     practioner: resource.extension[1].valueReference.reference,
-    patients: resource.member.map((member) => {
-      restructurePatient(member)
-    })
+    patients: resource.member.map((member) => restructurePatient(member))
   }
-  console.log("********restructureHuddle END: ", result);
-  return result;
 }
 
 function restructurePatient(patient) {
-  console.log("restructurePatient START: ", patient);
-
   if (patient !== null) {
-    let result = {
+    return {
       id: patient.entity.reference,
       reason: { code: patient.extension[0].valueCodeableConcept.coding[0].code,
                 text: patient.extension[0].valueCodeableConcept.text }
     }
-    console.log("restructurePatient END: ", result);
-    return result;
   }
 
   return {};
