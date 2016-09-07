@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import AndOrButtons from '../../../../elements/AndOrButtons';
 import populationProps from '../../../../prop-types/population';
 import {
   fetchPopulations,
@@ -69,27 +70,14 @@ export class PopulationFilterSelector extends Component {
   }
 
   render() {
-    let unionButtonClassNames = classNames('selector-type', 'selector-type-union', 'btn',
-      { active: this.props.populationSelectorType === "union" });
-    let intersectionButtonClassNames = classNames('selector-type', 'selector-type-intersection', 'btn',
-      { active: this.props.populationSelectorType === "intersection" });
-
     return (
       <div className="population-filter-selector">
         <form className="form-horizontal form-group-striped">
-          <div>
-            <button type="button" className={unionButtonClassNames}
-              onClick={() => this.props.changePopulationSelectorType("union")}>
-              <i className="fc-union"></i> Union
-            </button>
+          <AndOrButtons unionFunction={this.props.changePopulationSelectorType}
+                        intersectionFunction={this.props.changePopulationSelectorType}
+                        selectorType={this.props.populationSelectorType} />
 
-            <button type="button" className={intersectionButtonClassNames}
-              onClick={() => this.props.changePopulationSelectorType("intersection")}>
-              <i className="fc-intersection"></i> Intersection
-            </button>
-          </div>
-
-          {/*<div className="debug">TYPE: {this.props.populationSelectorType}</div>*/}
+          <div className="debug">TYPE: {this.props.populationSelectorType}</div>
 
           {this.props.populations.map((population) => this.renderedPopulation(population))}
 
@@ -100,7 +88,7 @@ export class PopulationFilterSelector extends Component {
           </div>
         </form>
 
-        {/*<div className="debug">SELECTED: {this.debugSelected()}</div>*/}
+        <div className="debug">SELECTED: {this.debugSelected()}</div>
       </div>
     );
   }

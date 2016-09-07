@@ -2,8 +2,7 @@ import axios from 'axios';
 
 import {
   FETCH_HUDDLES,
-  SELECT_HUDDLE,
-  UNSELECT_HUDDLE
+  SELECT_HUDDLE
 } from './types';
 
 export function fetchHuddles() {
@@ -17,13 +16,6 @@ export function fetchHuddles() {
 export function selectHuddle(huddle) {
   return {
     type: SELECT_HUDDLE,
-    payload: huddle
-  };
-}
-
-export function unselectHuddle(huddle) {
-  return {
-    type: UNSELECT_HUDDLE,
     payload: huddle
   };
 }

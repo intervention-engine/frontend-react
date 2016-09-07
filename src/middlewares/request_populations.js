@@ -18,9 +18,10 @@ export default function({ dispatch }) {
   return next => action => {
     switch (action.type) {
       case FETCH_POPULATIONS_FULFILLED:
+        let populations = action.payload.data.entry;
         dispatch({
           type: FETCH_POPULATIONS_RESOLVED,
-          payload: action.payload.data.entry.map((population) => restructurePopulation(population))
+          payload: populations.map((population) => restructurePopulation(population))
         });
         return;
     }

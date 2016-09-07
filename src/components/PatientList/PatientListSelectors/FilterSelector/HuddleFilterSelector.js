@@ -21,29 +21,28 @@ export class HuddleFilterSelector extends Component {
   }
 
   isSelected(huddle) {
-    return this.props.selectedHuddles.indexOf(huddle) !== -1;
+    return this.props.selectedHuddle === huddle;
   }
 
   handleInputChange(huddle) {
-    let found = this.props.selectedHuddles.some((hud) => {
-      return hud.id === huddle.id;
-    });
-
-    if (found) { this.props.unselectHuddle(huddle); }
-    else { this.props.selectHuddle(huddle); }
+    if (this.props.selectedHuddle === huddle) {
+      this.props.selectHuddle(null);
+      return;
+    }
+    this.props.selectHuddle(huddle);
   }
 
   renderedHuddle(huddle) {
     return (
-      <div key={huddle.name} className="huddle">
+      <div key={huddle.id} className="huddle">
         <div className="control-group">
-          <label htmlFor={`huddle-checkbox-${huddle.name}`} className={`control control-checkbox`}>
-            <span className="huddle-name">{huddle.datetime}</span>
+          <label htmlFor={`huddle-radio-${huddle.id}`} className={`control control-radio`}>
+            <span className="huddle-id">{huddle.name}</span>
 
-            <input type="checkbox"
+            <input type="radio"
               name="huddle"
-              id={`huddle-checkbox-${huddle.name}`}
-              value={huddle.name}
+              id={`huddle-radio-${huddle.id}`}
+              value={huddle.id}
               checked={this.isSelected(huddle)}
               onChange={() => this.handleInputChange(huddle)} />
 
@@ -55,10 +54,8 @@ export class HuddleFilterSelector extends Component {
   }
 
   debugSelected() {
-    console.debug("HUDDLES: ", this.props.huddles);
-
-    if (this.props.selectedHuddles) {
-      return this.props.selectedHuddles.map((hud) => hud.name + ', ');
+    if (this.props.selectedHuddle) {
+      return this.props.selectedHuddle.name;
     }
   }
 
@@ -78,15 +75,14 @@ export class HuddleFilterSelector extends Component {
 export function mapStateToProps(state) {
   return {
     huddles: state.huddle.huddles,
-    selectedHuddles: state.huddle.selectedHuddles
+    selectedHuddle: state.huddle.selectedHuddle
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     fetchHuddles,
-    selectHuddle,
-    unselectHuddle
+    selectHuddle
   }, dispatch);
 }
 
@@ -94,10 +90,9 @@ HuddleFilterSelector.displayName = 'HuddleFilterSelector';
 
 HuddleFilterSelector.propTypes = {
   huddles: PropTypes.arrayOf(huddleProps).isRequired,
-  selectedHuddles: PropTypes.arrayOf(huddleProps),
+  selectedHuddle: huddleProps,
   fetchHuddles: PropTypes.func.isRequired,
-  selectHuddle: PropTypes.func.isRequired,
-  unselectHuddle: PropTypes.func.isRequired
+  selectHuddle: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HuddleFilterSelector);

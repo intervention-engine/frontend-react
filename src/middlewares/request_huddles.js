@@ -1,11 +1,4 @@
 // Restructures the response of the Group endpoint for use in huddles
-// STRUCTURE:
-// Payload
-// ├── Object
-// |   ├── name: string
-// |   ├── dates: array of objects
-// |       ├── Object
-// |           ├── RiskAssessmentSelector.js
 import _ from 'lodash';
 
 import {
@@ -24,6 +17,7 @@ function groupHuddles(huddles) {
 
 function restructureHuddles(huddleGroup) {
   return {
+    id: _.uniqueId('huddleGroup-'),
     name: huddleGroup.name,
     dates: huddleGroup.dates.map((huddle) => restructureHuddle(huddle))
   };
