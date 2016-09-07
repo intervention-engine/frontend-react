@@ -11,10 +11,10 @@ describe('PopulationFilterSelector' , () => {
       'id': '1',
       'meta': { 'lastUpdated': '2016-05-12T12:45:11.429-04:00' },
       'name': 'Sample Population',
-      'characteristic': [ 'code': { 'coding': [{ 'system': 'Sample System',
+      'characteristic': [ {'code': { 'coding': [{ 'system': 'Sample System',
                                                  'code': 'Sample Code',
                                                  'userSelected': false }],
-                                    'text': 'Sample Text' } ] };
+                                    'text': 'Sample Text' } }] };
 
     state = {
       population: {
