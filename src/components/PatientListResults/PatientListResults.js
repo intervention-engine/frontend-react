@@ -13,7 +13,7 @@ class PatientListResults extends Component {
   render() {
     const { patientEntries } = this.props.patients;
     return (
-      <div className='col-md-9 col-sm-8'>
+      <div className='patient-list-results col-md-9 col-sm-8'>
         <div className="panel patient-panel">
           <div className="panel-heading">
             <div className="collapse-panel-title">
