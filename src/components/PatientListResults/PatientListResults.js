@@ -17,7 +17,7 @@ class PatientListResults extends Component {
         <div className="panel patient-panel">
           <div className="panel-heading">
             <div className="collapse-panel-title">
-              Patients ({this.props.patients.meta.total})
+              <span className='patient-count'>Patients ({this.props.patients.meta.total})</span>
               <div className="patient-list-results-buttons pull-right">
                 <div className="sliding-search-container">
                   <i className="fa fa-search fa-fw"></i>
@@ -47,7 +47,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ loadPatients }, dispatch);
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   return {
     patients: state.patientListResults
   };
