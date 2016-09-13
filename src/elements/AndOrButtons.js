@@ -22,7 +22,7 @@ export default class AndOrButtons extends Component {
       </div>
     );
   }
-};
+}
 
 AndOrButtons.displayName = 'AndOrButtons';
 

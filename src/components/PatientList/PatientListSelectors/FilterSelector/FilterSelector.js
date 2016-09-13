@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PopulationFilterSelector from './PopulationFilterSelector';
-import HuddleFilterSelector from './HuddleFilterSelector';
+import HuddleFilterSelector from './HuddleFilterSelector/HuddleFilterSelector';
 import CollapsiblePanel from '../../../../elements/CollapsiblePanel';
 
 const FilterSelector = () => {

@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
-import classNames from 'classnames';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import AndOrButtons from '../../../../elements/AndOrButtons';
 import populationProps from '../../../../prop-types/population';
+
 import {
   fetchPopulations,
   selectPopulation,

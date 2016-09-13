@@ -2,17 +2,15 @@ import { PropTypes } from 'react';
 
 const huddleProps = {
   id: PropTypes.string.isRequired,
-  meta: PropTypes.shape({
-    profile: PropTypes.arrayOf(PropTypes.string)
-  }),
-  extension: PropTypes.arrayOf(PropTypes.shape({
-    url: PropTypes.string.isRequired,
-    valueDateTime: PropTypes.string,
-    valueReference: PropTypes.shape({
-      reference: PropTypes.string
-    })
-  })),
-  name: PropTypes.string.isRequired
+  datetime: PropTypes.string.isRequired,
+  practioner: PropTypes.string.isRequired,
+  patients: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    reason: PropTypes.shape({
+      code: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired
+    }).isRequired
+  })).isRequired
 };
 
 export default PropTypes.shape(huddleProps);

@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import Root from './components/Root';
 import configureStore from './store/configureStore';
 
+import 'pikaday/css/pikaday.css';
 import './styles/application.scss';
 
 const store = configureStore();

@@ -1,5 +1,5 @@
-import { renderComponent , expect } from '../../../../test_helper';
-import HuddleFilterSelector from '../../../../../src/components/PatientList/PatientListSelectors/FilterSelector/HuddleFilterSelector';
+import { renderComponent , expect } from '../../../../../test_helper';
+import HuddleFilterSelector from '../../../../../../src/components/PatientList/PatientListSelectors/FilterSelector/HuddleFilterSelector/HuddleFilterSelector';
 
 describe('HuddleFilterSelector' , () => {
   let component;

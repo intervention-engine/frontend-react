@@ -26,19 +26,25 @@ function restructureHuddles(huddleGroup) {
 function restructureHuddle(huddle) {
   let { resource } = huddle;
   return {
+    id: resource.id,
     datetime: resource.extension[0].valueDateTime,
     practioner: resource.extension[1].valueReference.reference,
-    patients: resource.member.map((member) => restructurePatient(member))
-  }
+    patients: restructurePatients(resource.member)
+  };
 }
 
-function restructurePatient(patient) {
-  if (patient !== null) {
-    return {
-      id: patient.entity.reference,
-      reason: { code: patient.extension[0].valueCodeableConcept.coding[0].code,
-                text: patient.extension[0].valueCodeableConcept.text }
-    }
+function restructurePatients(patients) {
+  let newPatients = [];
+
+  if (patients != null) {
+    patients.forEach((patient) => {
+      newPatients.push({
+        id: patient.entity.reference,
+        reason: { code: patient.extension[0].valueCodeableConcept.coding[0].code,
+                  text: patient.extension[0].valueCodeableConcept.text }
+      });
+    });
+    return newPatients;
   }
 
   return {};
