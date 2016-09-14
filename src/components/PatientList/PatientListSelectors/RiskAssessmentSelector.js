@@ -63,7 +63,7 @@ export class RiskAssessmentSelector extends Component {
           })}
         </form>
 
-        <div className="debug">SELECTED: {this.debugSelected()}</div>
+        {/*<div className="debug">SELECTED: {this.debugSelected()}</div>*/}
       </div>
     );
   }
