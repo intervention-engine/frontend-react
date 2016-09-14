@@ -8,7 +8,13 @@ import PatientListResultsItem from './PatientListResultsItem';
 class PatientListResults extends Component {
 
   componentWillMount() {
-    this.props.loadPatients(this.props.queryParams);
+    this.props.loadPatients();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.queryParams != this.props.queryParams){
+      this.props.loadPatients({groupId: nextProps.queryParams.groupIds.map((g) => g.id).join(',')});
+    }
   }
   render() {
     const { patientEntries } = this.props.patients;
@@ -40,7 +46,8 @@ class PatientListResults extends Component {
 
 PatientListResults.propTypes = {
   loadPatients: PropTypes.func,
-  patients: PropTypes.object
+  patients: PropTypes.object,
+  queryParams: PropTypes.object
 };
 
 function mapDispatchToProps(dispatch) {
@@ -54,20 +61,3 @@ export function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PatientListResults);
-
-
-
-// <div class="col-md-9 col-sm-8 patient-list-results">
-//
-//
-//       <div class="panel-body">
-//         <div class="patient-list">
-//           {{#each populationPatients as |patient|}}
-//             {{patient-badge patient=patient huddles=(patient-huddles model.huddles patient) assessment=currentAssessment}}
-//           {{/each}}
-//
-//           {{page-numbers content=content.patients action=(action 'setPage')}}
-//         </div>
-//       </div>
-//     </div>
-//   </div>
