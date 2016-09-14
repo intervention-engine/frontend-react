@@ -55,7 +55,7 @@ describe('PopulationFilterSelector' , () => {
     expect(executed).to.be.true;
   });
 
-  it('can deselect a population', () => {
+  it('can unselect a population', () => {
     let executed = false;
     let props = {
       populations: [ populationObject ],

@@ -1,24 +1,9 @@
-@import "../../../../elements/variables";
+@import "../../../../../elements/variables";
 
-.huddle-filter-selector {
-  .form-group-striped {
-    .huddle:nth-child(odd) {
-      background-color: $table-bg-accent;
-    }
-
-    .huddleGroup {
-      .fa {
-        line-height: 1.8em;
-        margin-left: 10px;
-      }
-
-      .date-selector {
-        display: block;
-        margin-left: 35px;
-        cursor: pointer;
-      }
-    }
-  }
+.huddle-filter-date-selector {
+  display: block;
+  margin-left: 35px;
+  cursor: pointer;
 }
 
 .pika-single {
@@ -35,7 +20,7 @@
     .is-today .pika-button {
       color: $brand-alert;
     }
-    
+
     .pika-button:hover {
       background-color: darken($body-bg, 10%);
       color: $brand-secondary;

@@ -31,6 +31,7 @@ export class HuddleFilterSelector extends Component {
       this.props.selectHuddleGroup(null);
       return;
     }
+
     this.props.selectHuddleGroup(huddleGroup);
   }
 
@@ -48,15 +49,16 @@ export class HuddleFilterSelector extends Component {
     return (
       <div key={huddleGroup.id} className="huddleGroup">
         <div className="control-group">
-          <label htmlFor={`huddleGroup-radio-${huddleGroup.id}`} className={`control control-radio`}>
-            <span className="huddleGroup-id">{huddleGroup.name}</span>
+          <label htmlFor={`huddleGroup-radio-${huddleGroup.id}`}
+                 className={`control control-radio`}>
+            <span className="huddleGroup-name">{huddleGroup.name}</span>
 
             <input type="radio"
-              name="huddleGroup"
-              id={`huddleGroup-radio-${huddleGroup.id}`}
-              value={huddleGroup.id}
-              checked={this.isSelected(huddleGroup)}
-              onChange={() => this.handleInputChange(huddleGroup)} />
+                   name="huddleGroup"
+                   id={`huddleGroup-radio-${huddleGroup.id}`}
+                   value={huddleGroup.id}
+                   checked={this.isSelected(huddleGroup)}
+                   onChange={() => this.handleInputChange(huddleGroup)} />
 
             <div className="control-indicator"></div>
           </label>
@@ -89,7 +91,8 @@ export class HuddleFilterSelector extends Component {
 export function mapStateToProps(state) {
   return {
     huddles: state.huddle.huddles,
-    selectedHuddleGroup: state.huddle.selectedHuddleGroup
+    selectedHuddleGroup: state.huddle.selectedHuddleGroup,
+    selectedHuddle: state.huddle.selectedHuddle
   };
 }
 

@@ -7,10 +7,9 @@ import {
   SELECT_HUDDLE
 } from '../actions/types';
 
-export default function huddleReducer(state = {
-                                      huddles: [],
-                                      selectedHuddleGroup: null,
-                                      selectedHuddle: null }, action)  {
+export default function huddleReducer(state = { huddles: [],
+                                                selectedHuddleGroup: null,
+                                                selectedHuddle: null }, action)  {
   switch (action.type) {
     case FETCH_HUDDLES_RESOLVED:
       return { ...state, huddles: action.payload };

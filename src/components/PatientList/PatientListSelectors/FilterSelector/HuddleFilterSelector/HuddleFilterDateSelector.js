@@ -82,9 +82,9 @@ export class HuddleFilterDateSelector extends Component {
 
   render() {
     return (
-      <div className="date-selector" ref="root">
+      <div className="huddle-filter-date-selector" ref="root">
         <span className="huddle-date">
-          {this.props.selectedHuddle.datetime}
+          {this.props.selectedHuddle ? this.props.selectedHuddle.datetime : 'No Upcoming Huddles'}
         </span>
 
         <FontAwesome name="chevron-down" />
@@ -99,6 +99,7 @@ export class HuddleFilterDateSelector extends Component {
 
 export function mapStateToProps(state) {
   return {
+    huddles: state.huddle.huddles,
     selectedHuddleGroup: state.huddle.selectedHuddleGroup,
     selectedHuddle: state.huddle.selectedHuddle
   };
@@ -112,7 +113,7 @@ HuddleFilterDateSelector.displayName = 'HuddleFilterDateSelector';
 
 HuddleFilterDateSelector.propTypes = {
   selectedHuddleGroup: huddleGroupProps.isRequired,
-  selectedHuddle: huddleProps.isRequired,
+  selectedHuddle: huddleProps,
   selectHuddle: PropTypes.func.isRequired
 };
 

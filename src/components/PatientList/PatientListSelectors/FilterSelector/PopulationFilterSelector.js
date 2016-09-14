@@ -77,7 +77,7 @@ export class PopulationFilterSelector extends Component {
                         intersectionFunction={this.props.changePopulationSelectorType}
                         selectorType={this.props.populationSelectorType} />
 
-          <div className="debug">TYPE: {this.props.populationSelectorType}</div>
+          {/*<div className="debug">TYPE: {this.props.populationSelectorType}</div>*/}
 
           {this.props.populations.map((population) => this.renderedPopulation(population))}
 
@@ -88,7 +88,7 @@ export class PopulationFilterSelector extends Component {
           </div>
         </form>
 
-        <div className="debug">SELECTED: {this.debugSelected()}</div>
+        {/*<div className="debug">SELECTED: {this.debugSelected()}</div>*/}
       </div>
     );
   }
