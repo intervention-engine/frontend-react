@@ -6,8 +6,8 @@ import {
   FETCH_HUDDLES_RESOLVED
 } from '../actions/types';
 
+// Groups huddles by name
 function groupHuddles(huddles) {
-  // Groups huddles by name
   return _.chain(huddles)
     .groupBy((object) => object.resource.name)
     .toPairs()

@@ -15,12 +15,6 @@ import {
 } from '../../../../actions/population';
 
 export class PopulationFilterSelector extends Component {
-  constructor(...args) {
-    super(...args);
-
-    this.state = {};
-  }
-
   componentWillMount(){
     this.props.fetchPopulations();
   }
