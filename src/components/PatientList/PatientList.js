@@ -6,7 +6,7 @@ import equal from 'deep-equal';
 
 import PatientListSelectors from './PatientListSelectors/PatientListSelectors';
 import PatientListResults from '../PatientListResults/PatientListResults';
-import { loadPatients } from '../../actions/patient';
+import { fetchPatients } from '../../actions/patient';
 
 class PatientList extends Component {
 
@@ -16,7 +16,7 @@ class PatientList extends Component {
       groupIds = groupIds.join(',');
     }
     if (!equal(nextProps.population, this.props.population)) {
-      this.props.loadPatients({groupId: groupIds});
+      this.props.fetchPatients({groupId: groupIds});
     }
   }
 
@@ -33,13 +33,13 @@ class PatientList extends Component {
 PatientList.displayName = 'PatientList';
 
 PatientList.propTypes = {
-  loadPatients: PropTypes.func.isRequired,
+  fetchPatients: PropTypes.func.isRequired,
   population: PropTypes.object,
   patients: PropTypes.object
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ loadPatients }, dispatch);
+  return bindActionCreators({ fetchPatients }, dispatch);
 }
 
 function mapStateToProps(state) {
