@@ -1,21 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
-import { loadPatients } from '../../actions/PatientListResults/index';
 import PatientListResultsItem from './PatientListResultsItem';
 
 class PatientListResults extends Component {
-
-  componentWillMount() {
-    this.props.loadPatients();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.queryParams != this.props.queryParams){
-      this.props.loadPatients({groupId: nextProps.queryParams.groupIds.map((g) => g.id).join(',')});
-    }
-  }
   render() {
     const { patientEntries } = this.props.patients;
     return (
@@ -45,14 +33,8 @@ class PatientListResults extends Component {
 }
 
 PatientListResults.propTypes = {
-  loadPatients: PropTypes.func,
-  patients: PropTypes.object,
-  queryParams: PropTypes.object
+  patients: PropTypes.object
 };
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ loadPatients }, dispatch);
-}
 
 export function mapStateToProps(state) {
   return {
@@ -60,4 +42,4 @@ export function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PatientListResults);
+export default connect(mapStateToProps, {})(PatientListResults);
