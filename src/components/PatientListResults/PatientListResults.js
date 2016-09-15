@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 
 import PatientListResultsItem from './PatientListResultsItem';
 
@@ -36,10 +35,5 @@ PatientListResults.propTypes = {
   patients: PropTypes.object
 };
 
-export function mapStateToProps(state) {
-  return {
-    patients: state.patientListResults
-  };
-}
 
-export default connect(mapStateToProps, {})(PatientListResults);
+export default PatientListResults;
