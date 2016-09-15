@@ -15,6 +15,7 @@ class PatientList extends Component {
     if(nextProps.population.populationSelectorType === 'union' && groupIds.length > 0){
       groupIds = groupIds.join(',');
     }
+    // For some reason, moving this check into shouldComponentUpdate doesn't seem to work properly. 
     if (!equal(nextProps.population, this.props.population)) {
       this.props.fetchPatients({groupId: groupIds});
     }
