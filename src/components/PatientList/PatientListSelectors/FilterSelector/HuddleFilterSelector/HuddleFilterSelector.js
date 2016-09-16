@@ -11,13 +11,6 @@ import {
 } from '../../../../../actions/huddle';
 
 export class HuddleFilterSelector extends Component {
-  constructor(...args) {
-    super(...args);
-
-    this.state = {};
-    this.pikaday = null;
-  }
-
   componentWillMount() {
     this.props.fetchHuddles();
   }
