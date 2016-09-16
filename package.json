@@ -54,6 +54,7 @@
     "mocha": "^2.3.4",
     "moment": "^2.13.0",
     "node-sass": "^3.8.0",
+    "pikaday": "^1.4.0",
     "postcss-loader": "^0.11.1",
     "react": "^15.3.1",
     "react-addons-test-utils": "^15.3.1",

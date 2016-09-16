@@ -3,8 +3,7 @@ import { PropTypes } from 'react';
 const populationProps = {
   id: PropTypes.string.isRequired,
   meta: PropTypes.shape({
-    createdOn: PropTypes.string,
-    lastUpdatedOn: PropTypes.string
+    lastUpdated: PropTypes.string
   }),
   name: PropTypes.string.isRequired,
   characteristic: PropTypes.arrayOf(PropTypes.shape({

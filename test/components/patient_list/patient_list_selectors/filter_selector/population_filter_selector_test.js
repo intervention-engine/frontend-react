@@ -8,9 +8,8 @@ describe('PopulationFilterSelector' , () => {
 
   beforeEach(() => {
     populationObject = {
-      'id': 1,
-      'meta': { 'createdOn': '2016-05-12T12:45:11.429-04:00',
-                'lastUpdatedOn': '2016-05-12T12:45:11.429-04:00' },
+      'id': '1',
+      'meta': { 'lastUpdated': '2016-05-12T12:45:11.429-04:00' },
       'name': 'Sample Population',
       'characteristic': [ 'code': { 'coding': [{ 'system': 'Sample System',
                                                  'code': 'Sample Code',
@@ -56,7 +55,7 @@ describe('PopulationFilterSelector' , () => {
     expect(executed).to.be.true;
   });
 
-  it('can deselect a population', () => {
+  it('can unselect a population', () => {
     let executed = false;
     let props = {
       populations: [ populationObject ],
