@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { expect, renderComponent } from '../../../test_helper';
-import PatientListResultsItem from '../../../../src/components/PatientListResults/PatientListResultsItem';
+import PatientListResultsItem from '../../../../src/components/PatientList/PatientListResults/PatientListResultsItem';
 
 describe('Patients List Results Item', () => {
 	let patient;

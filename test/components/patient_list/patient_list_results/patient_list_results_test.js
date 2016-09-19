@@ -1,5 +1,5 @@
 import { expect, renderComponent } from '../../../test_helper';
-import PatientListResults from '../../../../src/components/PatientListResults/PatientListResults';
+import PatientListResults from '../../../../src/components/PatientList/PatientListResults/PatientListResults';
 
 describe('Patients List Results', () => {
   let component;

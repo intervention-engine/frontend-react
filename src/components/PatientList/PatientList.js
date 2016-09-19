@@ -5,7 +5,7 @@ import equal from 'deep-equal';
 
 
 import PatientListSelectors from './PatientListSelectors/PatientListSelectors';
-import PatientListResults from '../PatientListResults/PatientListResults';
+import PatientListResults from './PatientListResults/PatientListResults';
 import { fetchPatients } from '../../actions/patient';
 
 class PatientList extends Component {
