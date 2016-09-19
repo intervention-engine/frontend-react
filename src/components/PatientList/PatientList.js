@@ -46,7 +46,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     population: state.population,
-    patients: state.patientListResults
+    patients: state.patients
   };
 }
 
