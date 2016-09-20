@@ -25,7 +25,7 @@ class PatientList extends Component {
     return (
       <div className="patient-list row">
         <PatientListSelectors/>
-        <PatientListResults patients={this.props.patients}/>
+        <PatientListResults patients={this.props.patient}/>
       </div>
     );
   }
@@ -36,7 +36,7 @@ PatientList.displayName = 'PatientList';
 PatientList.propTypes = {
   fetchPatients: PropTypes.func.isRequired,
   population: PropTypes.object,
-  patients: PropTypes.object
+  patient: PropTypes.object
 };
 
 function mapDispatchToProps(dispatch) {
@@ -46,7 +46,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     population: state.population,
-    patients: state.patients
+    patient: state.patient
   };
 }
 

@@ -4,14 +4,14 @@ import { routeReducer } from 'react-router-redux';
 import populationReducer from './population';
 import huddleReducer from './huddle';
 import riskAssessmentReducer from './risk_assessment';
-import patientsReducer from './patients';
+import patientReducer from './patient';
 
 const rootReducer = combineReducers({
   routing: routeReducer,
   population: populationReducer,
   huddle: huddleReducer,
   riskAssessment: riskAssessmentReducer,
-  patients: patientsReducer
+  patient: patientReducer
 });
 
 export default rootReducer;

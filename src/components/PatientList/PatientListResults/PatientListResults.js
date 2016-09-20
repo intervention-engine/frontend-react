@@ -4,7 +4,7 @@ import PatientListResultsItem from './PatientListResultsItem';
 
 class PatientListResults extends Component {
   render() {
-    const { patientEntries } = this.props.patients;
+    const { patients } = this.props.patients;
     return (
       <div className='patient-list-results col-md-9 col-sm-8'>
         <div className="panel patient-panel">
@@ -23,7 +23,7 @@ class PatientListResults extends Component {
             </div>
           </div>
         </div>
-        {patientEntries.map((pat) =>
+        {patients.map((pat) =>
           <PatientListResultsItem key={pat.id} patient={pat}/>
         )}
       </div>

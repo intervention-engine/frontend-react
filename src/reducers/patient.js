@@ -1,12 +1,13 @@
 import { FETCH_PATIENTS_FULFILLED } from '../actions/types';
 
-export default function(state = {patientEntries: [], meta:{}}, action)  {
+export default function(state = {patients: [], meta:{}}, action)  {
   switch (action.type) {
     case FETCH_PATIENTS_FULFILLED:
-      const patientEntries = action.payload.data.entry.map((e) => e.resource);
+      const { entry: entries = [] } = action.payload.data;
+      const patients = entries.map((e) => e.resource);
       const { total, link } = action.payload.data;
       const meta = { total,link };
-      return {patientEntries, meta};
+      return {patients, meta};
     default:
       return state;
   }
