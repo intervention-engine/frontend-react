@@ -10,7 +10,6 @@ const Footer = () => {
 
         <div className="mitre">
           <span className="mitre-developed">Developed by</span>
-
           <span className="mitre-name">
             <a href="https://www.mitre.org/" target="_blank"> The MITRE Corporation</a>
           </span>

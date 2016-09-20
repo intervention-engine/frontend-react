@@ -9,7 +9,6 @@ const Nav = () => {
     <nav className="nav navbar navbar-static-top navbar-inverse">
       <div className="navbar-header">
         <Logo />
-
         <button type="button"
                 className="navbar-toggle collapsed"
                 data-toggle="collapse"
