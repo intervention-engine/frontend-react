@@ -13,14 +13,14 @@ export class SortBySelector extends Component {
   }
 
   renderedSortKeys(sortOption) {
-    let ascButtonClassNames = classNames('btn', 'btn-default',
+    let ascButtonClassNames = classNames('btn', 'btn-default', 'sort-asc-button',
       { 'btn-active': this.props.sortAscending === true });
-    let descButtonClassNames = classNames('btn', 'btn-default',
+    let descButtonClassNames = classNames('btn', 'btn-default', 'sort-desc-button',
       { 'btn-active': this.props.sortAscending === false });
 
     if (this.isSelected(sortOption)) {
       return (
-        <div className="btn-group pull-right">
+        <div className="sort-asc-desc-buttons btn-group pull-right">
           <button
             type="button"
             className={ascButtonClassNames}
@@ -41,7 +41,6 @@ export class SortBySelector extends Component {
 
   handleInputChange(sortOption) {
     if (this.props.sortOption === sortOption) {
-      this.props.selectSortOption(null);
       return;
     }
 
@@ -95,7 +94,7 @@ export class SortBySelector extends Component {
       </div>
     );
   }
-};
+}
 
 export function mapStateToProps(state) {
   return {

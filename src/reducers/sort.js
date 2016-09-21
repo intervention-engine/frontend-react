@@ -21,7 +21,7 @@ export default function sortReducer(state = { sortOption: DEFAULT_SORT_OPTION,
     case SELECT_SORT_OPTION:
       return { ...state, sortOption: action.payload, sortAscending: action.payload.defaultSortAscending };
     case SET_SORT_ASCENDING:
-      return { ...state, sortAscending: action.payload}
+      return { ...state, sortAscending: action.payload};
     default:
       return state;
   }

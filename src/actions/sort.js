@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import {
   SELECT_SORT_OPTION,
   SET_SORT_ASCENDING
@@ -16,5 +14,5 @@ export function setSortAscending(bool) {
   return {
     type: SET_SORT_ASCENDING,
     payload: bool
-  }
+  };
 }

@@ -7,14 +7,40 @@
     }
   }
 
-  button {
-    &.btn-active {
-      background-color: $brand-primary;
-      color: $white;
-      border: 1px solid $brand-primary;
+  .sort-asc-desc-buttons {
+    margin-top: -3px;
 
-      &:focus {
+    button {
+      &:focus,
+      &:active {
         outline: none;
+      }
+
+      &.btn-active {
+        background-color: $brand-primary;
+        color: $white;
+        border: 1px solid $brand-primary;
+      }
+
+      &.sort-asc-button {
+        border-top-left-radius: 50%;
+        border-bottom-left-radius: 50%;
+        width: 33px;
+
+        span {
+          margin-left: -2px;
+        }
+      }
+
+      &.sort-desc-button {
+        border-top-right-radius: 50%;
+        border-bottom-right-radius: 50%;
+        width: 33px;
+        border-left: none;
+
+        span {
+          margin-left: -5px;
+        }
       }
     }
   }
