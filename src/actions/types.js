@@ -31,4 +31,4 @@ export const FETCH_PATIENTS_RESOLVED = 'FETCH_PATIENTS_RESOLVED';
 // ------------------------- SORT ------------------------------------------ //
 
 export const SELECT_SORT_OPTION = 'SELECT_SORT_OPTION';
-
+export const SET_SORT_ASCENDING = 'SET_SORT_ASCENDING';

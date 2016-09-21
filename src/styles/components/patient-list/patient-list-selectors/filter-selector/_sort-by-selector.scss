@@ -1,0 +1,21 @@
+@import "../../../../elements/variables";
+
+.sort-by-selector {
+  .form-group-striped {
+    .sort-option:nth-child(odd) {
+      background-color: $table-bg-accent;
+    }
+  }
+
+  button {
+    &.btn-active {
+      background-color: $brand-primary;
+      color: $white;
+      border: 1px solid $brand-primary;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}

@@ -1,15 +1,42 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import FontAwesome from 'react-fontawesome';
+import classNames from 'classnames';
 
-import {
-  selectSortOption
-} from '../../../actions/sort';
+import { sortOptions } from '../../../reducers/sort';
+import { selectSortOption, setSortAscending } from '../../../actions/sort';
 
 export class SortBySelector extends Component {
-
   isSelected(sortOption) {
     return this.props.sortOption.id === sortOption.id;
+  }
+
+  renderedSortKeys(sortOption) {
+    let ascButtonClassNames = classNames('btn', 'btn-default',
+      { 'btn-active': this.props.sortAscending === true });
+    let descButtonClassNames = classNames('btn', 'btn-default',
+      { 'btn-active': this.props.sortAscending === false });
+
+    if (this.isSelected(sortOption)) {
+      return (
+        <div className="btn-group pull-right">
+          <button
+            type="button"
+            className={ascButtonClassNames}
+            onClick={() => this.props.setSortAscending(true)}>
+            <FontAwesome name={`sort-${sortOption.sortIcon}-asc`} />
+          </button>
+
+          <button
+            type="button"
+            className={descButtonClassNames}
+            onClick={() => this.props.setSortAscending(false)}>
+            <FontAwesome name={`sort-${sortOption.sortIcon}-desc`} />
+          </button>
+        </div>
+      );
+    }
   }
 
   handleInputChange(sortOption) {
@@ -36,6 +63,8 @@ export class SortBySelector extends Component {
               onChange={() => this.handleInputChange(sortOption)} />
 
             <div className="control-indicator"></div>
+
+            {this.renderedSortKeys(sortOption)}
           </label>
         </div>
       </div>
@@ -44,20 +73,16 @@ export class SortBySelector extends Component {
 
   debugSelected() {
     if (this.props.sortOption) {
-      return this.props.sortOption.name;
+      return (
+        <div>
+          <div>SELECTED: {this.props.sortOption.name}</div>
+          <div>SORT ASCENDING: {this.props.sortAscending.toString()}</div>
+        </div>
+      );
     }
   }
 
   render() {
-    const sortOptions = [
-      { id: 1, name: 'Name', sortKey: 'name,birthdate', sortIcon: 'alpha', invert: false, defaultSortDescending: false },
-      { id: 2, name: 'Age', sortKey: 'birthdate,name', sortIcon: 'numeric', invert: true, defaultSortDescending: false },
-      { id: 3, name: 'Gender', sortKey: 'gender,name', sortIcon: 'alpha', invert: false, defaultSortDescending: false },
-      { id: 4, name: 'Location', sortKey: 'address,name', sortIcon: 'alpha', invert: false, defaultSortDescending: false },
-      { id: 5, name: 'Risk Score', sortKey: 'riskScore,name', sortIcon: 'numeric', invert: false, defaultSortDescending: true },
-      { id: 6, name: 'Notifications', sortKey: 'notifications,name', sortIcon: 'numeric', invert: false, defaultSortDescending: true }
-    ];
-
     return (
       <div className="sort-by-selector">
         <form className="form-horizontal form-group-striped">
@@ -66,7 +91,7 @@ export class SortBySelector extends Component {
           })}
         </form>
 
-        <div className="debug">SELECTED: {this.debugSelected()}</div>
+        {/*<div className="debug">{this.debugSelected()}</div>*/}
       </div>
     );
   }
@@ -74,13 +99,15 @@ export class SortBySelector extends Component {
 
 export function mapStateToProps(state) {
   return {
-    sortOption: state.sort.sortOption
+    sortOption: state.sort.sortOption,
+    sortAscending: state.sort.sortAscending
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    selectSortOption
+    selectSortOption,
+    setSortAscending
   }, dispatch);
 }
 
@@ -88,7 +115,9 @@ SortBySelector.displayName = 'SortBySelector';
 
 SortBySelector.propTypes = {
   sortOption: PropTypes.object.isRequired,
-  selectSortOption: PropTypes.func.isRequired
+  sortAscending: PropTypes.bool.isRequired,
+  selectSortOption: PropTypes.func.isRequired,
+  setSortAscending: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SortBySelector);

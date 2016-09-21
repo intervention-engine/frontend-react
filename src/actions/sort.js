@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 import {
-  SELECT_SORT_OPTION
+  SELECT_SORT_OPTION,
+  SET_SORT_ASCENDING
 } from './types';
 
 export function selectSortOption(sortOption) {
@@ -9,4 +10,11 @@ export function selectSortOption(sortOption) {
     type: SELECT_SORT_OPTION,
     payload: sortOption
   };
+}
+
+export function setSortAscending(bool) {
+  return {
+    type: SET_SORT_ASCENDING,
+    payload: bool
+  }
 }

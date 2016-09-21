@@ -9,15 +9,24 @@ import PatientListResults from './PatientListResults/PatientListResults';
 import { fetchPatients } from '../../actions/patient';
 
 class PatientList extends Component {
-
   componentWillReceiveProps(nextProps) {
+    // population params
     let groupIds = nextProps.population.selectedPopulations.map((p) => p.id);
-    if(nextProps.population.populationSelectorType === 'union' && groupIds.length > 0){
+    if(nextProps.population.populationSelectorType === 'union' && groupIds.length > 0) {
       groupIds = groupIds.join(',');
     }
-    // For some reason, moving this check into shouldComponentUpdate doesn't seem to work properly.
-    if (!equal(nextProps.population, this.props.population)) {
-      this.props.fetchPatients({groupId: groupIds});
+    let groupIdParams = { groupId: groupIds };
+
+    // sort params
+    let sortDir = nextProps.sortAscending ? '' : '-';
+    if (nextProps.sortOption.invert) { sortDir = sortDir === '' ? '-' : ''; }
+    let sortParams = { _sort: `${sortDir}${nextProps.sortOption.sortKey}` };
+
+    // fetch patients with params when nextProps have changed
+    if (!equal(nextProps.population, this.props.population) ||
+        !equal(nextProps.sortAscending, this.props.sortAscending) ||
+        !equal(nextProps.sortOption, this.props.sortOption)) {
+      this.props.fetchPatients({ ...groupIdParams, ...sortParams });
     }
   }
 
@@ -36,7 +45,9 @@ PatientList.displayName = 'PatientList';
 PatientList.propTypes = {
   fetchPatients: PropTypes.func.isRequired,
   population: PropTypes.object,
-  patient: PropTypes.object
+  patient: PropTypes.object,
+  sortOption: PropTypes.object.isRequired,
+  sortAscending: PropTypes.bool.isRequired
 };
 
 function mapDispatchToProps(dispatch) {
@@ -46,7 +57,9 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     population: state.population,
-    patient: state.patient
+    patient: state.patient,
+    sortOption: state.sort.sortOption,
+    sortAscending: state.sort.sortAscending
   };
 }
 

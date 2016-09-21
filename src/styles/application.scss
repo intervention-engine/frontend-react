@@ -12,13 +12,14 @@
 
 /* ------------------------- IMPORT CUSTOM SCSS ---------------------------- */
 
-@import "components/header";
 @import "components/footer";
-@import "components/patient-list/patient-list-selectors/patient-list-selectors";
-@import "components/patient-list/patient-list-selectors/filter-selector/huddle-filter-selector/huddle-filter-selector";
-@import "components/patient-list/patient-list-selectors/filter-selector/huddle-filter-selector/huddle-filter-date-selector";
-@import "components/patient-list/patient-list-selectors/filter-selector/population-filter-selector";
+@import "components/header";
 @import "components/patient-list-results-item";
+@import "components/patient-list/patient-list-selectors/filter-selector/huddle-filter-selector/huddle-filter-date-selector";
+@import "components/patient-list/patient-list-selectors/filter-selector/huddle-filter-selector/huddle-filter-selector";
+@import "components/patient-list/patient-list-selectors/filter-selector/population-filter-selector";
+@import "components/patient-list/patient-list-selectors/filter-selector/sort-by-selector";
+@import "components/patient-list/patient-list-selectors/patient-list-selectors";
 @import "elements/animation";
 @import "elements/buttons";
 @import "elements/forms";
