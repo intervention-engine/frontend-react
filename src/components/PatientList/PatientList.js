@@ -3,29 +3,40 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import equal from 'deep-equal';
 
-
 import PatientListSelectors from './PatientListSelectors/PatientListSelectors';
 import PatientListResults from './PatientListResults/PatientListResults';
 import { fetchPatients } from '../../actions/patient';
+import huddleProps from '../../prop-types/huddle';
 
 class PatientList extends Component {
   componentWillReceiveProps(nextProps) {
     // population params
     let groupIds = nextProps.population.selectedPopulations.map((p) => p.id);
     if(nextProps.population.populationSelectorType === 'union' && groupIds.length > 0) {
-      groupIds = groupIds.join(',');
+      groupIds = [groupIds.join(',')];
     }
-    let groupIdParams = { groupId: groupIds };
+
+    // huddle params -- concat to groupId
+    if (nextProps.selectedHuddle != null) {
+      groupIds.push(nextProps.selectedHuddle.id);
+    }
+
+    // group params (population + huddle params)
+    let groupIdParams = {};
+    if (groupIds.length > 0) {
+      groupIdParams = { _query: 'group', groupId: groupIds };
+    }
 
     // sort params
     let sortDir = nextProps.sortAscending ? '' : '-';
     if (nextProps.sortOption.invert) { sortDir = sortDir === '' ? '-' : ''; }
     let sortParams = { _sort: `${sortDir}${nextProps.sortOption.sortKey}` };
 
-    // fetch patients with params when nextProps have changed
+    // fetch patients with params when nextProps has changed
     if (!equal(nextProps.population, this.props.population) ||
         !equal(nextProps.sortAscending, this.props.sortAscending) ||
-        !equal(nextProps.sortOption, this.props.sortOption)) {
+        !equal(nextProps.sortOption, this.props.sortOption) ||
+        !equal(nextProps.selectedHuddle, this.props.selectedHuddle)) {
       this.props.fetchPatients({ ...groupIdParams, ...sortParams });
     }
   }
@@ -43,11 +54,12 @@ class PatientList extends Component {
 PatientList.displayName = 'PatientList';
 
 PatientList.propTypes = {
-  fetchPatients: PropTypes.func.isRequired,
-  population: PropTypes.object,
   patient: PropTypes.object,
+  population: PropTypes.object,
+  selectedHuddle: huddleProps,
   sortOption: PropTypes.object.isRequired,
-  sortAscending: PropTypes.bool.isRequired
+  sortAscending: PropTypes.bool.isRequired,
+  fetchPatients: PropTypes.func.isRequired
 };
 
 function mapDispatchToProps(dispatch) {
@@ -60,10 +72,11 @@ function mapStateToProps(state) {
     meta: state.patient.meta
   };
   return {
+    patient,
     population: state.population,
+    selectedHuddle: state.huddle.selectedHuddle,
     sortOption: state.sort.sortOption,
-    sortAscending: state.sort.sortAscending,
-    patient
+    sortAscending: state.sort.sortAscending
   };
 }
 

@@ -64,7 +64,12 @@ export class HuddleFilterSelector extends Component {
 
   debugSelected() {
     if (this.props.selectedHuddleGroup) {
-      return this.props.selectedHuddleGroup.name;
+      return (
+        <div>
+          <div>SELECTED HUDDLE GROUP: {this.props.selectedHuddleGroup.name}</div>
+          <div>SELECTED HUDDLE: {this.props.selectedHuddle.datetime}</div>
+        </div>
+      );
     }
   }
 
@@ -75,7 +80,7 @@ export class HuddleFilterSelector extends Component {
           {this.props.huddles.map((huddle) => this.renderedHuddle(huddle))}
         </form>
 
-        {/*<div className="debug">SELECTED HUDDLE GROUP: {this.debugSelected()}</div>*/}
+        {/*<div className="debug">{this.debugSelected()}</div>*/}
       </div>
     );
   }

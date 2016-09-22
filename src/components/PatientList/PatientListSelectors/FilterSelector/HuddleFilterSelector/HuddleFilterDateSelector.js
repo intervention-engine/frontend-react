@@ -74,24 +74,20 @@ export class HuddleFilterDateSelector extends Component {
     return map;
   }
 
-  debugSelected() {
-    if (this.props.selectedHuddle) {
-      return this.props.selectedHuddle.datetime;
-    }
+  formattedDate(datetime) {
+    return moment(datetime).format('ddd, MMM Do YYYY');
   }
 
   render() {
     return (
       <div className="huddle-filter-date-selector" ref="root">
         <span className="huddle-date">
-          {this.props.selectedHuddle ? this.props.selectedHuddle.datetime : 'No Upcoming Huddles'}
+          {this.props.selectedHuddle ? this.formattedDate(this.props.selectedHuddle.datetime) : 'No Upcoming Huddles'}
         </span>
 
         <FontAwesome name="chevron-down" />
 
         <input type="hidden" ref="huddleFilterInput" value="" />
-
-        {/*<div className="debug">SELECTED HUDDLE: {this.debugSelected()}</div>*/}
       </div>
     );
   }
