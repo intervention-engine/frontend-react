@@ -55,11 +55,16 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
+  let patient = {
+    patients: state.patient.patients.map((id) => state.patient.resources[id]),
+    meta: state.patient.meta
+  };
   return {
     population: state.population,
     patient: state.patient,
     sortOption: state.sort.sortOption,
-    sortAscending: state.sort.sortAscending
+    sortAscending: state.sort.sortAscending,
+    patient
   };
 }
 

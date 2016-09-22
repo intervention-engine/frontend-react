@@ -1,13 +1,43 @@
-import { FETCH_PATIENTS_FULFILLED } from '../actions/types';
+import { FETCH_PATIENTS_RESOLVED } from '../actions/types';
 
-export default function(state = {patients: [], meta:{}}, action)  {
+/*
+  Data structured
+patients: {
+  resources: {
+    patientId: patientData
+    ...
+  }
+  selectedPatient: selectedPatientID
+  patients: [patientIds...]
+  meta: {
+    links: linksFromFHIR
+    total: totalPatientCount
+  }
+}
+*/
+
+
+function extractCurrentPatients(newPatients) {
+  return newPatients.map((p) => p.id);
+}
+
+function mergePatients(state, newPatients) {
+  let newState = {...state};
+  newPatients.map((pat) => {
+    newState[pat.id] = pat;
+  });
+  return newState;
+}
+
+export default function(state = {patients: [], resources: {}, meta:{}}, action)  {
   switch (action.type) {
-    case FETCH_PATIENTS_FULFILLED:
-      const { entry: entries = [] } = action.payload.data;
-      const patients = entries.map((e) => e.resource);
-      const { total, link } = action.payload.data;
-      const meta = { total,link };
-      return {patients, meta};
+    case FETCH_PATIENTS_RESOLVED:
+      let newPatients = action.payload.patients;
+      let resources = mergePatients(state.patients, newPatients);
+      let { total, link } = action.payload.meta;
+      let meta = { total,link };
+      let patients = extractCurrentPatients(newPatients);
+      return {resources, patients, meta};
     default:
       return state;
   }
