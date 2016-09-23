@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import { patientListProps } from '../../../prop-types/patient';
+// import { patientListProps } from '../../../prop-types/patient';
 
 import PatientListResultsItem from './PatientListResultsItem';
 

@@ -61,7 +61,6 @@ function mapStateToProps(state) {
   };
   return {
     population: state.population,
-    patient: state.patient,
     sortOption: state.sort.sortOption,
     sortAscending: state.sort.sortAscending,
     patient
