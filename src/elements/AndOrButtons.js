@@ -12,12 +12,12 @@ export default class AndOrButtons extends Component {
       <div>
         <button type="button" className={unionButtonClassNames}
           onClick={() => this.props.unionFunction("union")}>
-          <i className="fc-union"></i> AND
+          <i className="fc-union"></i> OR
         </button>
 
         <button type="button" className={intersectionButtonClassNames}
           onClick={() => this.props.intersectionFunction("intersection")}>
-          <i className="fc-intersection"></i> OR
+          <i className="fc-intersection"></i> AND
         </button>
       </div>
     );

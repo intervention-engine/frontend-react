@@ -27,3 +27,8 @@ export const SELECT_RISK_ASSESSMENT = 'SELECT_RISK_ASSESSMENT';
 export const FETCH_PATIENTS = 'FETCH_PATIENTS';
 export const FETCH_PATIENTS_FULFILLED = 'FETCH_PATIENTS_FULFILLED';
 export const FETCH_PATIENTS_RESOLVED = 'FETCH_PATIENTS_RESOLVED';
+
+// ------------------------- SORT ------------------------------------------ //
+
+export const SELECT_SORT_OPTION = 'SELECT_SORT_OPTION';
+export const SET_SORT_ASCENDING = 'SET_SORT_ASCENDING';
