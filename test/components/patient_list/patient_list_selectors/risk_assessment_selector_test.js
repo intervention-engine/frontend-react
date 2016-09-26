@@ -10,9 +10,8 @@ describe('RiskAssessmentSelector' , () => {
     riskAssessmentObject = {
       'id': '1',
       'name': 'Sample Risk Assessment',
-      'patients': [ { 'id': '2',
-                      'value': 2,
-                      'pie': 'pieURL' } ] }
+      'method': 'SampleMethod'
+    }
 
     state = {
       riskAssessment: {
@@ -43,7 +42,6 @@ describe('RiskAssessmentSelector' , () => {
     let props = {
       riskAssessments: [ riskAssessmentObject ],
       selectedRiskAssessment: null,
-      fetchRiskAssessments() {},
       selectRiskAssessment(riskAssessment) { executed = (riskAssessment === riskAssessmentObject); }
     };
 

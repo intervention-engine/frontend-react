@@ -1,0 +1,9 @@
+@import "../../../../elements/variables";
+
+.risk-assessment-selector {
+  .form-group-striped {
+    .risk-assessment:nth-child(odd) {
+      background-color: $table-bg-accent;
+    }
+  }
+}

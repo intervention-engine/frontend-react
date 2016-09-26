@@ -39,7 +39,7 @@ function restructurePatients(patients) {
   if (patients != null) {
     patients.forEach((patient) => {
       newPatients.push({
-        id: patient.entity.reference,
+        id: patient.entity.reference.replace('Patient/', ''),
         reason: { code: patient.extension[0].valueCodeableConcept.coding[0].code,
                   text: patient.extension[0].valueCodeableConcept.text }
       });

@@ -3,6 +3,7 @@ import {
   FETCH_POPULATIONS_FULFILLED,
   FETCH_POPULATIONS_RESOLVED
 } from '../actions/types';
+import { fetchRiskAssessments } from '../actions/risk_assessment';
 
 function restructurePopulation(population) {
   let { resource } = population;
@@ -18,10 +19,10 @@ export default function({ dispatch }) {
   return next => action => {
     switch (action.type) {
       case FETCH_POPULATIONS_FULFILLED:
-        let populations = action.payload.data.entry;
+        let populations = action.payload.data.entry.map((population) => restructurePopulation(population));
         dispatch({
           type: FETCH_POPULATIONS_RESOLVED,
-          payload: populations.map((population) => restructurePopulation(population))
+          payload: populations
         });
         return;
     }

@@ -2,7 +2,7 @@
 
 .population-filter-selector {
   .form-group-striped {
-    .population:nth-child(odd) {
+    .population:nth-child(even) {
       background-color: $table-bg-accent;
     }
 

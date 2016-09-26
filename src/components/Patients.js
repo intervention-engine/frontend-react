@@ -3,7 +3,6 @@ import React, { Component, PropTypes } from 'react';
 import PageHeader from '../components/Header/PageHeader';
 import PatientList from '../components/PatientList/PatientList';
 
-
 class Patients extends Component {
   render() {
     return (
