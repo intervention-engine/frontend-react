@@ -1,11 +1,11 @@
 // Restructures the response of the Patient endpoint for use in patients
 import moment from 'moment';
 
+import { fetchRiskAssessments } from '../actions/risk_assessment';
 import {
   FETCH_PATIENTS_FULFILLED,
   FETCH_PATIENTS_RESOLVED
 } from '../actions/types';
-import { fetchRiskAssessments } from '../actions/risk_assessment';
 
 function restructurePatients(payload) {
   return payload.entry.map((patient) => {
@@ -31,14 +31,14 @@ function restructurePatient(patient) {
       state: resource.address[0].state,
       postalCode: resource.address[0].postalCode
     }
-  }
+  };
 }
 
 function restructureMeta(payload) {
   return {
     total: payload.total,
     link: payload.link
-  }
+  };
 }
 
 export default function ({ dispatch }) {
@@ -48,7 +48,7 @@ export default function ({ dispatch }) {
         let payload = {
           meta: restructureMeta(action.payload.data),
           patients: restructurePatients(action.payload.data)
-        }
+        };
 
         // dispatch fetch risk assessments action then dispatch patients resolved action
         dispatch(fetchRiskAssessments(action.payload.riskAssessment, payload.patients.map((patient) => {

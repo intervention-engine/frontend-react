@@ -3,7 +3,6 @@ import {
   FETCH_POPULATIONS_FULFILLED,
   FETCH_POPULATIONS_RESOLVED
 } from '../actions/types';
-import { fetchRiskAssessments } from '../actions/risk_assessment';
 
 function restructurePopulation(population) {
   let { resource } = population;

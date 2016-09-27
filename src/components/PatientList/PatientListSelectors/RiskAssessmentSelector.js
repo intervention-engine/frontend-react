@@ -1,16 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
-import { riskAssessmentTypes } from '../../../reducers/risk_assessment';
 import riskAssessmentTypeProps from '../../../prop-types/risk_assessment_type';
-import riskAssessmentProps from '../../../prop-types/risk_assessment';
 
-import {
-  selectRiskAssessment
-} from '../../../actions/risk_assessment';
-
-export class RiskAssessmentSelector extends Component {
+export default class RiskAssessmentSelector extends Component {
   isSelected(riskAssessment) {
     return this.props.selectedRiskAssessment === riskAssessment;
   }
@@ -53,7 +45,7 @@ export class RiskAssessmentSelector extends Component {
     return (
       <div className="risk-assessment-selector">
         <form className="form-horizontal form-group-striped">
-          {riskAssessmentTypes.map((riskAssessment) => {
+          {this.props.riskAssessmentTypes.map((riskAssessment) => {
             return this.renderedRiskAssessment(riskAssessment);
           })}
         </form>
@@ -64,25 +56,10 @@ export class RiskAssessmentSelector extends Component {
   }
 }
 
-export function mapStateToProps(state) {
-  return {
-    riskAssessments: state.riskAssessment.riskAssessments,
-    selectedRiskAssessment: state.riskAssessment.selectedRiskAssessment
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    selectRiskAssessment
-  }, dispatch);
-}
-
 RiskAssessmentSelector.displayName = 'RiskAssessmentSelector';
 
 RiskAssessmentSelector.propTypes = {
-  riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired,
-  selectedRiskAssessment: riskAssessmentTypeProps,
+  riskAssessmentTypes: PropTypes.arrayOf(riskAssessmentTypeProps).isRequired,
+  selectedRiskAssessment: riskAssessmentTypeProps.isRequired,
   selectRiskAssessment: PropTypes.func.isRequired
 };
-
-export default connect(mapStateToProps, mapDispatchToProps)(RiskAssessmentSelector);

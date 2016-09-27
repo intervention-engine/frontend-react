@@ -1,6 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import FontAwesome from 'react-fontawesome';
 import moment from 'moment';
 import Pikaday from 'pikaday';
@@ -8,9 +6,8 @@ import _ from 'lodash';
 
 import huddleGroupProps from '../../../../../prop-types/huddle_group';
 import huddleProps from '../../../../../prop-types/huddle';
-import { selectHuddle } from '../../../../../actions/huddle';
 
-export class HuddleFilterDateSelector extends Component {
+export default class HuddleFilterDateSelector extends Component {
   constructor(...args) {
     super(...args);
 
@@ -93,24 +90,10 @@ export class HuddleFilterDateSelector extends Component {
   }
 }
 
-export function mapStateToProps(state) {
-  return {
-    huddles: state.huddle.huddles,
-    selectedHuddleGroup: state.huddle.selectedHuddleGroup,
-    selectedHuddle: state.huddle.selectedHuddle
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ selectHuddle }, dispatch);
-}
-
 HuddleFilterDateSelector.displayName = 'HuddleFilterDateSelector';
 
 HuddleFilterDateSelector.propTypes = {
-  selectedHuddleGroup: huddleGroupProps.isRequired,
+  selectedHuddleGroup: huddleGroupProps,
   selectedHuddle: huddleProps,
   selectHuddle: PropTypes.func.isRequired
 };
-
-export default connect(mapStateToProps, mapDispatchToProps)(HuddleFilterDateSelector);

@@ -2,19 +2,20 @@ import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
 
 import PatientListResultsItem from './PatientListResultsItem';
+
 import patientProps from '../../../prop-types/patient';
+import patientsMetaProps from '../../../prop-types/patients_meta';
 import huddleGroupProps from '../../../prop-types/huddle_group';
 import riskAssessmentProps from '../../../prop-types/risk_assessment';
-import riskAssessmentTypeProps from '../../../prop-types/risk_assessment_type';
 
-class PatientListResults extends Component {
+export default class PatientListResults extends Component {
   render() {
     return (
       <div className='patient-list-results col-md-9 col-sm-8'>
         <div className="panel patient-panel">
           <div className="panel-heading">
             <div className="collapse-panel-title">
-              <span className='patient-count'>Patients ({this.props.totalPatients})</span>
+              <span className='patient-count'>Patients ({this.props.patientsMeta.total})</span>
 
               <div className="patient-list-results-buttons pull-right">
                 <div className="sliding-search-container">
@@ -34,9 +35,7 @@ class PatientListResults extends Component {
           <PatientListResultsItem key={patient.id}
                                   patient={patient}
                                   huddles={this.props.huddles}
-                                  selectedHuddleGroup={this.props.selectedHuddleGroup}
-                                  riskAssessments={this.props.riskAssessments}
-                                  selectedRiskAssessment={this.props.selectedRiskAssessment} />
+                                  riskAssessments={this.props.riskAssessments} />
         )}
       </div>
     );
@@ -45,11 +44,7 @@ class PatientListResults extends Component {
 
 PatientListResults.propTypes = {
   patients: PropTypes.arrayOf(patientProps).isRequired,
-  totalPatients: PropTypes.number,
+  patientsMeta: patientsMetaProps.isRequired,
   huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
-  selectedHuddleGroup: huddleGroupProps,
-  riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired,
-  selectedRiskAssessment: riskAssessmentTypeProps.isRequired
+  riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired
 };
-
-export default PatientListResults;

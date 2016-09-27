@@ -1,86 +1,53 @@
 import { expect, renderComponent } from '../../../../test_helper';
-import PopulationFilterSelectorRedux, { PopulationFilterSelector, mapStateToProps } from '../../../../../src/components/PatientList/PatientListSelectors/FilterSelector/PopulationFilterSelector';
+import { populationsTestObject1, populationsTestObject2 } from '../../../../test_props';
+import PopulationFilterSelector from '../../../../../src/components/PatientList/PatientListSelectors/FilterSelector/PopulationFilterSelector';
 
 describe('PopulationFilterSelector' , () => {
   let component;
-  let populationObject;
-  let state;
+  let selectedPopulations;
+  let populationSelectorType;
 
   beforeEach(() => {
-    populationObject = {
-      'id': '1',
-      'meta': { 'lastUpdated': '2016-05-12T12:45:11.429-04:00' },
-      'name': 'Sample Population',
-      'characteristic': [ {'code': { 'coding': [{ 'system': 'Sample System',
-                                                 'code': 'Sample Code',
-                                                 'userSelected': false }],
-                                    'text': 'Sample Text' } }] };
+    selectedPopulations =  [ populationsTestObject1 ];
+    populationSelectorType = 'union';
 
-    state = {
-      population: {
-        populations: [ populationObject ],
-        selectedPopulations: [ populationObject ],
-        populationSelectorType: 'union'
-      }
+    let props = {
+      populations: [ populationsTestObject1, populationsTestObject2 ],
+      selectedPopulations,
+      populationSelectorType,
+      selectPopulation(population) { selectedPopulations.push(population) },
+      unselectPopulation(population) {
+        let index = selectedPopulations.indexOf(population);
+        if (index !== -1) {
+          selectedPopulations.splice(index, 1);
+        }
+      },
+      changePopulationSelectorType(type) { populationSelectorType = type }
     };
 
-    component = renderComponent(PopulationFilterSelectorRedux, {}, state);
+    component = renderComponent(PopulationFilterSelector, props);
   });
 
   it('has the correct class', () => {
     expect(component).to.have.class('population-filter-selector');
   });
 
-  it('maps state to props', () => {
-    let stateProps = mapStateToProps(state);
-    expect(stateProps.populations.length).to.equal(1);
-    expect(stateProps.selectedPopulations[0]).to.equal(populationObject);
-  });
-
   it('displays the population name', () => {
-    expect(component.find(".population-name").first()).to.have.text('Sample Population');
+    expect(component.find(".population-name").first()).to.have.text('Sample Population Name 1');
   });
 
   it('can select a population', () => {
-    let executed = false;
-    let props = {
-      populations: [ populationObject ],
-      selectedPopulations: [],
-      fetchPopulations() {},
-      selectPopulation(population) { executed = (population === populationObject); }
-    };
-
-    let component = renderComponent(PopulationFilterSelector, props);
-    component.find('input[type=checkbox]').simulate('change');
-    expect(executed).to.be.true;
+    component.find('input[type=checkbox]:eq(1)').simulate('change');
+    expect(selectedPopulations).to.eql([ populationsTestObject1, populationsTestObject2 ]);
   });
 
   it('can unselect a population', () => {
-    let executed = false;
-    let props = {
-      populations: [ populationObject ],
-      selectedPopulations: [ populationObject ],
-      fetchPopulations() {},
-      unselectPopulation(population) { executed = (population === populationObject); }
-    };
-
-    let component = renderComponent(PopulationFilterSelector, props);
     component.find('input[type=checkbox]').simulate('change');
-    expect(executed).to.be.true;
+    expect(selectedPopulations).to.eql([]);
   });
 
   it('can select a population type', () => {
-    let executed = false;
-    let props = {
-      populations: [ populationObject ],
-      selectedPopulations: [ populationObject ],
-      populationSelectorType: 'union',
-      fetchPopulations() {},
-      changePopulationSelectorType(type) { executed = (type === 'intersection'); }
-    };
-
-    let component = renderComponent(PopulationFilterSelector, props);
     component.find('.selector-type-intersection').simulate('click');
-    expect(executed).to.be.true;
+    expect(populationSelectorType).to.eq('intersection');
   });
 });

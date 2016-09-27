@@ -27,7 +27,7 @@ export default class AndOrButtons extends Component {
 AndOrButtons.displayName = 'AndOrButtons';
 
 AndOrButtons.propTypes = {
+  selectorType: PropTypes.string.isRequired,
   unionFunction: PropTypes.func.isRequired,
-  intersectionFunction: PropTypes.func.isRequired,
-  selectorType: PropTypes.string.isRequired
+  intersectionFunction: PropTypes.func.isRequired
 };

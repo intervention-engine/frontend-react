@@ -1,24 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import AndOrButtons from '../../../../elements/AndOrButtons';
+
 import populationProps from '../../../../prop-types/population';
 
-import {
-  fetchPopulations,
-  selectPopulation,
-  unselectPopulation,
-  changePopulationSelectorType
-} from '../../../../actions/population';
-
-export class PopulationFilterSelector extends Component {
-  componentWillMount(){
-    this.props.fetchPopulations();
-  }
-
+export default class PopulationFilterSelector extends Component {
   isSelected(population) {
     return this.props.selectedPopulations.indexOf(population) !== -1;
   }
@@ -71,7 +59,7 @@ export class PopulationFilterSelector extends Component {
                         intersectionFunction={this.props.changePopulationSelectorType}
                         selectorType={this.props.populationSelectorType} />
 
-          {/*<div className="debug">TYPE: {this.props.populationSelectorType}</div>*/}
+          <div className="debug">TYPE: {this.props.populationSelectorType}</div>
 
           {this.props.populations.map((population) => this.renderedPopulation(population))}
 
@@ -82,39 +70,19 @@ export class PopulationFilterSelector extends Component {
           </div>
         </form>
 
-        {/*<div className="debug">SELECTED: {this.debugSelected()}</div>*/}
+        <div className="debug">SELECTED: {this.debugSelected()}</div>
       </div>
     );
   }
-}
-
-export function mapStateToProps(state) {
-  return {
-    populations: state.population.populations,
-    selectedPopulations: state.population.selectedPopulations,
-    populationSelectorType: state.population.populationSelectorType
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    fetchPopulations,
-    selectPopulation,
-    unselectPopulation,
-    changePopulationSelectorType
-  }, dispatch);
 }
 
 PopulationFilterSelector.displayName = 'PopulationFilterSelector';
 
 PopulationFilterSelector.propTypes = {
   populations: PropTypes.arrayOf(populationProps).isRequired,
-  selectedPopulations: PropTypes.arrayOf(populationProps),
+  selectedPopulations: PropTypes.arrayOf(populationProps).isRequired,
   populationSelectorType: PropTypes.string.isRequired,
-  fetchPopulations: PropTypes.func.isRequired,
   selectPopulation: PropTypes.func.isRequired,
   unselectPopulation: PropTypes.func.isRequired,
   changePopulationSelectorType: PropTypes.func.isRequired
 };
-
-export default connect(mapStateToProps, mapDispatchToProps)(PopulationFilterSelector);

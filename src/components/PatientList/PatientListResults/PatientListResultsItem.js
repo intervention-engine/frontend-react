@@ -1,16 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
 import moment from 'moment';
-import _ from 'lodash';
 
-import huddleGroupProps from '../../../prop-types/huddle_group';
-import patientProps from '../../../prop-types/patient';
-import riskAssessmentProps from '../../../prop-types/risk_assessment';
-import riskAssessmentTypeProps from '../../../prop-types/risk_assessment_type';
-import sortByDate from '../../../utils/sort_by_date';
 import { isTodayOrAfter } from '../../../reducers/huddle';
+import sortByDate from '../../../utils/sort_by_date';
 
-class PatientListResultsItem extends Component {
+import patientProps from '../../../prop-types/patient';
+import huddleGroupProps from '../../../prop-types/huddle_group';
+import riskAssessmentProps from '../../../prop-types/risk_assessment';
+
+export default class PatientListResultsItem extends Component {
   renderedNextHuddle(patient, huddles) {
     let nextHuddles = huddles.map((huddleGroup) => {
       let dates = huddleGroup.dates.filter(this.filterHuddleForPatient(patient))
@@ -45,7 +44,10 @@ class PatientListResultsItem extends Component {
     let patientRisk = riskAssessment[0].patients.find((patientRisk) => {
       return patientRisk.id === patient.id;
     });
-    return <div>{patientRisk.risks[0].value}</div>
+
+    if (patientRisk != null) {
+      return <div>{patientRisk.risks[0].value}</div>;
+    }
   }
 
   render() {
@@ -82,11 +84,11 @@ class PatientListResultsItem extends Component {
               </div>
             </div>
 
-            <div className="col-md-3">
+            <div className="col-md-3 patient-next-huddle-date">
               {this.renderedNextHuddle(this.props.patient, this.props.huddles)}
             </div>
 
-            <div className="col-md-3">
+            <div className="col-md-3 patient-risk">
               {this.renderedRisk(this.props.patient, this.props.riskAssessments)}
             </div>
           </div>
@@ -99,11 +101,7 @@ class PatientListResultsItem extends Component {
 PatientListResultsItem.propTypes = {
   patient: patientProps.isRequired,
   huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
-  selectedHuddleGroup: huddleGroupProps,
-  riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired,
-  selectedRiskAssessment: riskAssessmentTypeProps
+  riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired
 };
 
 PatientListResultsItem.displayName = 'PatientListResultsItem';
-
-export default PatientListResultsItem;
