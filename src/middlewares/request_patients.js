@@ -8,6 +8,8 @@ import {
 } from '../actions/types';
 
 function restructurePatients(payload) {
+  if (payload.total === 0) { return []; }
+
   return payload.entry.map((patient) => {
     return restructurePatient(patient);
   });
@@ -50,7 +52,17 @@ export default function ({ dispatch }) {
           patients: restructurePatients(action.payload.data)
         };
 
-        // dispatch fetch risk assessments action then dispatch patients resolved action
+        // if no patients, dispatch patients resolved
+        if (payload.patients.length === 0) {
+          dispatch({
+            type: FETCH_PATIENTS_RESOLVED,
+            payload
+          });
+
+          return;
+        }
+
+        // else, dispatch fetch risk assessments action then dispatch patients resolved action
         dispatch(fetchRiskAssessments(action.payload.riskAssessment, payload.patients.map((patient) => {
           return patient.id;
         }))).then(() => dispatch({

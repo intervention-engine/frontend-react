@@ -8,11 +8,7 @@ export default class RiskAssessmentSelector extends Component {
   }
 
   handleInputChange(riskAssessment) {
-    if (this.props.selectedRiskAssessment === riskAssessment) {
-      this.props.selectRiskAssessment(null);
-      return;
-    }
-
+    if (this.props.selectedRiskAssessment === riskAssessment) { return; }
     this.props.selectRiskAssessment(riskAssessment);
   }
 
@@ -50,7 +46,7 @@ export default class RiskAssessmentSelector extends Component {
           })}
         </form>
 
-        {/*<div className="debug">SELECTED: {this.debugSelected()}</div>*/}
+        <div className="debug">SELECTED: {this.debugSelected()}</div>
       </div>
     );
   }

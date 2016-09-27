@@ -19,8 +19,9 @@ import { riskAssessmentTypes } from '../reducers/risk_assessment';
 import { sortOptions } from '../reducers/sort';
 
 import { fetchPatients } from '../actions/patient';
-import { fetchPopulations, selectPopulation, unselectPopulation, changePopulationSelectorType } from '../actions/population';
-import { selectRiskAssessment } from '../actions/risk_assessment';
+import { fetchPopulations, selectPopulation, unselectPopulation,
+         changePopulationSelectorType } from '../actions/population';
+import { fetchRiskAssessments, selectRiskAssessment } from '../actions/risk_assessment';
 import { fetchHuddles, selectHuddleGroup, selectHuddle } from '../actions/huddle';
 import { selectSortOption, setSortAscending } from '../actions/sort';
 
@@ -66,6 +67,9 @@ class Patients extends Component {
         ...sortParams,
         riskAssessment: this.props.selectedRiskAssessment
       });
+    } else if (!equal(nextProps.selectedRiskAssessment, this.props.selectedRiskAssessment)) {
+      let patientIds = nextProps.patients.map((patient) => patient.id);
+      this.props.fetchRiskAssessments(nextProps.selectedRiskAssessment, patientIds);
     }
   }
 
@@ -118,6 +122,7 @@ Patients.propTypes = {
   fetchPatients: PropTypes.func.isRequired,
   fetchPopulations: PropTypes.func.isRequired,
   fetchHuddles: PropTypes.func.isRequired,
+  fetchRiskAssessments: PropTypes.func.isRequired,
   selectPopulation: PropTypes.func.isRequired,
   unselectPopulation: PropTypes.func.isRequired,
   changePopulationSelectorType: PropTypes.func.isRequired,
@@ -133,6 +138,7 @@ function mapDispatchToProps(dispatch) {
     fetchPatients,
     fetchPopulations,
     fetchHuddles,
+    fetchRiskAssessments,
     selectPopulation,
     unselectPopulation,
     changePopulationSelectorType,

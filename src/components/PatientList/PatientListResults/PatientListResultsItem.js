@@ -41,6 +41,8 @@ export default class PatientListResultsItem extends Component {
   }
 
   renderedRisk(patient, riskAssessment) {
+    if (riskAssessment.length === 0) { return; }
+    
     let patientRisk = riskAssessment[0].patients.find((patientRisk) => {
       return patientRisk.id === patient.id;
     });
