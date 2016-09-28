@@ -17,7 +17,7 @@ describe('Patients List Results Item', () => {
   });
 
   it('has the correct class', () => {
-    expect(component).to.have.class('patient-info');
+    expect(component).to.have.class('patient-list-results-item');
   });
 
   it('displays the patient name correctly', () => {

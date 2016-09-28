@@ -42,7 +42,7 @@ export default class PatientListResultsItem extends Component {
 
   renderedRisk(patient, riskAssessment) {
     if (riskAssessment.length === 0) { return; }
-    
+
     let patientRisk = riskAssessment[0].patients.find((patientRisk) => {
       return patientRisk.id === patient.id;
     });
@@ -60,38 +60,50 @@ export default class PatientListResultsItem extends Component {
       genderIconClassName = 'female';
     }
 
+    let ageIconClassName = 'fa fa-birthday-cake';
+    let age = this.props.patient.age;
+    if (age <= 3) {
+      ageIconClassName = 'icon-baby';
+    } else if (age <= 17) {
+      ageIconClassName = 'icon-child';
+    } else if (age <= 64) {
+      ageIconClassName = 'icon-adult';
+    } else if (age >= 65) {
+      ageIconClassName = 'icon-elderly';
+    }
+
     return (
-      <div className="patient-info">
+      <div className="patient-list-results-item">
         <div className="media">
           <div className="media-left media-middle">
             <FontAwesome name="user" className="media-object" />
           </div>
-        </div>
 
-        <div className="media-body">
-          <div className="row">
-            <div className="patient-name col-xs-12">{this.props.patient.name.full}</div>
-          </div>
+          <div className="media-body">
+            <div className="row">
+              <div className="patient-name col-xs-12">{this.props.patient.name.full}</div>
+            </div>
 
-          <div className="row">
-            <div className="col-md-6">
-              <div className="patient-age-gender-location">
-                <span className="patient-age">
-                  <FontAwesome name="elderly" /> {this.props.patient.age} yrs
-                </span>
+            <div className="row">
+              <div className="col-md-6">
+                <div className="patient-age-gender-location">
+                  <span className="patient-age">
+                    <i className={ageIconClassName}></i> {this.props.patient.age} yrs
+                  </span>
 
-                <span className="patient-gender">
-                  <FontAwesome name={genderIconClassName} /> {this.props.patient.gender}
-                </span>
+                  <span className="patient-gender">
+                    <FontAwesome name={genderIconClassName} /> {this.props.patient.gender}
+                  </span>
+                </div>
               </div>
-            </div>
 
-            <div className="col-md-3 patient-next-huddle-date">
-              {this.renderedNextHuddle(this.props.patient, this.props.huddles)}
-            </div>
+              <div className="col-md-3 patient-next-huddle-date">
+                {this.renderedNextHuddle(this.props.patient, this.props.huddles)}
+              </div>
 
-            <div className="col-md-3 patient-risk">
-              {this.renderedRisk(this.props.patient, this.props.riskAssessments)}
+              <div className="col-md-3 patient-risk">
+                {this.renderedRisk(this.props.patient, this.props.riskAssessments)}
+              </div>
             </div>
           </div>
         </div>

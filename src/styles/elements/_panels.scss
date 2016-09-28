@@ -50,3 +50,78 @@
     border-left: none;
   }
 }
+
+/* -------------------------------- CONTENT PANELS -------------------------------- */
+
+.panel {
+  margin: 0;
+
+  .panel-heading {
+    padding: 0;
+    margin: 0;
+
+    .panel-title, .collapse-panel-title {
+      font-size: 18px;
+      line-height: 18px;
+      padding: 15px;
+    }
+
+    .collapse-panel-title {
+      color: #fff;
+      background-color: $navbar-inverse-bg;
+
+      a {
+        display: block;
+        text-decoration: none;
+        color: #fff;
+      }
+
+      .collapsed {
+        .fa-chevron-down {
+          transform: rotate(270deg);
+        }
+      }
+    }
+  }
+
+  .panel-heading-alt {
+    background-color: $brand-primary;
+    border-bottom: 1px solid $body-bg;
+    padding: 0;
+    margin: 0;
+
+    .panel-title {
+      color: #fff;
+      font-size: 14px;
+      line-height: 14px;
+      padding: 10px 5px;
+    }
+  }
+
+  .panel-body {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.has-nested-panel {
+  & > .panel-heading {
+    border-bottom: 0;
+  }
+
+  & > .panel-body {
+    border-left: 10px solid $navbar-inverse-bg;
+  }
+
+  .panel {
+    border: 0;
+
+    .panel-heading {
+      border-bottom: 1px solid $navbar-inverse-bg;
+
+      .collapse-panel-title {
+        background-color: $navbar-inverse-link-active-bg;
+      }
+    }
+  }
+}

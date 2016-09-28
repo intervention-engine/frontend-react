@@ -26,6 +26,6 @@ describe('Patients List Results', () => {
   });
 
   it('displays the correct number of patientListResultItems', () => {
-    expect(component.find('.patient-info').length).to.equal(2);
+    expect(component.find('.patient-list-results-item').length).to.equal(2);
   });
 });

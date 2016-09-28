@@ -1,0 +1,30 @@
+@import "variables";
+
+.print-list-button {
+  background-color: $body-bg-inverse;
+  border-radius: 50%;
+  border: 1px solid $body-bg-inverse;
+  color: #5C5C5C;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 13px;
+  height: 22px;
+  padding: 0.35em;
+  width: 22px;
+}
+
+@media print {
+  .hide-in-print {
+    display: none;
+  }
+
+  .print-small {
+    font-size: 0.5em;
+  }
+}
+
+.list-label {
+  font-weight: 600;
+  text-align: right;
+  padding-right: 10px;
+}

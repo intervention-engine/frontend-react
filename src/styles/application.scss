@@ -14,7 +14,9 @@
 
 @import "components/footer";
 @import "components/header";
-@import "components/patient-list-results-item";
+@import "components/patient-list/patient-list";
+@import "components/patient-list/patient-list-results/patient-list-results";
+@import "components/patient-list/patient-list-results/patient-list-results-item";
 @import "components/patient-list/patient-list-selectors/filter-selector/huddle-filter-selector/huddle-filter-date-selector";
 @import "components/patient-list/patient-list-selectors/filter-selector/huddle-filter-selector/huddle-filter-selector";
 @import "components/patient-list/patient-list-selectors/filter-selector/population-filter-selector";
@@ -25,6 +27,8 @@
 @import "elements/buttons";
 @import "elements/forms";
 @import "elements/panels";
+@import "elements/print";
+@import "elements/search";
 @import "vendors/bootstrap";
 
 /* ------------------------- DOM ------------------------------------------- */
