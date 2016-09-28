@@ -1,5 +1,5 @@
 import { renderComponent , expect } from '../test_helper';
-import FilterBuilder from '../../src/components/FilterBuilder';
+import FilterBuilder from '../../src/containers/FilterBuilder';
 
 describe('FilterBuilder' , () => {
   let component;

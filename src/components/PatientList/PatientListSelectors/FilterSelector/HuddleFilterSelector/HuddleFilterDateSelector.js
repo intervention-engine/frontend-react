@@ -1,6 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import FontAwesome from 'react-fontawesome';
 import moment from 'moment';
 import Pikaday from 'pikaday';
@@ -8,9 +6,8 @@ import _ from 'lodash';
 
 import huddleGroupProps from '../../../../../prop-types/huddle_group';
 import huddleProps from '../../../../../prop-types/huddle';
-import { selectHuddle } from '../../../../../actions/huddle';
 
-export class HuddleFilterDateSelector extends Component {
+export default class HuddleFilterDateSelector extends Component {
   constructor(...args) {
     super(...args);
 
@@ -74,47 +71,29 @@ export class HuddleFilterDateSelector extends Component {
     return map;
   }
 
-  debugSelected() {
-    if (this.props.selectedHuddle) {
-      return this.props.selectedHuddle.datetime;
-    }
+  formattedDate(datetime) {
+    return moment(datetime).format('ddd, MMM Do YYYY');
   }
 
   render() {
     return (
       <div className="huddle-filter-date-selector" ref="root">
         <span className="huddle-date">
-          {this.props.selectedHuddle ? this.props.selectedHuddle.datetime : 'No Upcoming Huddles'}
+          {this.props.selectedHuddle ? this.formattedDate(this.props.selectedHuddle.datetime) : 'No Upcoming Huddles'}
         </span>
 
         <FontAwesome name="chevron-down" />
 
         <input type="hidden" ref="huddleFilterInput" value="" />
-
-        {/*<div className="debug">SELECTED HUDDLE: {this.debugSelected()}</div>*/}
       </div>
     );
   }
 }
 
-export function mapStateToProps(state) {
-  return {
-    huddles: state.huddle.huddles,
-    selectedHuddleGroup: state.huddle.selectedHuddleGroup,
-    selectedHuddle: state.huddle.selectedHuddle
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ selectHuddle }, dispatch);
-}
-
 HuddleFilterDateSelector.displayName = 'HuddleFilterDateSelector';
 
 HuddleFilterDateSelector.propTypes = {
-  selectedHuddleGroup: huddleGroupProps.isRequired,
+  selectedHuddleGroup: huddleGroupProps,
   selectedHuddle: huddleProps,
   selectHuddle: PropTypes.func.isRequired
 };
-
-export default connect(mapStateToProps, mapDispatchToProps)(HuddleFilterDateSelector);

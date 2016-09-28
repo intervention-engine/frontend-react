@@ -1,13 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames';
 
-import { sortOptions } from '../../../reducers/sort';
-import { selectSortOption, setSortAscending } from '../../../actions/sort';
+import sortProps from '../../../prop-types/sort';
 
-export class SortBySelector extends Component {
+export default class SortBySelector extends Component {
   isSelected(sortOption) {
     return this.props.sortOption.id === sortOption.id;
   }
@@ -85,7 +82,7 @@ export class SortBySelector extends Component {
     return (
       <div className="sort-by-selector">
         <form className="form-horizontal form-group-striped">
-          {sortOptions.map((sortOption) => {
+          {this.props.sortOptions.map((sortOption) => {
             return this.renderedSortOption(sortOption);
           })}
         </form>
@@ -96,27 +93,12 @@ export class SortBySelector extends Component {
   }
 }
 
-export function mapStateToProps(state) {
-  return {
-    sortOption: state.sort.sortOption,
-    sortAscending: state.sort.sortAscending
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    selectSortOption,
-    setSortAscending
-  }, dispatch);
-}
-
 SortBySelector.displayName = 'SortBySelector';
 
 SortBySelector.propTypes = {
-  sortOption: PropTypes.object.isRequired,
+  sortOptions: PropTypes.arrayOf(sortProps).isRequired,
+  sortOption: sortProps.isRequired,
   sortAscending: PropTypes.bool.isRequired,
   selectSortOption: PropTypes.func.isRequired,
   setSortAscending: PropTypes.func.isRequired
 };
-
-export default connect(mapStateToProps, mapDispatchToProps)(SortBySelector);

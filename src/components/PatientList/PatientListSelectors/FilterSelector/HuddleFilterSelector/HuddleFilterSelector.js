@@ -1,20 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import HuddleFilterDateSelector from './HuddleFilterDateSelector';
+
 import huddleGroupProps from '../../../../../prop-types/huddle_group';
+import huddleProps from '../../../../../prop-types/huddle';
 
-import {
-  fetchHuddles,
-  selectHuddleGroup
-} from '../../../../../actions/huddle';
-
-export class HuddleFilterSelector extends Component {
-  componentWillMount() {
-    this.props.fetchHuddles();
-  }
-
+export default class HuddleFilterSelector extends Component {
   isSelected(huddleGroup) {
     return this.props.selectedHuddleGroup === huddleGroup;
   }
@@ -34,7 +25,9 @@ export class HuddleFilterSelector extends Component {
     }
 
     return (
-      <HuddleFilterDateSelector />
+      <HuddleFilterDateSelector selectedHuddle={this.props.selectedHuddle}
+                                selectedHuddleGroup={this.props.selectedHuddleGroup}
+                                selectHuddle={this.props.selectHuddle} />
     );
   }
 
@@ -64,7 +57,12 @@ export class HuddleFilterSelector extends Component {
 
   debugSelected() {
     if (this.props.selectedHuddleGroup) {
-      return this.props.selectedHuddleGroup.name;
+      return (
+        <div>
+          <div>SELECTED HUDDLE GROUP: {this.props.selectedHuddleGroup.name}</div>
+          <div>SELECTED HUDDLE: {this.props.selectedHuddle.datetime}</div>
+        </div>
+      );
     }
   }
 
@@ -75,25 +73,10 @@ export class HuddleFilterSelector extends Component {
           {this.props.huddles.map((huddle) => this.renderedHuddle(huddle))}
         </form>
 
-        {/*<div className="debug">SELECTED HUDDLE GROUP: {this.debugSelected()}</div>*/}
+        {/*<div className="debug">{debugSelected()}</div>*/}
       </div>
     );
   }
-}
-
-export function mapStateToProps(state) {
-  return {
-    huddles: state.huddle.huddles,
-    selectedHuddleGroup: state.huddle.selectedHuddleGroup,
-    selectedHuddle: state.huddle.selectedHuddle
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    fetchHuddles,
-    selectHuddleGroup
-  }, dispatch);
 }
 
 HuddleFilterSelector.displayName = 'HuddleFilterSelector';
@@ -101,8 +84,7 @@ HuddleFilterSelector.displayName = 'HuddleFilterSelector';
 HuddleFilterSelector.propTypes = {
   huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
   selectedHuddleGroup: huddleGroupProps,
-  fetchHuddles: PropTypes.func.isRequired,
-  selectHuddleGroup: PropTypes.func.isRequired
+  selectedHuddle: huddleProps,
+  selectHuddleGroup: PropTypes.func.isRequired,
+  selectHuddle: PropTypes.func.isRequired
 };
-
-export default connect(mapStateToProps, mapDispatchToProps)(HuddleFilterSelector);

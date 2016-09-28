@@ -27,7 +27,7 @@ function firstHuddle(huddles) {
   return _.head(_.sortBy(huddles.filter((huddle) => isTodayOrAfter(huddle.datetime)), 'datetime'));
 }
 
-function isTodayOrAfter(date) {
+export function isTodayOrAfter(date) {
   let now = moment();
   return now.isSame(date, 'day') || now.isBefore(date, 'day');
 }

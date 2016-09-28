@@ -36,7 +36,7 @@ function restructureRiskAssessment(riskAssessment) {
 
 function restructurePatient(patient) {
   return {
-    id: patient.id,
+    id: patient.id.replace('Patient/', ''),
     risks: restructureRisks(patient.risks)
   };
 }

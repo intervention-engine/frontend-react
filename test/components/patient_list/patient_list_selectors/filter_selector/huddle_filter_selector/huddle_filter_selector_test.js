@@ -1,68 +1,35 @@
 import { expect, renderComponent } from '../../../../../test_helper';
-import HuddleFilterSelectorRedux, { HuddleFilterSelector, mapStateToProps } from '../../../../../../src/components/PatientList/PatientListSelectors/FilterSelector/HuddleFilterSelector/HuddleFilterSelector';
+import { huddleGroupTestObject1, huddleGroupTestObject2, huddleTestObject } from '../../../../../test_props';
+import HuddleFilterSelector from '../../../../../../src/components/PatientList/PatientListSelectors/FilterSelector/HuddleFilterSelector/HuddleFilterSelector';
 
 describe('HuddleFilterSelector' , () => {
   let component;
-  let huddleObject;
-  let huddleGroupObject;
-  let state;
+  let selectedHuddleGroup;
 
   beforeEach(() => {
-    huddleGroupObject = {
-      'id': '1',
-      'name': 'Sample Huddle Group',
-      'dates': [ { 'datetime': '2099-01-01',
-                   'id': '2',
-                   'practioner': 'SamplePractioner',
-                   'patients': [ { 'id': '3',
-                                   'reason': { 'code': 'SampleReasonCode',
-                                               'text': 'SampleReasonText' } } ] } ] };
+    selectedHuddleGroup = huddleGroupTestObject1;
 
-    huddleObject = {
-      'id': '2',
-      'datetime': '2099-01-01',
-      'practioner': 'SamplePractioner',
-      'patients': [ { 'id': '3',
-                      'reason': { 'code': 'SampleReasonCode',
-                                  'text': 'SampleReasonText' } } ] }
-
-    state = {
-      huddle: {
-        huddles: [ huddleGroupObject ],
-        selectedHuddleGroup: huddleGroupObject,
-        selectedHuddle: huddleObject
-      }
+    let props = {
+      huddles: [ huddleGroupTestObject1, huddleGroupTestObject2 ],
+      selectedHuddleGroup,
+      selectedHuddle: huddleTestObject,
+      selectHuddleGroup(huddleGroup) { selectedHuddleGroup = huddleGroup; },
+      selectHuddle: () => null
     };
 
-    component = renderComponent(HuddleFilterSelectorRedux, {}, state);
+    component = renderComponent(HuddleFilterSelector, props);
   });
 
   it('has the correct class', () => {
     expect(component).to.have.class('huddle-filter-selector');
   });
 
-  it('maps state to props', () => {
-    let stateProps = mapStateToProps(state);
-    expect(stateProps.huddles.length).to.equal(1);
-    expect(stateProps.selectedHuddleGroup).to.equal(huddleGroupObject);
-    expect(stateProps.selectedHuddle).to.equal(huddleObject);
-  });
-
-  it('displays the huddle group name', () => {
-    expect(component.find(".huddleGroup-name").first()).to.have.text('Sample Huddle Group');
+  it('displays the correct huddle group name', () => {
+    expect(component.find(".huddleGroup-name").first()).to.have.text('Sample Huddle Group 1');
   });
 
   it('can select a huddle group', () => {
-    let executed = false;
-    let props = {
-      huddles: [ huddleGroupObject ],
-      selectedHuddleGroup: null,
-      fetchHuddles() {},
-      selectHuddleGroup(huddleGroup) { executed = (huddleGroup === huddleGroupObject); }
-    };
-
-    let component = renderComponent(HuddleFilterSelector, props);
-    component.find('input[type=radio]').simulate('change');
-    expect(executed).to.be.true;
+    component.find('input[type=radio]:eq(1)').simulate('change');
+    expect(selectedHuddleGroup).to.eq(huddleGroupTestObject2);
   });
 });

@@ -1,5 +1,5 @@
 import { renderComponent , expect } from '../test_helper';
-import Patients from '../../src/components/Patients';
+import Patients from '../../src/containers/Patients';
 
 describe('Patients' , () => {
   let component;

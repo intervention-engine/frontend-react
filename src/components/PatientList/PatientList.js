@@ -1,40 +1,45 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import equal from 'deep-equal';
-
 
 import PatientListSelectors from './PatientListSelectors/PatientListSelectors';
 import PatientListResults from './PatientListResults/PatientListResults';
-import { fetchPatients } from '../../actions/patient';
 
-class PatientList extends Component {
-  componentWillReceiveProps(nextProps) {
-    // population params
-    let groupIds = nextProps.population.selectedPopulations.map((p) => p.id);
-    if(nextProps.population.populationSelectorType === 'union' && groupIds.length > 0) {
-      groupIds = groupIds.join(',');
-    }
-    let groupIdParams = { groupId: groupIds };
+import patientProps from '../../prop-types/patient';
+import patientsMetaProps from '../../prop-types/patients_meta';
+import populationProps from '../../prop-types/population';
+import huddleGroupProps from '../../prop-types/huddle_group';
+import huddleProps from '../../prop-types/huddle';
+import riskAssessmentTypeProps from '../../prop-types/risk_assessment_type';
+import riskAssessmentProps from '../../prop-types/risk_assessment';
+import sortProps from '../../prop-types/sort';
 
-    // sort params
-    let sortDir = nextProps.sortAscending ? '' : '-';
-    if (nextProps.sortOption.invert) { sortDir = sortDir === '' ? '-' : ''; }
-    let sortParams = { _sort: `${sortDir}${nextProps.sortOption.sortKey}` };
-
-    // fetch patients with params when nextProps have changed
-    if (!equal(nextProps.population, this.props.population) ||
-        !equal(nextProps.sortAscending, this.props.sortAscending) ||
-        !equal(nextProps.sortOption, this.props.sortOption)) {
-      this.props.fetchPatients({ ...groupIdParams, ...sortParams });
-    }
-  }
-
+export default class PatientList extends Component {
   render(){
     return (
       <div className="patient-list row">
-        <PatientListSelectors/>
-        <PatientListResults patients={this.props.patient}/>
+        <PatientListSelectors populations={this.props.populations}
+                              selectedPopulations={this.props.selectedPopulations}
+                              populationSelectorType={this.props.populationSelectorType}
+                              huddles={this.props.huddles}
+                              selectedHuddleGroup={this.props.selectedHuddleGroup}
+                              selectedHuddle={this.props.selectedHuddle}
+                              riskAssessmentTypes={this.props.riskAssessmentTypes}
+                              selectedRiskAssessment={this.props.selectedRiskAssessment}
+                              sortOptions={this.props.sortOptions}
+                              sortOption={this.props.sortOption}
+                              sortAscending={this.props.sortAscending}
+                              selectPopulation={this.props.selectPopulation}
+                              unselectPopulation={this.props.unselectPopulation}
+                              changePopulationSelectorType={this.props.changePopulationSelectorType}
+                              selectRiskAssessment={this.props.selectRiskAssessment}
+                              selectHuddleGroup={this.props.selectHuddleGroup}
+                              selectHuddle={this.props.selectHuddle}
+                              selectSortOption={this.props.selectSortOption}
+                              setSortAscending={this.props.setSortAscending} />
+
+        <PatientListResults patients={this.props.patients}
+                            patientsMeta={this.props.patientsMeta}
+                            huddles={this.props.huddles}
+                            riskAssessments={this.props.riskAssessments} />
       </div>
     );
   }
@@ -43,24 +48,26 @@ class PatientList extends Component {
 PatientList.displayName = 'PatientList';
 
 PatientList.propTypes = {
-  fetchPatients: PropTypes.func.isRequired,
-  population: PropTypes.object,
-  patient: PropTypes.object,
-  sortOption: PropTypes.object.isRequired,
-  sortAscending: PropTypes.bool.isRequired
+  patients: PropTypes.arrayOf(patientProps).isRequired,
+  patientsMeta: patientsMetaProps.isRequired,
+  populations: PropTypes.arrayOf(populationProps).isRequired,
+  selectedPopulations: PropTypes.arrayOf(populationProps).isRequired,
+  populationSelectorType: PropTypes.string.isRequired,
+  huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
+  selectedHuddleGroup: huddleGroupProps,
+  selectedHuddle: huddleProps,
+  riskAssessmentTypes: PropTypes.arrayOf(riskAssessmentTypeProps).isRequired,
+  riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired,
+  selectedRiskAssessment: riskAssessmentTypeProps.isRequired,
+  sortOptions: PropTypes.arrayOf(sortProps).isRequired,
+  sortOption: sortProps.isRequired,
+  sortAscending: PropTypes.bool.isRequired,
+  selectPopulation: PropTypes.func.isRequired,
+  unselectPopulation: PropTypes.func.isRequired,
+  changePopulationSelectorType: PropTypes.func.isRequired,
+  selectRiskAssessment: PropTypes.func.isRequired,
+  selectHuddleGroup: PropTypes.func.isRequired,
+  selectHuddle: PropTypes.func.isRequired,
+  selectSortOption: PropTypes.func.isRequired,
+  setSortAscending: PropTypes.func.isRequired
 };
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchPatients }, dispatch);
-}
-
-function mapStateToProps(state) {
-  return {
-    population: state.population,
-    patient: state.patient,
-    sortOption: state.sort.sortOption,
-    sortAscending: state.sort.sortAscending
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PatientList);

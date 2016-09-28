@@ -1,54 +1,33 @@
 import { expect, renderComponent } from '../../../test_helper';
-import RiskAssessmentSelectorRedux, { RiskAssessmentSelector, mapStateToProps } from '../../../../src/components/PatientList/PatientListSelectors/RiskAssessmentSelector';
+import { riskAssessmentTypeTestObject1, riskAssessmentTypeTestObject2 } from '../../../test_props';
+import RiskAssessmentSelector from '../../../../src/components/PatientList/PatientListSelectors/RiskAssessmentSelector';
 
 describe('RiskAssessmentSelector' , () => {
   let component;
-  let riskAssessmentObject;
-  let state;
+  let selectedRiskAssessment;
 
   beforeEach(() => {
-    riskAssessmentObject = {
-      'id': '1',
-      'name': 'Sample Risk Assessment',
-      'patients': [ { 'id': '2',
-                      'value': 2,
-                      'pie': 'pieURL' } ] }
+    selectedRiskAssessment = riskAssessmentTypeTestObject1;
 
-    state = {
-      riskAssessment: {
-        riskAssessments: [ riskAssessmentObject ],
-        selectedRiskAssessment: riskAssessmentObject
-      }
+    let props = {
+      riskAssessmentTypes: [ riskAssessmentTypeTestObject1, riskAssessmentTypeTestObject2 ],
+      selectedRiskAssessment,
+      selectRiskAssessment(riskAssessment) { selectedRiskAssessment = riskAssessment; }
     };
 
-    component = renderComponent(RiskAssessmentSelectorRedux, {}, state);
+    component = renderComponent(RiskAssessmentSelector, props);
   });
 
   it('has the correct class', () => {
     expect(component).to.have.class('risk-assessment-selector');
   });
 
-  it('maps state to props', () => {
-    let stateProps = mapStateToProps(state);
-    expect(stateProps.riskAssessments.length).to.equal(1);
-    expect(stateProps.selectedRiskAssessment).to.equal(riskAssessmentObject);
-  });
-
-  it('displays the risk assessment name', () => {
-    expect(component.find(".risk-assessment-name").first()).to.have.text('Sample Risk Assessment');
+  it('displays the correct risk assessment name', () => {
+    expect(component.find(".risk-assessment-name").first()).to.have.text('Sample Risk Assessment 1');
   });
 
   it('can select a risk assessment', () => {
-    let executed = false;
-    let props = {
-      riskAssessments: [ riskAssessmentObject ],
-      selectedRiskAssessment: null,
-      fetchRiskAssessments() {},
-      selectRiskAssessment(riskAssessment) { executed = (riskAssessment === riskAssessmentObject); }
-    };
-
-    let component = renderComponent(RiskAssessmentSelector, props);
-    component.find('input[type=radio]').simulate('change');
-    expect(executed).to.be.true;
+    component.find('input[type=radio]:eq(1)').simulate('change');
+    expect(selectedRiskAssessment).to.eq(riskAssessmentTypeTestObject2);
   });
 });

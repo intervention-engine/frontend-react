@@ -1,30 +1,41 @@
 import React, { Component, PropTypes } from 'react';
+import FontAwesome from 'react-fontawesome';
 
 import PatientListResultsItem from './PatientListResultsItem';
 
-class PatientListResults extends Component {
+import patientProps from '../../../prop-types/patient';
+import patientsMetaProps from '../../../prop-types/patients_meta';
+import huddleGroupProps from '../../../prop-types/huddle_group';
+import riskAssessmentProps from '../../../prop-types/risk_assessment';
+
+export default class PatientListResults extends Component {
   render() {
-    const { patients } = this.props.patients;
     return (
       <div className='patient-list-results col-md-9 col-sm-8'>
         <div className="panel patient-panel">
           <div className="panel-heading">
             <div className="collapse-panel-title">
-              <span className='patient-count'>Patients ({this.props.patients.meta.total})</span>
+              <span className='patient-count'>Patients ({this.props.patientsMeta.total})</span>
+
               <div className="patient-list-results-buttons pull-right">
                 <div className="sliding-search-container">
-                  <i className="fa fa-search fa-fw"></i>
-                  <input
-                    type="search"
-                    className="sliding-search expanded"/>
+                  <FontAwesome name="search" />
+                  <input type="search" className="sliding-search expanded"/>
                 </div>
-                <i className="print-list-button fa fa-print cursor-pointer" title="Print Patient List"></i>
+
+                <FontAwesome name="print"
+                             className="print-list-button cursor-pointer"
+                             title="Print Patient List" />
               </div>
             </div>
           </div>
         </div>
-        {patients.map((pat) =>
-          <PatientListResultsItem key={pat.id} patient={pat}/>
+
+        {this.props.patients.map((patient) =>
+          <PatientListResultsItem key={patient.id}
+                                  patient={patient}
+                                  huddles={this.props.huddles}
+                                  riskAssessments={this.props.riskAssessments} />
         )}
       </div>
     );
@@ -32,8 +43,8 @@ class PatientListResults extends Component {
 }
 
 PatientListResults.propTypes = {
-  patients: PropTypes.object
+  patients: PropTypes.arrayOf(patientProps).isRequired,
+  patientsMeta: patientsMetaProps.isRequired,
+  huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
+  riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired
 };
-
-
-export default PatientListResults;

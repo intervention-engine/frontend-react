@@ -4,12 +4,12 @@ import {
 } from '../actions/types';
 
 export const sortOptions = [
-  { id: 1, name: 'Name', sortKey: 'name,birthdate', sortIcon: 'alpha', invert: false, defaultSortAscending: true },
-  { id: 2, name: 'Age', sortKey: 'birthdate,name', sortIcon: 'numeric', invert: true, defaultSortAscending: true },
-  { id: 3, name: 'Gender', sortKey: 'gender,name', sortIcon: 'alpha', invert: false, defaultSortAscending: true }
-  // { id: 4, name: 'Location', sortKey: 'address,name', sortIcon: 'alpha', invert: false, defaultSortAscending: true },
-  // { id: 5, name: 'Risk Score', sortKey: 'riskScore,name', sortIcon: 'numeric', invert: false, defaultSortAscending: false },
-  // { id: 6, name: 'Notifications', sortKey: 'notifications,name', sortIcon: 'numeric', invert: false, defaultSortAscending: false }
+  { id: '1', name: 'Name', sortKey: 'name,birthdate', sortIcon: 'alpha', invert: false, defaultSortAscending: true },
+  { id: '2', name: 'Age', sortKey: 'birthdate,name', sortIcon: 'numeric', invert: true, defaultSortAscending: true },
+  { id: '3', name: 'Gender', sortKey: 'gender,name', sortIcon: 'alpha', invert: false, defaultSortAscending: true }
+  // { id: '4', name: 'Location', sortKey: 'address,name', sortIcon: 'alpha', invert: false, defaultSortAscending: true },
+  // { id: '5', name: 'Risk Score', sortKey: 'riskScore,name', sortIcon: 'numeric', invert: false, defaultSortAscending: false },
+  // { id: '6', name: 'Notifications', sortKey: 'notifications,name', sortIcon: 'numeric', invert: false, defaultSortAscending: false }
 ];
 
 const DEFAULT_SORT_OPTION = sortOptions[0];
