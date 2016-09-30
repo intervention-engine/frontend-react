@@ -3,6 +3,7 @@ import { param } from 'jquery';
 
 import {
   FETCH_PATIENTS,
+  FETCH_PATIENT,
   SET_PATIENT_SEARCH,
   SELECT_PAGE
 } from './types';
@@ -35,5 +36,20 @@ export function selectPage(page) {
   return {
     type: SELECT_PAGE,
     payload: page
+  };
+}
+
+export function fetchPatient(id) {
+  let PATIENT_URL = `${FHIR_SERVER}/Patient/${id}`;
+  return {
+    type: FETCH_PATIENT,
+    payload: axios.get(PATIENT_URL)
+  };
+}
+
+export function setSelectedPatient(id) {
+  return {
+    type: SELECT_PATIENT,
+    payload: id
   };
 }

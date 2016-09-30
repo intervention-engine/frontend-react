@@ -29,6 +29,10 @@ export const FETCH_PATIENTS_FULFILLED = 'FETCH_PATIENTS_FULFILLED';
 export const FETCH_PATIENTS_RESOLVED = 'FETCH_PATIENTS_RESOLVED';
 export const SET_PATIENT_SEARCH = 'SET_PATIENT_SEARCH';
 export const SELECT_PAGE = 'SELECT_PAGE';
+export const FETCH_PATIENT = 'FETCH_PATIENT';
+export const FETCH_PATIENT_FULFILLED = 'FETCH_PATIENT_FULFILLED';
+export const FETCH_PATIENT_RESOLVED = 'FETCH_PATIENT_RESOLVED';
+
 
 // ------------------------- SORT ------------------------------------------ //
 

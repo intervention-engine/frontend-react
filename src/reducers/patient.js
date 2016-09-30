@@ -1,13 +1,16 @@
 import {
   FETCH_PATIENTS_RESOLVED,
   SET_PATIENT_SEARCH,
-  SELECT_PAGE
+  SELECT_PAGE,
+  FETCH_PATIENT_FULFILLED,
+  SELECT_PATIENT
 } from '../actions/types';
 
 export default function(state = { patients: [],
                                   meta: {},
                                   patientSearch: '',
                                   pageNum: 1,
+								  selectedPatient: {},
                                   currentPage: 1,
                                   patientsPerPage: 10 }, action)  {
   switch (action.type) {
@@ -19,6 +22,11 @@ export default function(state = { patients: [],
       return { ...state, patientSearch: action.payload };
     case SELECT_PAGE:
       return { ...state, currentPage: action.payload };
+	case FETCH_PATIENT_FULFILLED:
+      return { ...state, selectedPatient: action.payload.data};
+    case SELECT_PATIENT:
+      let selectedPatient = state.patients.find((pat) => pat.id===action.payload );
+      return {...state, selectedPatient};
     default:
       return state;
   }

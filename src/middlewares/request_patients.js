@@ -4,7 +4,9 @@ import moment from 'moment';
 import { fetchRiskAssessments } from '../actions/risk_assessment';
 import {
   FETCH_PATIENTS_FULFILLED,
-  FETCH_PATIENTS_RESOLVED
+  FETCH_PATIENTS_RESOLVED,
+  FETCH_PATIENT_FULFILLED,
+  FETCH_PATIENT_RESOLVED
 } from '../actions/types';
 
 function restructurePatients(payload) {
@@ -69,6 +71,15 @@ export default function ({ dispatch }) {
           type: FETCH_PATIENTS_RESOLVED,
           payload
         }));
+      return;
+      case FETCH_PATIENT_FULFILLED:
+        payload = {
+          patient: restructurePatient(action.payload.data)
+        };
+        dispatch({
+          type: FETCH_PATIENT_RESOLVED,
+          payload
+        });
       return;
     }
 

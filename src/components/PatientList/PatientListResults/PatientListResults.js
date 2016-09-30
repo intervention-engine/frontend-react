@@ -5,6 +5,7 @@ import ReactPaginate from 'react-paginate';
 import { param } from 'jquery';
 import equal from 'deep-equal';
 
+
 import PatientListResultsItem from './PatientListResultsItem';
 
 import patientProps from '../../../prop-types/patient';
@@ -100,7 +101,7 @@ export default class PatientListResults extends Component {
 
           <div className="panel-body">
             {this.props.patients.map((patient) =>
-              <PatientListResultsItem key={patient.id}
+	              <PatientListResultsItem key={patient.id}
                                       patient={patient}
                                       huddles={this.props.huddles}
                                       riskAssessments={this.props.riskAssessments}
