@@ -1,0 +1,84 @@
+@import "variables";
+
+.search {
+  margin: 15px auto;
+  padding: 0 10px;
+  border: 1px solid lighten($brand-secondary, 50%);
+  border-radius: 15px;
+  height: 28px;
+  font-size: 16px;
+
+  .form-control,
+  .btn {
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    color: lighten($brand-secondary, 40%);
+  }
+
+  .form-control {
+    height: 25px;
+    padding-left: 10px;
+    color: $brand-secondary;
+  }
+
+  &.search-panel {
+    width: 90%;
+    margin-left: 15px;
+  }
+
+  &.search-timeline {
+    margin-left: 70px;
+  }
+}
+
+/* ------------------------- SLIDING SEARCH BOX ---------------------------- */
+
+.sliding-search-container {
+  display: inline-block;
+  position: relative;
+
+  .fa {
+    color: $brand-secondary;
+    font-size: 12px;
+    position: absolute;
+    top: 5px;
+    left: 3px;
+    pointer-events: none;
+  }
+
+  .sliding-search {
+    display: inline-block;
+    outline: none;
+    background-color: $table-bg-accent;
+    border: 1px solid $body-bg-inverse;
+    height: 22px;
+    width: 22px;
+    font-size: 15px;
+    padding-left: 10px;
+    color: transparent;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: all 0.5s;
+
+    &:hover {
+      background-color: #fff;
+    }
+
+    &:focus,
+    &.expanded {
+      width: 250px;
+      padding-left: 20px;
+      color: $brand-secondary;
+      background-color: #fff;
+      cursor: auto;
+    }
+
+    &::-webkit-search-decoration,
+    &::-webkit-search-cancel-button {
+      display: none;
+    }
+  }
+}

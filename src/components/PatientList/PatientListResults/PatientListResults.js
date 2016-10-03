@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
+import classNames from 'classnames';
 
 import PatientListResultsItem from './PatientListResultsItem';
 
@@ -9,18 +10,27 @@ import huddleGroupProps from '../../../prop-types/huddle_group';
 import riskAssessmentProps from '../../../prop-types/risk_assessment';
 
 export default class PatientListResults extends Component {
+  constructor(...args) {
+    super(...args);
+
+    this.state = { searchExpanded: false };
+  }
+
   render() {
+    let slidingSearchClassnames = classNames('sliding-search', { 'searchExpanded': this.state.searchExpanded === true });
+
     return (
-      <div className='patient-list-results col-md-9 col-sm-8'>
+      <div className="patient-list-results col-md-9 col-sm-8">
         <div className="panel patient-panel">
           <div className="panel-heading">
             <div className="collapse-panel-title">
-              <span className='patient-count'>Patients ({this.props.patientsMeta.total})</span>
+              <span className="patient-count">Patients ({this.props.patientsMeta.total})</span>
 
               <div className="patient-list-results-buttons pull-right">
-                <div className="sliding-search-container">
+                <div className="sliding-search-container"
+                     onChange={ ()=> this.setState({ searchExpanded: !this.state.searchExpanded, }) }>
                   <FontAwesome name="search" />
-                  <input type="search" className="sliding-search expanded"/>
+                  <input type="search" className={slidingSearchClassnames} />
                 </div>
 
                 <FontAwesome name="print"
@@ -29,14 +39,16 @@ export default class PatientListResults extends Component {
               </div>
             </div>
           </div>
-        </div>
 
-        {this.props.patients.map((patient) =>
-          <PatientListResultsItem key={patient.id}
-                                  patient={patient}
-                                  huddles={this.props.huddles}
-                                  riskAssessments={this.props.riskAssessments} />
-        )}
+          <div className="panel-body">
+            {this.props.patients.map((patient) =>
+              <PatientListResultsItem key={patient.id}
+                                      patient={patient}
+                                      huddles={this.props.huddles}
+                                      riskAssessments={this.props.riskAssessments} />
+            )}
+          </div>
+        </div>
       </div>
     );
   }

@@ -24,8 +24,13 @@
 
 [data-icon]:before,
 .fc-add-intervention:before,
+.fc-adult:before,
+.fc-baby:before,
 .fc-caregiver:before,
 .fc-challenge:before,
+.fc-child:before,
+.fc-child2:before,
+.fc-elderly:before,
 .fc-intersection:before,
 .fc-med-clipboard:before,
 .fc-medication:before,
@@ -46,19 +51,29 @@
 }
 
 .fc-add-intervention:before { content: "\f100"; }
-.fc-caregiver:before { content: "\f101"; }
-.fc-challenge:before { content: "\f102"; }
-.fc-intersection:before { content: "\f103"; }
-.fc-med-clipboard:before { content: "\f104"; }
-.fc-medication:before { content: "\f105"; }
-.fc-running:before { content: "\f106"; }
-.fc-union:before { content: "\f107"; }
+.fc-adult:before { content: "\f101"; }
+.fc-baby:before { content: "\f102"; }
+.fc-caregiver:before { content: "\f103"; }
+.fc-challenge:before { content: "\f104"; }
+.fc-child:before { content: "\f105"; }
+.fc-child2:before { content: "\f106"; }
+.fc-elderly:before { content: "\f107"; }
+.fc-intersection:before { content: "\f108"; }
+.fc-med-clipboard:before { content: "\f109"; }
+.fc-medication:before { content: "\f10a"; }
+.fc-running:before { content: "\f10b"; }
+.fc-union:before { content: "\f10c"; }
 
 $font-fontcustom-add-intervention: "\f100";
-$font-fontcustom-caregiver: "\f101";
-$font-fontcustom-challenge: "\f102";
-$font-fontcustom-intersection: "\f103";
-$font-fontcustom-med-clipboard: "\f104";
-$font-fontcustom-medication: "\f105";
-$font-fontcustom-running: "\f106";
-$font-fontcustom-union: "\f107";
+$font-fontcustom-adult: "\f101";
+$font-fontcustom-baby: "\f102";
+$font-fontcustom-caregiver: "\f103";
+$font-fontcustom-challenge: "\f104";
+$font-fontcustom-child: "\f105";
+$font-fontcustom-child2: "\f106";
+$font-fontcustom-elderly: "\f107";
+$font-fontcustom-intersection: "\f108";
+$font-fontcustom-med-clipboard: "\f109";
+$font-fontcustom-medication: "\f10a";
+$font-fontcustom-running: "\f10b";
+$font-fontcustom-union: "\f10c";
