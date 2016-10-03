@@ -51,7 +51,7 @@ export default class PatientListResultsItem extends Component {
       let risk = patientRisk.risks[0].value;
       let maxRisk = 4; // TODO: get from backend
       let barWidth = Math.floor(100 / maxRisk * risk);
-      let riskBarWidth = { width: barWidth + 'px' };
+      let riskBarWidth = { width: `${barWidth}px` };
 
       return (
         <div className="patient-risk-bar" style={riskBarWidth}>
