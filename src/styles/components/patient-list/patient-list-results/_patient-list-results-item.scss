@@ -4,87 +4,86 @@
   display: block;
   position: relative;
   margin: 0;
-  padding: 10px 10px 0 10px;
+  padding: 0 0 0 10px;
   border-bottom: 1px solid #eee;
   font-size: 16px;
   min-height: 80px;
   cursor: pointer;
 
-  i.media-object {
-    color: #e6e6e6;
-    font-size: 64px;
-  }
+  .media {
+    // margin-top: 15px;
 
-  .media-left {
-    padding-right: 1em;
-  }
+    .media-left {
+      padding-right: 1em;
+      padding-top: 10px;
 
-  .patient-name {
-    margin-left: 10px;
-    font-size: 24px;
-  }
-
-  .patient-age-gender-location,
-  .patient-next-huddle {
-    color: lighten($brand-secondary, 20%);
-
-    .patient-age,
-    .patient-gender,
-    .patient-location {
-      margin: 0 12px;
-    }
-  }
-
-  .patient-risk-bar-container {
-    position: absolute;
-    top: 34%;
-    right: 0;
-    height: 24px;
-
-    @include respond-to(desktop-wide) { width: 350px; }
-    @include respond-to(desktop) { width: 200px; }
-    @include respond-to(tablet) { width: 150px; }
-    @include respond-to(mobile) { width: 250px; }
-
-    .patient-risk-bar {
-      float: right;
-      height: 24px;
-      background-color: $brand-primary;
-      font-size: 20px;
-      line-height: 24px;
-      color: #fff;
-      padding: 0 6px;
-      min-width: 32px;
-    }
-  }
-
-  &:hover {
-    color: #fff;
-    background-color: $brand-primary;
-
-    .patient-age-gender-location,
-    .patient-next-huddle,
-    i.media-object {
-      color: #fff;
+      .media-object {
+        color: #e6e6e6;
+        font-size: 64px;
+      }
     }
 
-    .patient-risk-bar-container .patient-risk-bar {
-      color: $brand-primary;
-      font-weight: 500;
-      background-color: #fff;
+    .media-body {
+      padding-top: 10px;
+
+      .patient-name {
+        margin-left: 10px;
+        font-size: 24px;
+      }
+
+      .patient-age-gender,
+      .patient-next-huddle-date {
+        color: lighten($brand-secondary, 20%);
+      }
+
+      .patient-age,
+      .patient-gender {
+        margin: 0 12px;
+      }
+
+      .patient-risk-bar-container {
+        position: absolute;
+        top: 34%;
+        right: 0;
+        height: 24px;
+        padding: 0;
+
+        @include respond-to(desktop-wide) { width: 350px; }
+        @include respond-to(desktop) { width: 200px; }
+        @include respond-to(tablet) { width: 150px; }
+        @include respond-to(mobile) { width: 250px; }
+
+        .patient-risk-bar {
+          float: right;
+          height: 24px;
+          background-color: $brand-primary;
+          font-size: 20px;
+          line-height: 24px;
+          color: #fff;
+          padding: 0 6px;
+          min-width: 32px;
+        }
+      }
     }
   }
 
   &:nth-child(odd) {
     background-color: #f9f9f9;
+  }
 
+  &:nth-child(even) {
+    background-color: $white;
+  }
+
+  &:nth-child(odd),
+  &:nth-child(even) {
     &:hover {
       color: #fff;
       background-color: $brand-primary;
 
-      .patient-age-gender-location,
-      .patient-next-huddle,
-      i.media-object {
+      .patient-age-gender,
+      .patient-next-huddle-date,
+      .media-object {
         color: #fff;
       }
 

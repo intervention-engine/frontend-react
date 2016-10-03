@@ -25,7 +25,7 @@ describe('Patients List Results Item', () => {
   });
 
   it('displays the patient age correctly', () => {
-    expect(component.find('.patient-age')).to.have.text(' 36 yrs');
+    expect(component.find('.patient-age')).to.have.text('36 yrs');
   });
 
   it('displays the patient gender correctly', () => {
@@ -33,7 +33,7 @@ describe('Patients List Results Item', () => {
   });
 
   it('displays the correct next huddle date', () => {
-    expect(component.find('.patient-next-huddle-date')).to.have.text('Thu, Jan 1st 2099 Sample Huddle Group 1');
+    expect(component.find('.patient-next-huddle-date')).to.have.text('Thu, Jan 1st 2099');
   });
 
   it('displays the correct patient risk', () => {

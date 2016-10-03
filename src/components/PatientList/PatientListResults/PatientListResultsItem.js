@@ -23,9 +23,9 @@ export default class PatientListResultsItem extends Component {
     }
 
     let nextHuddle = nextHuddles.sort(sortByDate('date'))[0];
-    let { huddleGroupName, date } = nextHuddle;
+    let { date } = nextHuddle;
 
-    return (<div>{moment(date).format('ddd, MMM Do YYYY')} {huddleGroupName}</div>);
+    return (<div>{moment(date).format('ddd, MMM Do YYYY')}</div>);
   }
 
   filterHuddleForPatient(patient) {
@@ -48,7 +48,18 @@ export default class PatientListResultsItem extends Component {
     });
 
     if (patientRisk != null) {
-      return <div>{patientRisk.risks[0].value}</div>;
+      let risk = patientRisk.risks[0].value;
+      let maxRisk = 4; // TODO: get from backend
+      let barWidth = Math.floor(100 / maxRisk * risk);
+      let riskBarWidth = { width: barWidth + 'px' };
+
+      return (
+        <div className="patient-risk-bar" style={riskBarWidth}>
+          <span className="patient-risk">
+            {risk}
+          </span>
+        </div>
+      );
     }
   }
 
@@ -63,13 +74,13 @@ export default class PatientListResultsItem extends Component {
     let ageIconClassName = 'fa fa-birthday-cake';
     let age = this.props.patient.age;
     if (age <= 3) {
-      ageIconClassName = 'icon-baby';
+      ageIconClassName = 'fc-baby';
     } else if (age <= 17) {
-      ageIconClassName = 'icon-child';
+      ageIconClassName = 'fc-child';
     } else if (age <= 64) {
-      ageIconClassName = 'icon-adult';
+      ageIconClassName = 'fc-adult';
     } else if (age >= 65) {
-      ageIconClassName = 'icon-elderly';
+      ageIconClassName = 'fc-elderly';
     }
 
     return (
@@ -86,9 +97,9 @@ export default class PatientListResultsItem extends Component {
 
             <div className="row">
               <div className="col-md-6">
-                <div className="patient-age-gender-location">
+                <div className="patient-age-gender">
                   <span className="patient-age">
-                    <i className={ageIconClassName}></i> {this.props.patient.age} yrs
+                    <i className={ageIconClassName}></i>{this.props.patient.age} yrs
                   </span>
 
                   <span className="patient-gender">
@@ -101,7 +112,7 @@ export default class PatientListResultsItem extends Component {
                 {this.renderedNextHuddle(this.props.patient, this.props.huddles)}
               </div>
 
-              <div className="col-md-3 patient-risk">
+              <div className="col-md-3 patient-risk-bar-container">
                 {this.renderedRisk(this.props.patient, this.props.riskAssessments)}
               </div>
             </div>

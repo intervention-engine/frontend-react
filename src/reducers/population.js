@@ -8,7 +8,7 @@ import {
 
 export default function populationReducer(state = { populations: [],
                                                     selectedPopulations: [],
-                                                    populationSelectorType: 'union' }, action)  {
+                                                    populationSelectorType: 'union' }, action) {
   switch (action.type) {
     case FETCH_POPULATIONS_RESOLVED:
       return { ...state, populations: action.payload };
