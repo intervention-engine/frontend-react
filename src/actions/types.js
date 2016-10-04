@@ -22,11 +22,12 @@ export const FETCH_RISK_ASSESSMENTS_FULFILLED = 'FETCH_RISK_ASSESSMENTS_FULFILLE
 export const FETCH_RISK_ASSESSMENTS_RESOLVED = 'FETCH_RISK_ASSESSMENTS_RESOLVED';
 export const SELECT_RISK_ASSESSMENT = 'SELECT_RISK_ASSESSMENT';
 
-// ------------------------- PATIENTS -------------------------------------- //
+// ------------------------- PATIENT --------------------------------------- //
 
 export const FETCH_PATIENTS = 'FETCH_PATIENTS';
 export const FETCH_PATIENTS_FULFILLED = 'FETCH_PATIENTS_FULFILLED';
 export const FETCH_PATIENTS_RESOLVED = 'FETCH_PATIENTS_RESOLVED';
+export const SET_PATIENT_SEARCH = 'SET_PATIENT_SEARCH';
 
 // ------------------------- SORT ------------------------------------------ //
 

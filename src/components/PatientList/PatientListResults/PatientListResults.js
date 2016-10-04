@@ -28,9 +28,11 @@ export default class PatientListResults extends Component {
 
               <div className="patient-list-results-buttons pull-right">
                 <div className="sliding-search-container"
-                     onChange={ ()=> this.setState({ searchExpanded: !this.state.searchExpanded, }) }>
+                     onChange={ () => this.setState({ searchExpanded: !this.state.searchExpanded }) }>
                   <FontAwesome name="search" />
-                  <input type="search" className={slidingSearchClassnames} />
+                  <input type="search" className={slidingSearchClassnames}
+                         value={this.props.patientSearch}
+                         onChange={ (e) => this.props.setPatientSearch(e.target.value) } />
                 </div>
 
                 <FontAwesome name="print"
@@ -57,6 +59,8 @@ export default class PatientListResults extends Component {
 PatientListResults.propTypes = {
   patients: PropTypes.arrayOf(patientProps).isRequired,
   patientsMeta: patientsMetaProps.isRequired,
+  patientSearch: PropTypes.string.isRequired,
   huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
-  riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired
+  riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired,
+  setPatientSearch: PropTypes.func.isRequired
 };
