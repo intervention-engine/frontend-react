@@ -21,7 +21,6 @@ export default class PatientListResults extends Component {
     this.setState({
       searchExpanded: value !== ''
     });
-    console.debug(value !== '');
   }
 
   render() {
