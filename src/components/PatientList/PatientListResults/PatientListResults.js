@@ -16,8 +16,16 @@ export default class PatientListResults extends Component {
     this.state = { searchExpanded: false };
   }
 
+  setPatientSearch(value) {
+    this.props.setPatientSearch(value);
+    this.setState({
+      searchExpanded: value !== ''
+    });
+    console.debug(value !== '');
+  }
+
   render() {
-    let slidingSearchClassnames = classNames('sliding-search', { 'searchExpanded': this.state.searchExpanded === true });
+    let slidingSearchClassnames = classNames('sliding-search', { 'expanded': this.state.searchExpanded === true });
 
     return (
       <div className="patient-list-results col-md-9 col-sm-8">
@@ -27,12 +35,11 @@ export default class PatientListResults extends Component {
               <span className="patient-count">Patients ({this.props.patientsMeta.total})</span>
 
               <div className="patient-list-results-buttons pull-right">
-                <div className="sliding-search-container"
-                     onChange={ () => this.setState({ searchExpanded: !this.state.searchExpanded }) }>
+                <div className="sliding-search-container">
                   <FontAwesome name="search" />
                   <input type="search" className={slidingSearchClassnames}
                          value={this.props.patientSearch}
-                         onChange={ (e) => this.props.setPatientSearch(e.target.value) } />
+                         onChange={(e) => this.setPatientSearch(e.target.value)} />
                 </div>
 
                 <FontAwesome name="print"
