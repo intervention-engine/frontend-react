@@ -18,7 +18,7 @@ import sortProps from '../prop-types/sort';
 import { riskAssessmentTypes } from '../reducers/risk_assessment';
 import { sortOptions } from '../reducers/sort';
 
-import { fetchPatients, setPatientSearch } from '../actions/patient';
+import { fetchPatients, setPatientSearch, selectPage } from '../actions/patient';
 import { fetchPopulations, selectPopulation, unselectPopulation,
          changePopulationSelectorType } from '../actions/population';
 import { fetchRiskAssessments, selectRiskAssessment } from '../actions/risk_assessment';
@@ -57,6 +57,8 @@ class Patients extends Component {
 
     // fetch patients and risks with params when nextProps has changed
     if (!equal(nextProps.patientSearch, this.props.patientSearch) ||
+        !equal(nextProps.pageNum, this.props.pageNum) ||
+        !equal(nextProps.currentPage, this.props.currentPage) ||
         !equal(nextProps.populations, this.props.populations) ||
         !equal(nextProps.selectedPopulations, this.props.selectedPopulations) ||
         !equal(nextProps.populationSelectorType, this.props.populationSelectorType) ||
@@ -67,7 +69,9 @@ class Patients extends Component {
         ...groupIdParams,
         ...sortParams,
         riskAssessment: this.props.selectedRiskAssessment,
-        name: nextProps.patientSearch
+        name: nextProps.patientSearch,
+        _offset: (nextProps.currentPage - 1) * this.props.patientsPerPage,
+        _count: this.props.patientsPerPage
       });
     } else if (!equal(nextProps.selectedRiskAssessment, this.props.selectedRiskAssessment)) {
       let patientIds = nextProps.patients.map((patient) => patient.id);
@@ -82,6 +86,9 @@ class Patients extends Component {
         <PatientList patients={this.props.patients}
                      patientsMeta={this.props.patientsMeta}
                      patientSearch={this.props.patientSearch}
+                     pageNum={this.props.pageNum}
+                     currentPage={this.props.currentPage}
+                     patientsPerPage={this.props.patientsPerPage}
                      populations={this.props.populations}
                      selectedPopulations={this.props.selectedPopulations}
                      populationSelectorType={this.props.populationSelectorType}
@@ -95,6 +102,7 @@ class Patients extends Component {
                      sortOption={this.props.sortOption}
                      sortAscending={this.props.sortAscending}
                      setPatientSearch={this.props.setPatientSearch}
+                     selectPage={this.props.selectPage}
                      selectPopulation={this.props.selectPopulation}
                      unselectPopulation={this.props.unselectPopulation}
                      changePopulationSelectorType={this.props.changePopulationSelectorType}
@@ -114,6 +122,9 @@ Patients.propTypes = {
   patients: PropTypes.arrayOf(patientProps).isRequired,
   patientsMeta: patientsMetaProps.isRequired,
   patientSearch: PropTypes.string.isRequired,
+  pageNum: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  patientsPerPage: PropTypes.number.isRequired,
   populations: PropTypes.arrayOf(populationProps).isRequired,
   selectedPopulations: PropTypes.arrayOf(populationProps).isRequired,
   populationSelectorType: PropTypes.string.isRequired,
@@ -129,6 +140,7 @@ Patients.propTypes = {
   fetchHuddles: PropTypes.func.isRequired,
   fetchRiskAssessments: PropTypes.func.isRequired,
   setPatientSearch: PropTypes.func.isRequired,
+  selectPage: PropTypes.func.isRequired,
   selectPopulation: PropTypes.func.isRequired,
   unselectPopulation: PropTypes.func.isRequired,
   changePopulationSelectorType: PropTypes.func.isRequired,
@@ -146,6 +158,7 @@ function mapDispatchToProps(dispatch) {
     fetchHuddles,
     fetchRiskAssessments,
     setPatientSearch,
+    selectPage,
     selectPopulation,
     unselectPopulation,
     changePopulationSelectorType,
@@ -162,6 +175,9 @@ function mapStateToProps(state) {
     patients: state.patient.patients,
     patientsMeta: state.patient.meta,
     patientSearch: state.patient.patientSearch,
+    pageNum: state.patient.pageNum,
+    currentPage: state.patient.currentPage,
+    patientsPerPage: state.patient.patientsPerPage,
     populations: state.population.populations,
     selectedPopulations: state.population.selectedPopulations,
     populationSelectorType: state.population.populationSelectorType,

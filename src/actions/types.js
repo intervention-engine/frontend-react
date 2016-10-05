@@ -28,6 +28,7 @@ export const FETCH_PATIENTS = 'FETCH_PATIENTS';
 export const FETCH_PATIENTS_FULFILLED = 'FETCH_PATIENTS_FULFILLED';
 export const FETCH_PATIENTS_RESOLVED = 'FETCH_PATIENTS_RESOLVED';
 export const SET_PATIENT_SEARCH = 'SET_PATIENT_SEARCH';
+export const SELECT_PAGE = 'SELECT_PAGE';
 
 // ------------------------- SORT ------------------------------------------ //
 
