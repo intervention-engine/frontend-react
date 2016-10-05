@@ -5,13 +5,24 @@ import PatientListResults from '../../../../src/components/PatientList/PatientLi
 
 describe('Patients List Results', () => {
   let component;
+  let currentPage;
+  let currentPatientSearchValue;
 
   beforeEach(() => {
+    currentPage = 1;
+    currentPatientSearchValue = '';
+
     let props = {
       patients: [ patientTestObject1, patientTestObject2 ],
       patientsMeta: patientsMetaTestObject,
+      patientSearch: '',
+      pageNum: 2,
+      currentPage,
+      patientsPerPage: 1,
       huddles: [ huddleGroupTestObject1 ],
-      riskAssessments: [ riskAssessmentTestObject ]
+      riskAssessments: [ riskAssessmentTestObject ],
+      setPatientSearch(value) { currentPatientSearchValue = value; },
+      selectPage(page) { currentPage = page; }
     }
 
     component = renderComponent(PatientListResults, props);
@@ -27,5 +38,21 @@ describe('Patients List Results', () => {
 
   it('displays the correct number of patientListResultItems', () => {
     expect(component.find('.patient-list-results-item').length).to.equal(2);
+  });
+
+  it('can filter the list of patients correctly using search', () => {
+    let search = component.find('input[type=search]');
+
+    search.val('abcd').simulate('change');
+    expect(currentPatientSearchValue).to.eq('abcd');
+    expect(search).to.have.class('expanded');
+
+    search.val('').simulate('change');
+    expect(search).to.not.have.class('expanded');
+  });
+
+  it('can change pages correctly', () => {
+    component.find('.pagination li:eq(2) a').simulate('click');
+    expect(currentPage).to.eq(2);
   });
 });

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames';
+import ReactPaginate from 'react-paginate';
 
 import PatientListResultsItem from './PatientListResultsItem';
 
@@ -13,7 +14,9 @@ export default class PatientListResults extends Component {
   constructor(...args) {
     super(...args);
 
-    this.state = { searchExpanded: false };
+    this.state = {
+      searchExpanded: false
+    };
   }
 
   setPatientSearch(value) {
@@ -21,6 +24,10 @@ export default class PatientListResults extends Component {
     this.setState({
       searchExpanded: value !== ''
     });
+  }
+
+  handlePageClick(data) {
+    this.props.selectPage(data.selected + 1);
   }
 
   render() {
@@ -55,6 +62,19 @@ export default class PatientListResults extends Component {
                                       huddles={this.props.huddles}
                                       riskAssessments={this.props.riskAssessments} />
             )}
+
+            <div className="pagination-centered">
+              <ReactPaginate previousLabel={"«"}
+                   nextLabel={"»"}
+                   breakLabel={<span>...</span>}
+                   pageNum={this.props.pageNum}
+                   marginPagesDisplayed={2}
+                   pageRangeDisplayed={5}
+                   clickCallback={this.handlePageClick.bind(this)}
+                   containerClassName={"pagination"}
+                   subContainerClassName={"pages pagination"}
+                   activeClassName={"active"} />
+            </div>
           </div>
         </div>
       </div>
@@ -66,7 +86,11 @@ PatientListResults.propTypes = {
   patients: PropTypes.arrayOf(patientProps).isRequired,
   patientsMeta: patientsMetaProps.isRequired,
   patientSearch: PropTypes.string.isRequired,
+  pageNum: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  patientsPerPage: PropTypes.number.isRequired,
   huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
   riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired,
-  setPatientSearch: PropTypes.func.isRequired
+  setPatientSearch: PropTypes.func.isRequired,
+  selectPage: PropTypes.func.isRequired
 };

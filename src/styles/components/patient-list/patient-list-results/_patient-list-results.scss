@@ -13,5 +13,14 @@
       display: inline-block;
       height: 22px;
     }
+
+    .pagination-centered {
+      text-align: center;
+
+      .pagination > li > a {
+        border-radius: 0;
+        cursor: pointer;
+      }
+    }
   }
 }
