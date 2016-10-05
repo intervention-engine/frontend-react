@@ -3,14 +3,13 @@
 .print-list-button {
   background-color: $body-bg-inverse;
   border-radius: 50%;
-  border: 1px solid $body-bg-inverse;
   color: #5C5C5C;
   cursor: pointer;
   display: inline-block;
-  font-size: 13px;
-  height: 22px;
+  font-size: 14px;
+  height: 23px;
   padding: 0.35em;
-  width: 22px;
+  width: 23px;
 }
 
 @media print {

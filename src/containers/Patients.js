@@ -18,7 +18,7 @@ import sortProps from '../prop-types/sort';
 import { riskAssessmentTypes } from '../reducers/risk_assessment';
 import { sortOptions } from '../reducers/sort';
 
-import { fetchPatients } from '../actions/patient';
+import { fetchPatients, setPatientSearch } from '../actions/patient';
 import { fetchPopulations, selectPopulation, unselectPopulation,
          changePopulationSelectorType } from '../actions/population';
 import { fetchRiskAssessments, selectRiskAssessment } from '../actions/risk_assessment';
@@ -56,7 +56,8 @@ class Patients extends Component {
     let sortParams = { _sort: `${sortDir}${nextProps.sortOption.sortKey}` };
 
     // fetch patients and risks with params when nextProps has changed
-    if (!equal(nextProps.populations, this.props.populations) ||
+    if (!equal(nextProps.patientSearch, this.props.patientSearch) ||
+        !equal(nextProps.populations, this.props.populations) ||
         !equal(nextProps.selectedPopulations, this.props.selectedPopulations) ||
         !equal(nextProps.populationSelectorType, this.props.populationSelectorType) ||
         !equal(nextProps.selectedHuddle, this.props.selectedHuddle) ||
@@ -65,7 +66,8 @@ class Patients extends Component {
       this.props.fetchPatients({
         ...groupIdParams,
         ...sortParams,
-        riskAssessment: this.props.selectedRiskAssessment
+        riskAssessment: this.props.selectedRiskAssessment,
+        name: nextProps.patientSearch
       });
     } else if (!equal(nextProps.selectedRiskAssessment, this.props.selectedRiskAssessment)) {
       let patientIds = nextProps.patients.map((patient) => patient.id);
@@ -79,6 +81,7 @@ class Patients extends Component {
         <PageHeader title="Patients"/>
         <PatientList patients={this.props.patients}
                      patientsMeta={this.props.patientsMeta}
+                     patientSearch={this.props.patientSearch}
                      populations={this.props.populations}
                      selectedPopulations={this.props.selectedPopulations}
                      populationSelectorType={this.props.populationSelectorType}
@@ -91,6 +94,7 @@ class Patients extends Component {
                      sortOptions={sortOptions}
                      sortOption={this.props.sortOption}
                      sortAscending={this.props.sortAscending}
+                     setPatientSearch={this.props.setPatientSearch}
                      selectPopulation={this.props.selectPopulation}
                      unselectPopulation={this.props.unselectPopulation}
                      changePopulationSelectorType={this.props.changePopulationSelectorType}
@@ -109,6 +113,7 @@ Patients.displayName = 'Patients';
 Patients.propTypes = {
   patients: PropTypes.arrayOf(patientProps).isRequired,
   patientsMeta: patientsMetaProps.isRequired,
+  patientSearch: PropTypes.string.isRequired,
   populations: PropTypes.arrayOf(populationProps).isRequired,
   selectedPopulations: PropTypes.arrayOf(populationProps).isRequired,
   populationSelectorType: PropTypes.string.isRequired,
@@ -123,6 +128,7 @@ Patients.propTypes = {
   fetchPopulations: PropTypes.func.isRequired,
   fetchHuddles: PropTypes.func.isRequired,
   fetchRiskAssessments: PropTypes.func.isRequired,
+  setPatientSearch: PropTypes.func.isRequired,
   selectPopulation: PropTypes.func.isRequired,
   unselectPopulation: PropTypes.func.isRequired,
   changePopulationSelectorType: PropTypes.func.isRequired,
@@ -139,6 +145,7 @@ function mapDispatchToProps(dispatch) {
     fetchPopulations,
     fetchHuddles,
     fetchRiskAssessments,
+    setPatientSearch,
     selectPopulation,
     unselectPopulation,
     changePopulationSelectorType,
@@ -154,6 +161,7 @@ function mapStateToProps(state) {
   return {
     patients: state.patient.patients,
     patientsMeta: state.patient.meta,
+    patientSearch: state.patient.patientSearch,
     populations: state.population.populations,
     selectedPopulations: state.population.selectedPopulations,
     populationSelectorType: state.population.populationSelectorType,

@@ -38,8 +38,10 @@ export default class PatientList extends Component {
 
         <PatientListResults patients={this.props.patients}
                             patientsMeta={this.props.patientsMeta}
+                            patientSearch={this.props.patientSearch}
                             huddles={this.props.huddles}
-                            riskAssessments={this.props.riskAssessments} />
+                            riskAssessments={this.props.riskAssessments}
+                            setPatientSearch={this.props.setPatientSearch} />
       </div>
     );
   }
@@ -50,6 +52,7 @@ PatientList.displayName = 'PatientList';
 PatientList.propTypes = {
   patients: PropTypes.arrayOf(patientProps).isRequired,
   patientsMeta: patientsMetaProps.isRequired,
+  patientSearch: PropTypes.string.isRequired,
   populations: PropTypes.arrayOf(populationProps).isRequired,
   selectedPopulations: PropTypes.arrayOf(populationProps).isRequired,
   populationSelectorType: PropTypes.string.isRequired,
@@ -62,6 +65,7 @@ PatientList.propTypes = {
   sortOptions: PropTypes.arrayOf(sortProps).isRequired,
   sortOption: sortProps.isRequired,
   sortAscending: PropTypes.bool.isRequired,
+  setPatientSearch: PropTypes.func.isRequired,
   selectPopulation: PropTypes.func.isRequired,
   unselectPopulation: PropTypes.func.isRequired,
   changePopulationSelectorType: PropTypes.func.isRequired,
