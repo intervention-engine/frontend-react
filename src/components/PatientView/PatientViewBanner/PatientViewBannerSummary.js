@@ -7,6 +7,12 @@ const PatientViewBannerSummary = ({ patient }) => {
 	} else if (patient.gender === 'female') {
 		genderIconClassName = 'female';
 	}
+
+	let fullName = '';
+	if(patient.name) {
+		fullName = patient.name.full;
+	}
+
 	return (
 		<div className="media">
 			<div className="media-left media-middle">
@@ -16,12 +22,12 @@ const PatientViewBannerSummary = ({ patient }) => {
 				<div className="row">
 					<div className="col-xs-6">
 						<div className="patient-name">
-						Patient.name
+							{fullName}
 						</div>
 
 						<span className="patient-age">
 							<i className={'ageIconClassName'}></i>
-							Age yrs
+							{patient.age} yrs
 						</span>
 
 						<span className="patient-gender">

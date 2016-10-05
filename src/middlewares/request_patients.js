@@ -74,7 +74,7 @@ export default function ({ dispatch }) {
       return;
       case FETCH_PATIENT_FULFILLED:
         payload = {
-          patient: restructurePatient(action.payload.data)
+          patient: restructurePatient({resource: action.payload.data})
         };
         dispatch({
           type: FETCH_PATIENT_RESOLVED,
