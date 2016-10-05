@@ -3,7 +3,7 @@ import { patientTestObject1, patientTestObject2, huddleGroupTestObject1,
          riskAssessmentTestObject, patientsMetaTestObject } from '../../../test_props';
 import PatientListResults from '../../../../src/components/PatientList/PatientListResults/PatientListResults';
 
-describe.only('Patients List Results', () => {
+describe('Patients List Results', () => {
   let component;
   let currentPage;
   let currentPatientSearchValue;
@@ -42,7 +42,7 @@ describe.only('Patients List Results', () => {
 
   it('can filter the list of patients correctly using search', () => {
     let search = component.find('input[type=search]');
-    
+
     search.val('abcd').simulate('change');
     expect(currentPatientSearchValue).to.eq('abcd');
     expect(search).to.have.class('expanded');
