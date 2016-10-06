@@ -1,5 +1,6 @@
 // Restructures the response of the Patient endpoint for use in patients
 import moment from 'moment';
+import { nest } from 'd3-collection';
 
 import { fetchRiskAssessments } from '../actions/risk_assessment';
 import {
@@ -45,6 +46,16 @@ function restructureMeta(payload) {
   };
 }
 
+function restructureRiskAssessments(risks) {
+  // Using d3-nest here to restructure these by coding
+  let nesting = nest();
+  nesting.key((d) => d.method.coding[0].code);
+  // Then sort them properly
+  nesting.sortValues((d) => new Date(d.date));
+  let risksByType = nesting.entries(risks.map((d) => d.resource));
+  return risksByType[0];
+}
+
 export default function ({ dispatch }) {
   return next => action => {
     switch (action.type) {
@@ -73,8 +84,18 @@ export default function ({ dispatch }) {
         }));
       return;
       case FETCH_PATIENT_FULFILLED:
+        let entries = action.payload.data.entry;
+        let patient = entries.find((e) => e.resource.resourceType === 'Patient');
+        let riskAssessment = restructureRiskAssessments(entries.filter((e) => e.resource.resourceType === 'RiskAssessment'));
+        let encounter = entries.filter((e) => e.resource.resourceType === 'Encounter');
+        let medicationStatement = entries.filter((e) => e.resource.resourceType === 'medicationStatement');
+        let condition = entries.filter((e) => e.resource.resourceType === 'Condition');
         payload = {
-          patient: restructurePatient({resource: action.payload.data})
+          patient: restructurePatient(patient),
+          riskAssessment,
+          medicationStatement,
+          encounter,
+          condition
         };
         dispatch({
           type: FETCH_PATIENT_RESOLVED,

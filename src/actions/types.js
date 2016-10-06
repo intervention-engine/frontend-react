@@ -32,6 +32,7 @@ export const SELECT_PAGE = 'SELECT_PAGE';
 export const FETCH_PATIENT = 'FETCH_PATIENT';
 export const FETCH_PATIENT_FULFILLED = 'FETCH_PATIENT_FULFILLED';
 export const FETCH_PATIENT_RESOLVED = 'FETCH_PATIENT_RESOLVED';
+export const SELECT_PATIENT = 'SELECT_PATIENT';
 
 
 // ------------------------- SORT ------------------------------------------ //

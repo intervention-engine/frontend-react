@@ -11,7 +11,7 @@ import PatientView from '../components/PatientView/PatientView';
 class Patient extends Component {
 
 	componentWillMount(){
-
+		
 		this.props.setSelectedPatient(this.props.params.patient_id);
 		if(!(this.props.params.patient_id == this.props.selectedPatient.id)) {
 			// Fire action to set the selectedPatient correctly
