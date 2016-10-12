@@ -11,6 +11,7 @@ module.exports = {
     'font-awesome-sass-loader!./font-awesome.config.js',
     path.join(__dirname, "src", "index.js")
   ],
+  
   output: {
     path: path.join(__dirname, "dist"),
     filename: "assets/[name]-[hash].js",
