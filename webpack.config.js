@@ -45,8 +45,8 @@ module.exports = {
       template: path.join(__dirname, "src", "index.tmpl.html")
     }),
     new webpack.ProvidePlugin({
-           $: "jquery",
-           jQuery: "jquery"
+      $: "jquery",
+      jQuery: "jquery"
     }),
     new webpack.HotModuleReplacementPlugin()
   ],

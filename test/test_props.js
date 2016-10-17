@@ -49,11 +49,11 @@ export const huddleTestObject = {
   'datetime': '2099-01-01',
   'practioner': 'SamplePractioner',
   'patients': [ { 'id': '1',
-                  'reason': { 'code': 'SampleReasonCode1',
-                              'text': 'Sample Reason Text 1' } },
+                  'reason': { 'code': 'RISK_SCORE',
+                              'text': 'Risk Score Warrants Discussion' } },
                 { 'id': '2',
-                  'reason': { 'code': 'SampleReasonCode2',
-                              'text': 'Sample Reason Text 2' } } ]
+                  'reason': { 'code': 'RECENT_ENCOUNTER',
+                              'text': 'Recent Encounter Warrants Discussion' } } ]
 };
 
 export const huddleGroupTestObject1 = {

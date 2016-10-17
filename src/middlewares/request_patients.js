@@ -52,7 +52,7 @@ export default function ({ dispatch }) {
           patients: restructurePatients(action.payload.data)
         };
 
-        // if no patients, dispatch patients resolved
+        // if no patients, dispatch patients resolved action
         if (payload.patients.length === 0) {
           dispatch({
             type: FETCH_PATIENTS_RESOLVED,
@@ -71,6 +71,7 @@ export default function ({ dispatch }) {
         }));
       return;
     }
+
     return next(action);
   };
 }

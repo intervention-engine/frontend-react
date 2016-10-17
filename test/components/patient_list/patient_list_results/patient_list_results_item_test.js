@@ -33,7 +33,10 @@ describe('Patients List Results Item', () => {
   });
 
   it('displays the correct next huddle date', () => {
-    expect(component.find('.patient-next-huddle-date')).to.have.text('Thu, Jan 1st 2099');
+    expect(component.find('.patient-next-huddle-date')).to.have.text(' Jan 1, 2099');
+    expect(component.find('.patient-next-huddle-date span').first()).to.have.class('fa-pie-chart');
+    expect(component.find('.patient-next-huddle-date span').first()).to.have.attr('data-tip', 'Risk Score Warrants Discussion');
+    expect(component.find('.patient-next-huddle-date span:eq(1)')).to.have.attr('data-tip', 'Sample Huddle Group 1');
   });
 
   it('displays the correct patient risk', () => {
