@@ -42,8 +42,14 @@ export default class PatientList extends Component {
                             pageNum={this.props.pageNum}
                             currentPage={this.props.currentPage}
                             patientsPerPage={this.props.patientsPerPage}
+                            selectedPopulations={this.props.selectedPopulations}
+                            populationSelectorType={this.props.populationSelectorType}
                             huddles={this.props.huddles}
+                            selectedHuddle={this.props.selectedHuddle}
                             riskAssessments={this.props.riskAssessments}
+                            selectedRiskAssessment={this.props.selectedRiskAssessment}
+                            sortOption={this.props.sortOption}
+                            sortAscending={this.props.sortAscending}
                             setPatientSearch={this.props.setPatientSearch}
                             selectPage={this.props.selectPage} />
       </div>

@@ -7,10 +7,13 @@ import {
 } from './types';
 
 export function fetchRiskAssessments(riskAssessment, patientIds) {
+  let riskAssessmentString = typeof riskAssessment === 'string' ? riskAssessment : riskAssessment.method;
+
   let riskParams = {
-    method: `http://interventionengine.org/risk-assessments|${riskAssessment.method}`,
+    method: `http://interventionengine.org/risk-assessments|${riskAssessmentString}`,
     _tag: 'http://interventionengine.org/tags/|MOST_RECENT',
-    'subject:Patient': patientIds.join(',')
+    'subject:Patient': patientIds.join(','),
+    _count: patientIds.length
   };
 
   let riskAssessmentURL = `${FHIR_SERVER}/RiskAssessment?${param(riskParams, true)}` || [];

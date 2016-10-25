@@ -20,8 +20,7 @@ const REASON_CODES = {
 export default class PatientListResultsItem extends Component {
   renderedNextHuddle(patient, huddles) {
     let nextHuddles = huddles.map((huddleGroup) => {
-      let dates = huddleGroup.dates.filter(this.filterHuddleForPatient(patient))
-                                               .sort(sortByDate('datetime'));
+      let dates = this.filterHuddlesForPatient(huddleGroup, patient);
       return {
         huddleGroupName: huddleGroup.name,
         reasonCode: dates[0] ? dates[0].patients[0].reason.code : null,
@@ -61,16 +60,18 @@ export default class PatientListResultsItem extends Component {
     );
   }
 
-  filterHuddleForPatient(patient) {
-    return (huddle) => {
+  filterHuddlesForPatient(huddleGroup, patient) {
+    let patientHuddles = huddleGroup.dates.filter((huddle) => {
       if (!isTodayOrAfter(huddle.datetime)) {
         return false;
-      } else if (huddle.patients.find((searchPatient) => searchPatient.id === patient.id) == null) {
+      } else if (huddle.patients && huddle.patients.find((searchPatient) => searchPatient.id === patient.id) == null) {
         return false;
       }
 
       return true;
-    };
+    });
+
+    return patientHuddles.sort(sortByDate('datetime'));
   }
 
   renderedRisk(patient, riskAssessment) {

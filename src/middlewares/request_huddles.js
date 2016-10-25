@@ -47,7 +47,7 @@ function restructurePatients(patients) {
     return newPatients;
   }
 
-  return {};
+  return [];
 }
 
 export default function({ dispatch }) {

@@ -1,0 +1,13 @@
+@import "variables";
+
+.table > thead > tr.th-no-bottom > th {
+  border-bottom: 0;
+}
+
+.table > thead > tr.th-no-top > th {
+  border-top: 0;
+}
+
+.table > thead > tr > th.th-border-bottom {
+  border-bottom: 2px solid $table-border-color;
+}
