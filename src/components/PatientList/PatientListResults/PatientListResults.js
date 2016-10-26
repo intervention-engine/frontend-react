@@ -3,6 +3,7 @@ import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames';
 import ReactPaginate from 'react-paginate';
 import { param } from 'jquery';
+import equal from 'deep-equal';
 
 import PatientListResultsItem from './PatientListResultsItem';
 
@@ -15,13 +16,22 @@ import riskAssessmentTypeProps from '../../../prop-types/risk_assessment_type';
 import riskAssessmentProps from '../../../prop-types/risk_assessment';
 import sortProps from '../../../prop-types/sort';
 
+import nextHuddleForPatients from '../../../utils/next_huddle_for_patients';
+
 export default class PatientListResults extends Component {
   constructor(...args) {
     super(...args);
 
     this.state = {
-      searchExpanded: false
+      searchExpanded: false,
+      nextHuddleForPatients: nextHuddleForPatients(this.props.huddles)
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!equal(nextProps.huddles, this.props.huddles)) {
+      this.setState({ nextHuddleForPatients: nextHuddleForPatients(nextProps.huddles) });
+    }
   }
 
   openPatientPrintList(event) {
@@ -93,7 +103,8 @@ export default class PatientListResults extends Component {
               <PatientListResultsItem key={patient.id}
                                       patient={patient}
                                       huddles={this.props.huddles}
-                                      riskAssessments={this.props.riskAssessments} />
+                                      riskAssessments={this.props.riskAssessments}
+                                      nextHuddles={this.state.nextHuddleForPatients} />
             )}
 
             <div className="pagination-centered">

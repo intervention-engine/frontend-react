@@ -4,7 +4,7 @@ import Logo from '../Header/Logo';
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="footer hide-in-print">
       <div className="footer-contents">
         <Logo />
 

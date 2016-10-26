@@ -1,4 +1,4 @@
-import React, { Component, PropTypes, cloneElement } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
@@ -16,7 +16,10 @@ import { fetchHuddles } from '../actions/huddle';
 import { fetchPatients } from '../actions/patient';
 
 import { sortOptions } from '../reducers/sort';
-import { isTodayOrAfter } from '../reducers/huddle';
+
+import queryParamsHash from '../utils/query_params_hash';
+import joinWithSeparator from '../utils/join_with_separator';
+import nextHuddleForPatients from '../utils/next_huddle_for_patients';
 
 class PrintPatientList extends Component {
   constructor(...args) {
@@ -39,6 +42,7 @@ class PrintPatientList extends Component {
   componentWillMount() {
     let queryParams = this.state.queryParams;
 
+    // population params
     let groupIds = [];
     if (queryParams.selectedPopulations) {
       if (queryParams.populationSelectorType === 'union') {
@@ -48,6 +52,7 @@ class PrintPatientList extends Component {
       }
     }
 
+    // huddle params
     if (queryParams.selectedHuddle) {
       groupIds.push(queryParams.selectedHuddle);
     }
@@ -64,6 +69,7 @@ class PrintPatientList extends Component {
     if (sortOption.invert) { sortDir = sortDir === '' ? '-' : ''; }
     let sortParams = { _sort: `${sortDir}${sortOption.sortKey}` };
 
+    // fetch data
     this.props.fetchPopulations();
     this.props.fetchHuddles();
     this.props.fetchPatients({
@@ -257,7 +263,7 @@ class PrintPatientList extends Component {
           </tbody>
         </table>
 
-        <div className="text-center">
+        <div className="hide-in-print text-center">
           <button className="hide-in-print btn btn-primary" onClick={this.printList}>Print</button>
           <button className="hide-in-print btn btn-ie-lg btn-default" onClick={this.closePrintPopout}>Close Window</button>
         </div>
@@ -286,7 +292,7 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   return {
     populations: state.population.populations,
     huddles: state.huddle.huddles,
@@ -296,81 +302,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PrintPatientList);
-
-function queryParamsHash() {
-  let params = {};
-  let search = window.location.search.substring(1);
-
-  if (search === '') {
-    return params;
-  }
-
-  let pieces = search.split('&');
-  for (let i = 0; i < pieces.length; ++i) {
-    let keyval = pieces[i].split('=');
-
-    if (keyval.length !== 2) {
-      continue;
-    }
-
-    let key = decodeURIComponent(keyval[0]);
-    let value = decodeURIComponent(keyval[1]);
-
-    if (key.substr(-2) === '[]') {
-      key = key.substr(0, key.length - 2);
-      if (params[key] == null) {
-        params[key] = [];
-      }
-      params[key].push(value);
-    } else {
-      params[key] = value;
-    }
-  }
-
-  return params;
-}
-
-function joinWithSeparator(array, separator) {
-  let newArray = new Array((array.length * 2) - 1);
-
-  for (let i = 0, j = 0; i < array.length; ++i, j += 2) {
-    let last = i === array.length - 1;
-
-    newArray[j] = array[i];
-    if (!last) {
-      newArray[j + 1] = cloneElement(separator, { key: i });
-    }
-  }
-
-  return newArray;
-}
-
-function nextHuddleForPatients(huddleGroups) {
-  let patientHuddleMapping = {};
-
-  for (let i = 0; i < huddleGroups.length; ++i) {
-    let huddleGroup = huddleGroups[i];
-    let huddles = huddleGroup.dates;
-
-    for (let j = 0; j < huddles.length; ++j) {
-      let huddle = huddles[j];
-      let huddleDate = moment(huddle.datetime);
-
-      if (!isTodayOrAfter(huddleDate)) {
-        continue;
-      }
-
-      let { patients } = huddle;
-
-      for (let k = 0; k < patients.length; ++k) {
-        let huddlePatient = patients[k];
-
-        if (patientHuddleMapping[huddlePatient.id] == null || huddleDate.isBefore(patientHuddleMapping[huddlePatient.id].huddle.datetime, 'day')) {
-          patientHuddleMapping[huddlePatient.id] = { huddleGroup, huddle, huddlePatient };
-        }
-      }
-    }
-  }
-
-  return patientHuddleMapping;
-}

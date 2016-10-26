@@ -1,3 +1,5 @@
+// ------------------------- PATIENTS -------------------------------------- //
+
 export const patientTestObject1 = {
   'id': '1', 'gender': 'female', 'birthDate': '1980-01-01', 'age': 36,
   'name': { 'family': 'Doe', 'given': 'Jane', 'full': 'Doe, Jane' },
@@ -17,6 +19,8 @@ export const patientsMetaTestObject = {
   'link': [ { 'relation': 'Sample relation',
               'url': 'Sample URL' } ]
 };
+
+// ------------------------- POPULATIONS ----------------------------------- //
 
 export const populationsTestObject1 = {
   'id': '3',
@@ -44,6 +48,8 @@ export const populationsTestObject2 = {
                                         'low': { 'value': 18 } } } ]
 };
 
+// ------------------------- HUDDLES --------------------------------------- //
+
 export const huddleTestObject = {
   'id': '5',
   'datetime': '2099-01-01',
@@ -67,6 +73,16 @@ export const huddleGroupTestObject2 = {
   'name': 'Sample Huddle Group 2',
   'dates': [ huddleTestObject ]
 };
+
+export const nextHuddlesObject = {
+  '1': { 'huddle': huddleTestObject,
+         'huddleGroup': huddleGroupTestObject1,
+         'huddlePatient': { 'id': '1',
+                            'reason': { 'code': 'RISK_SCORE',
+                                        'text': 'Risk Score Warrants Discussion' } } }
+}
+
+// ------------------------- RISK ASSESSMENTS ------------------------------ //
 
 export const riskAssessmentTypeTestObject1 = {
   'id': '8',
@@ -92,6 +108,8 @@ export const riskAssessmentTestObject = {
                                'value': 2,
                                'pie': 'pieReference2' } ] } ]
 };
+
+// ------------------------- SORT ------------------------------------------ //
 
 export const sortOptionTestObject1 = {
   'id': '11',
