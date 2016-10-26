@@ -13,28 +13,27 @@ import {
 function restructurePatients(payload) {
   if (payload.total === 0) { return []; }
 
-  return payload.entry.map((patient) => {
+  return payload.Patient.map((patient) => {
     return restructurePatient(patient);
   });
 }
 
 function restructurePatient(patient) {
-  let { resource } = patient;
   return {
-    id: resource.id,
-    gender: resource.gender,
-    birthDate: resource.birthDate,
-    age: moment().diff(moment(resource.birthDate), 'years'),
+    id: patient.id,
+    gender: patient.gender,
+    birthDate: patient.birthDate,
+    age: moment().diff(moment(patient.birthDate), 'years'),
     name: {
-      family: resource.name[0].family[0],
-      given: resource.name[0].given[0],
-      full: `${resource.name[0].family[0]}, ${resource.name[0].given[0]}`
+      family: patient.name[0].family[0],
+      given: patient.name[0].given[0],
+      full: `${patient.name[0].family[0]}, ${patient.name[0].given[0]}`
     },
     address: {
-      street: resource.address[0].line[0],
-      city: resource.address[0].city,
-      state: resource.address[0].state,
-      postalCode: resource.address[0].postalCode
+      street: patient.address[0].line[0],
+      city: patient.address[0].city,
+      state: patient.address[0].state,
+      postalCode: patient.address[0].postalCode
     }
   };
 }

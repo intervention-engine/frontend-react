@@ -9,7 +9,7 @@ import {
 // Groups huddles by name
 function groupHuddles(huddles) {
   return _.chain(huddles)
-    .groupBy((object) => object.resource.name)
+    .groupBy((object) => object.name)
     .toPairs()
     .map((item) => _.zipObject(['name', 'dates'], item))
     .value();
@@ -24,12 +24,12 @@ function restructureHuddles(huddleGroup) {
 }
 
 function restructureHuddle(huddle) {
-  let { resource } = huddle;
+  // let { resource } = huddle;
   return {
-    id: resource.id,
-    datetime: resource.extension[0].valueDateTime,
-    practioner: resource.extension[1].valueReference.reference,
-    patients: restructurePatients(resource.member)
+    id: huddle.id,
+    datetime: huddle.extension[0].valueDateTime,
+    practioner: huddle.extension[1].valueReference.reference,
+    patients: restructurePatients(huddle.member)
   };
 }
 
@@ -54,7 +54,7 @@ export default function({ dispatch }) {
   return next => action => {
     switch (action.type) {
       case FETCH_HUDDLES_FULFILLED:
-        let huddles = action.payload.data.entry;
+        let huddles = action.payload.data.Group;
         dispatch({
           type: FETCH_HUDDLES_RESOLVED,
           payload: groupHuddles(huddles).map((huddleGroup) => restructureHuddles(huddleGroup))

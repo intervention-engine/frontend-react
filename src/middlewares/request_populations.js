@@ -5,12 +5,12 @@ import {
 } from '../actions/types';
 
 function restructurePopulation(population) {
-  let { resource } = population;
+  // let { resource } = population;
   return {
-    id: resource.id,
-    meta: resource.meta,
-    name: resource.name,
-    characteristic: resource.characteristic
+    id: population.id,
+    meta: population.meta,
+    name: population.name,
+    characteristic: population.characteristic
   };
 }
 
@@ -18,7 +18,7 @@ export default function({ dispatch }) {
   return next => action => {
     switch (action.type) {
       case FETCH_POPULATIONS_FULFILLED:
-        let populations = action.payload.data.entry.map((population) => restructurePopulation(population));
+        let populations = action.payload.data.Group.map((population) => restructurePopulation(population));
         dispatch({
           type: FETCH_POPULATIONS_RESOLVED,
           payload: populations
