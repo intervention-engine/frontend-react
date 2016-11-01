@@ -21,6 +21,10 @@ export default class PatientListResultsItem extends Component {
   renderedNextHuddle(patient) {
     let nextHuddle = this.props.nextHuddles[patient.id];
 
+    if (nextHuddle == null) {
+      return;
+    }
+
     let nextHuddleReasonIcon = '';
     switch (nextHuddle.huddlePatient.reason.code) {
       case REASON_CODES.ROLL_OVER:
