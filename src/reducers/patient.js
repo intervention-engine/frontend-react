@@ -15,7 +15,7 @@ export default function(state = { patients: [],
                                   patientsPerPage: 10 }, action)  {
   switch (action.type) {
     case FETCH_PATIENTS_FULFILLED:
-      return { ...state, patients: action.payload.data.Patient,
+      return { ...state, patients: action.payload.data.Patient||[],
                          meta: action.payload.data.Meta,
                          pageNum: Math.ceil(action.payload.data.Meta.total / state.patientsPerPage) };
     case SET_PATIENT_SEARCH:

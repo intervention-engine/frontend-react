@@ -16,7 +16,7 @@ export default function riskAssessmentReducer(state = {
 }, action)  {
   switch (action.type) {
     case FETCH_PATIENTS_FULFILLED:
-      return { ...state, riskAssessments: action.payload.data.RiskAssessment };
+      return { ...state, riskAssessments: action.payload.data.RiskAssessment||[] };
     case SELECT_RISK_ASSESSMENT:
       return { ...state, selectedRiskAssessment: action.payload };
     default:
