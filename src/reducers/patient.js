@@ -1,5 +1,5 @@
 import {
-  FETCH_PATIENTS_RESOLVED,
+  FETCH_PATIENTS_FULFILLED,
   SET_PATIENT_SEARCH,
   SELECT_PAGE,
   FETCH_PATIENT_RESOLVED,
@@ -14,10 +14,10 @@ export default function(state = { patients: [],
                                   currentPage: 1,
                                   patientsPerPage: 10 }, action)  {
   switch (action.type) {
-    case FETCH_PATIENTS_RESOLVED:
-      return { ...state, patients: action.payload.patients,
-                         meta: action.payload.meta,
-                         pageNum: Math.ceil(action.payload.meta.total / state.patientsPerPage) };
+    case FETCH_PATIENTS_FULFILLED:
+      return { ...state, patients: action.payload.data.Patient,
+                         meta: action.payload.data.Meta,
+                         pageNum: Math.ceil(action.payload.data.Meta.total / state.patientsPerPage) };
     case SET_PATIENT_SEARCH:
       return { ...state, patientSearch: action.payload };
     case SELECT_PAGE:

@@ -7,9 +7,8 @@ import { nest } from 'd3-collection';
 export default function ({ dispatch }) {
   return next => action => {
     if (action.payload && action.payload.data) {
-      let { resourceType, entry } = action.payload.data;
-
-      if (resourceType === 'Bundle') {
+      let { resourceType, entry, total, type, link } = action.payload.data;
+      if (resourceType === 'Bundle' && entry) {
         let nesting = nest();
         nesting.key((d) => d.resourceType)
         let entries = nesting.entries(entry.map((d) => d.resource));
@@ -19,6 +18,8 @@ export default function ({ dispatch }) {
         })
         action.payload.data = fhirData;
       }
+      action.payload.data.Meta = {total, type, resourceType, link};
+
     }
     return next(action);
   }

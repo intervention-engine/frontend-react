@@ -13,7 +13,7 @@ import {
 function restructurePatients(payload) {
   if (payload.total === 0) { return []; }
 
-  return payload.Patient.map((patient) => {
+  return payload.map((patient) => {
     return restructurePatient(patient);
   });
 }
@@ -57,50 +57,8 @@ function restructureRiskAssessments(risks) {
 
 export default function ({ dispatch }) {
   return next => action => {
-    switch (action.type) {
-      case FETCH_PATIENTS_FULFILLED:
-        let payload = {
-          meta: restructureMeta(action.payload.data),
-          patients: restructurePatients(action.payload.data)
-        };
-
-        // if no patients, dispatch patients resolved action
-        if (payload.patients.length === 0) {
-          dispatch({
-            type: FETCH_PATIENTS_RESOLVED,
-            payload
-          });
-
-          return;
-        }
-
-        // else, dispatch fetch risk assessments action then dispatch patients resolved action
-        dispatch(fetchRiskAssessments(action.payload.riskAssessment, payload.patients.map((patient) => {
-          return patient.id;
-        }))).then(() => dispatch({
-          type: FETCH_PATIENTS_RESOLVED,
-          payload
-        }));
-      return;
-      case FETCH_PATIENT_FULFILLED:
-        let entries = action.payload.data.entry;
-        let patient = entries.find((e) => e.resource.resourceType === 'Patient');
-        let riskAssessment = restructureRiskAssessments(entries.filter((e) => e.resource.resourceType === 'RiskAssessment'));
-        let encounter = entries.filter((e) => e.resource.resourceType === 'Encounter');
-        let medicationStatement = entries.filter((e) => e.resource.resourceType === 'medicationStatement');
-        let condition = entries.filter((e) => e.resource.resourceType === 'Condition');
-        payload = {
-          patient: restructurePatient(patient),
-          riskAssessment,
-          medicationStatement,
-          encounter,
-          condition
-        };
-        dispatch({
-          type: FETCH_PATIENT_RESOLVED,
-          payload
-        });
-      return;
+    if (action.payload && action.payload.data && action.payload.data.Patient) {
+      action.payload.data.Patient = restructurePatients(action.payload.data.Patient)
     }
 
     return next(action);

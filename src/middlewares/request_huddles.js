@@ -15,6 +15,16 @@ function groupHuddles(huddles) {
     .value();
 }
 
+function restructurePopulation(population) {
+  // let { resource } = population;
+  return {
+    id: population.id,
+    meta: population.meta,
+    name: population.name,
+    characteristic: population.characteristic
+  };
+}
+
 function restructureHuddles(huddleGroup) {
   return {
     id: _.uniqueId('huddleGroup-'),
@@ -24,7 +34,6 @@ function restructureHuddles(huddleGroup) {
 }
 
 function restructureHuddle(huddle) {
-  // let { resource } = huddle;
   return {
     id: huddle.id,
     datetime: huddle.extension[0].valueDateTime,
@@ -52,16 +61,13 @@ function restructurePatients(patients) {
 
 export default function({ dispatch }) {
   return next => action => {
-    switch (action.type) {
-      case FETCH_HUDDLES_FULFILLED:
-        let huddles = action.payload.data.Group;
-        dispatch({
-          type: FETCH_HUDDLES_RESOLVED,
-          payload: groupHuddles(huddles).map((huddleGroup) => restructureHuddles(huddleGroup))
-        });
-        return;
-    }
+    if (action.payload && action.payload.data && action.payload.data.Group) {
+      let huddles = action.payload.data.Group;
 
+      let Huddle = groupHuddles(huddles.filter((g) => g.actual )).map((huddleGroup) => restructureHuddles(huddleGroup));
+      let Population  = huddles.filter((g) => !g.actual ).map((population) => restructurePopulation(population));
+      action.payload.data.Group = {Huddle, Population};
+    }
     return next(action);
   };
 }

@@ -4,7 +4,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import requestBundlesMiddleware from '../middlewares/request_bundles';
 import requestHuddlesMiddleware from '../middlewares/request_huddles';
 import requestPatientsMiddleware from '../middlewares/request_patients';
-import requestPopulationsMiddleware from '../middlewares/request_populations';
+// import requestPopulationsMiddleware from '../middlewares/request_populations';
 import requestRiskAssessmentsMiddleware from '../middlewares/request_risk_assessments';
 import rootReducer from '../reducers';
 
@@ -14,7 +14,7 @@ export default function configureStore(initialState) {
     requestBundlesMiddleware,
     requestHuddlesMiddleware,
     requestPatientsMiddleware,
-    requestPopulationsMiddleware,
+    // requestPopulationsMiddleware,
     requestRiskAssessmentsMiddleware
   );
 
