@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Provider } from 'react-redux';
 import routes from '../routes';
-import { Router, hashHistory } from 'react-router';
+import { Router, browserHistory } from 'react-router';
 
 const Root = (props) => {
   const { store } = props;
@@ -9,7 +9,7 @@ const Root = (props) => {
   return (
     <Provider store={store} className="root">
       <div>
-        <Router history={hashHistory} routes={routes} />
+        <Router history={browserHistory} routes={routes} />
       </div>
     </Provider>
   );

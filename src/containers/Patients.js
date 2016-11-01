@@ -170,7 +170,7 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   return {
     patients: state.patient.patients,
     patientsMeta: state.patient.meta,

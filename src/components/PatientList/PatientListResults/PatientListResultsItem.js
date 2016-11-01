@@ -18,42 +18,38 @@ const REASON_CODES = {
 };
 
 export default class PatientListResultsItem extends Component {
-  renderedNextHuddle(patient, huddles) {
-    let nextHuddles = huddles.map((huddleGroup) => {
-      let dates = huddleGroup.dates.filter(this.filterHuddleForPatient(patient))
-                                               .sort(sortByDate('datetime'));
-      return {
-        huddleGroupName: huddleGroup.name,
-        reasonCode: dates[0] ? dates[0].patients[0].reason.code : null,
-        reasonText: dates[0] ? dates[0].patients[0].reason.text : null,
-        date: dates[0] ? dates[0].datetime : null };
-    });
-    nextHuddles = nextHuddles.filter((huddle) => huddle.date != null);
-    if (nextHuddles.length === 0) { return; }
-    let nextHuddle = nextHuddles.sort(sortByDate('date'))[0];
-    let { date } = nextHuddle;
+  renderedNextHuddle(patient) {
+    let nextHuddle = this.props.nextHuddles[patient.id];
 
-    let nextHuddleReason = { icon: '', text: '' };
-    switch (nextHuddle.reasonCode) {
+    if (nextHuddle == null) {
+      return;
+    }
+
+    let nextHuddleReasonIcon = '';
+    switch (nextHuddle.huddlePatient.reason.code) {
       case REASON_CODES.ROLL_OVER:
-        nextHuddleReason = { icon: 'arrow-circle-o-right', text: 'Rolled Over From Last Huddle' };
+        nextHuddleReasonIcon = 'arrow-circle-o-right';
         break;
       case REASON_CODES.MANUAL_ADDITION:
-        nextHuddleReason = { icon: 'pencil', text: `Manually Added: ${nextHuddle.reasonText}` };
+        nextHuddleReasonIcon = 'pencil';
         break;
       case REASON_CODES.RECENT_ENCOUNTER:
-        nextHuddleReason = { icon: 'hospital-o', text: 'Recent Encounter Warrants Discussion' };
+        nextHuddleReasonIcon = 'hospital-o';
         break;
       case REASON_CODES.RISK_SCORE:
-        nextHuddleReason = { icon: 'pie-chart', text: 'Risk Score Warrants Discussion' };
+        nextHuddleReasonIcon = 'pie-chart';
         break;
     }
 
     return (
       <div>
         <div>
-          <FontAwesome name={nextHuddleReason.icon} fixedWidth={true} data-tip={nextHuddleReason.text}/>
-          <span data-tip={nextHuddle.huddleGroupName}> {moment(date).format('MMM D, YYYY')}</span>
+          <FontAwesome name={nextHuddleReasonIcon}
+                       fixedWidth={true}
+                       data-tip={nextHuddle.huddlePatient.reason.text}/>
+          <span data-tip={nextHuddle.huddleGroup.name}>
+            {' '}{moment(nextHuddle.huddle.datetime).format('MMM D, YYYY')}
+          </span>
         </div>
 
         <ReactTooltip />
@@ -61,16 +57,18 @@ export default class PatientListResultsItem extends Component {
     );
   }
 
-  filterHuddleForPatient(patient) {
-    return (huddle) => {
+  filterHuddlesForPatient(huddleGroup, patient) {
+    let patientHuddles = huddleGroup.dates.filter((huddle) => {
       if (!isTodayOrAfter(huddle.datetime)) {
         return false;
-      } else if (huddle.patients.find((searchPatient) => searchPatient.id === patient.id) == null) {
+      } else if (huddle.patients && huddle.patients.find((searchPatient) => searchPatient.id === patient.id) == null) {
         return false;
       }
 
       return true;
-    };
+    });
+
+    return patientHuddles.sort(sortByDate('datetime'));
   }
 
   renderedRisk(patient, riskAssessment) {
@@ -159,7 +157,8 @@ export default class PatientListResultsItem extends Component {
 PatientListResultsItem.propTypes = {
   patient: patientProps.isRequired,
   huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
-  riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired
+  riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired,
+  nextHuddles: PropTypes.object.isRequired
 };
 
 PatientListResultsItem.displayName = 'PatientListResultsItem';
