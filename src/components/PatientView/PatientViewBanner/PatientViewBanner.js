@@ -20,6 +20,6 @@ const PatientViewBanner = ({ patient }) => {
 
 PatientViewBanner.propTypes = {
 	patient: patientProps.isRequired
-}
+};
 
 export default PatientViewBanner;

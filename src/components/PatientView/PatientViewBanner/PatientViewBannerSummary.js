@@ -1,4 +1,5 @@
 import React from 'react';
+import patientProps from '../../../prop-types/patient';
 
 const PatientViewBannerSummary = ({ patient }) => {
 	let genderIconClassName = 'user';
@@ -31,7 +32,7 @@ const PatientViewBannerSummary = ({ patient }) => {
 						</span>
 
 						<span className="patient-gender">
-							<i className="fa {genderIconClassName}"></i>
+							<i className={`fa ${genderIconClassName}`}></i>
 							{patient.gender}
 						</span>
 					</div>
@@ -48,6 +49,10 @@ const PatientViewBannerSummary = ({ patient }) => {
 		</div>
 
 	);
+};
+
+PatientViewBannerSummary.propTypes = {
+	patient: patientProps.isRequired
 };
 
 export default PatientViewBannerSummary;

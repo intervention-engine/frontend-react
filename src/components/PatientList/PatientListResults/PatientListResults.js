@@ -101,11 +101,11 @@ export default class PatientListResults extends Component {
 
           <div className="panel-body">
             {this.props.patients.map((patient) =>
-	              <PatientListResultsItem key={patient.id}
-                                      patient={patient}
-                                      huddles={this.props.huddles}
-                                      riskAssessments={this.props.riskAssessments}
-                                      nextHuddles={this.state.nextHuddleForPatients} />
+              <PatientListResultsItem key={patient.id}
+                                    patient={patient}
+                                    huddles={this.props.huddles}
+                                    riskAssessments={this.props.riskAssessments}
+                                    nextHuddles={this.state.nextHuddleForPatients} />
             )}
 
             <div className="pagination-centered">

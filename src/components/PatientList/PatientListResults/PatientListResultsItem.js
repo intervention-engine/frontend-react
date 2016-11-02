@@ -79,7 +79,7 @@ export default class PatientListResultsItem extends Component {
     });
 
     if (patientRisk != null) {
-      let risk = patientRisk.risks.sort((d) => d.datetime).reverse()[0].value
+      let risk = patientRisk.risks.sort((d) => d.datetime).reverse()[0].value;
       let maxRisk = 4; // TODO: get from backend
       let barWidth = Math.floor(100 / maxRisk * risk);
       let riskBarWidth = { width: `${barWidth}px` };

@@ -1,11 +1,6 @@
 // Restructures the response of the Group endpoint for use in huddles
 import _ from 'lodash';
 
-import {
-  FETCH_HUDDLES_FULFILLED,
-  FETCH_HUDDLES_RESOLVED
-} from '../actions/types';
-
 // Groups huddles by name
 function groupHuddles(huddles) {
   return _.chain(huddles)
@@ -59,7 +54,7 @@ function restructurePatients(patients) {
   return [];
 }
 
-export default function({ dispatch }) {
+export default function() {
   return next => action => {
     if (action.payload && action.payload.data && action.payload.data.Group) {
       let huddles = action.payload.data.Group;

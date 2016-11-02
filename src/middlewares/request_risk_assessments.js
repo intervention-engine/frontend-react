@@ -1,11 +1,6 @@
 // Restructures the response of the RiskAssessment endpoint for use in risk assessments
 import _ from 'lodash';
 
-import {
-  FETCH_RISK_ASSESSMENTS_FULFILLED,
-  FETCH_RISK_ASSESSMENTS_RESOLVED
-} from '../actions/types';
-
 // Groups by risk assessment name
 function groupRiskAssessments(riskAssessments) {
   return _.chain(riskAssessments)
@@ -59,7 +54,7 @@ function restructureRisks(risks) {
   return {};
 }
 
-export default function({ dispatch }) {
+export default function() {
   return next => action => {
     if (action.payload && action.payload.data && action.payload.data.RiskAssessment) {
       let riskAssessments = action.payload.data.RiskAssessment;

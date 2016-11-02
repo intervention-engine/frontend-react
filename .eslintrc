@@ -8,7 +8,6 @@
             2,
             "always"
         ],
-        'quotes': ['error', 'single', { "avoidEscape": true}],
         'react/jsx-no-duplicate-props': 2,
         'react/jsx-no-undef': 2,
         'react/jsx-uses-react': 2,
