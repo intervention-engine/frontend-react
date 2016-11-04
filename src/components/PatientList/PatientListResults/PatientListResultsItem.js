@@ -116,8 +116,8 @@ export default class PatientListResultsItem extends Component {
     }
 
     return (
-      <Link to={`/patients/${this.props.patient.id}`}>
-      <div className="patient-list-results-item">
+      <Link className="patient-list-results-item" to={`/patients/${this.props.patient.id}`}>
+      <div >
         <div className="media">
           <div className="media-left media-middle">
             <FontAwesome name="user" className="media-object" />

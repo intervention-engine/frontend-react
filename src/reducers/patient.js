@@ -2,7 +2,7 @@ import {
   FETCH_PATIENTS_FULFILLED,
   SET_PATIENT_SEARCH,
   SELECT_PAGE,
-  FETCH_PATIENT_RESOLVED,
+  FETCH_PATIENT_FULFILLED,
   SELECT_PATIENT
 } from '../actions/types';
 
@@ -18,18 +18,18 @@ export default function(state = { patients: [],
     return { ...state, patients: action.payload.data.Patient||[],
                          meta: action.payload.data.Meta,
                          pageNum: Math.ceil(action.payload.data.Meta.total / state.patientsPerPage) };
-  case SET_PATIENT_SEARCH:
-    return { ...state, patientSearch: action.payload };
-  case SELECT_PAGE:
-    return { ...state, currentPage: action.payload };
-  case FETCH_PATIENT_RESOLVED:
-    let { encounter, condition, medicationStatement, riskAssessment } = action.payload;
-    selectedPatient = {...action.payload.patient, encounter, condition, medicationStatement, riskAssessment};
-    return { ...state, selectedPatient};
-  case SELECT_PATIENT:
-    let selectedPatient = state.patients.find((pat) => pat.id===action.payload );
-    return {...state, selectedPatient};
-  default:
-    return state;
+    case SET_PATIENT_SEARCH:
+      return { ...state, patientSearch: action.payload };
+    case SELECT_PAGE:
+      return { ...state, currentPage: action.payload };
+    case FETCH_PATIENT_FULFILLED:
+      let { Encounter, Condition, MedicationStatement, RiskAssessment } = action.payload.data;
+      selectedPatient = {... action.payload.data.Patient[0],  Encounter, Condition, MedicationStatement, RiskAssessment  };
+      return { ...state, selectedPatient};
+    case SELECT_PATIENT:
+      let selectedPatient = state.patients.find((pat) => pat.id===action.payload );
+      return {...state, selectedPatient};
+    default:
+      return state;
   }
 }
