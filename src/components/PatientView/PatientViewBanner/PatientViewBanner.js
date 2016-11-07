@@ -10,12 +10,12 @@ const PatientViewBanner = ({ patient }) => {
 			<div>
 				<PatientViewBannerSummary patient={patient} />
 			</div>
-		);
+    );
   }
   return (
 		<div>
 		</div>
-	);
+  );
 };
 
 PatientViewBanner.propTypes = {

@@ -8,7 +8,7 @@ const PatientView = ({patient}) => {
 		<div>
 			<PatientViewBanner patient={patient} />
 		</div>
-	);
+  );
 };
 
 PatientView.propTypes = {
