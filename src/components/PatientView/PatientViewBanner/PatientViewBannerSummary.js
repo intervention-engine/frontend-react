@@ -2,19 +2,19 @@ import React from 'react';
 import patientProps from '../../../prop-types/patient';
 
 const PatientViewBannerSummary = ({ patient }) => {
-	let genderIconClassName = 'user';
-	if (patient.gender === 'male') {
-		genderIconClassName = 'male';
-	} else if (patient.gender === 'female') {
-		genderIconClassName = 'female';
-	}
+  let genderIconClassName = 'user';
+  if (patient.gender === 'male') {
+    genderIconClassName = 'male';
+  } else if (patient.gender === 'female') {
+    genderIconClassName = 'female';
+  }
 
-	let fullName = '';
-	if(patient.name) {
-		fullName = patient.name.full;
-	}
+  let fullName = '';
+  if(patient.name) {
+    fullName = patient.name.full;
+  }
 
-	return (
+  return (
 		<div className="media">
 			<div className="media-left media-middle">
 				<i className="fa fa-user media-object"></i>
@@ -52,7 +52,7 @@ const PatientViewBannerSummary = ({ patient }) => {
 };
 
 PatientViewBannerSummary.propTypes = {
-	patient: patientProps.isRequired
+  patient: patientProps.isRequired
 };
 
 export default PatientViewBannerSummary;

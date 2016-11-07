@@ -75,6 +75,7 @@ export default class PatientListResults extends Component {
 
   render() {
     let slidingSearchClassnames = classNames('sliding-search', { 'expanded': this.state.searchExpanded === true });
+    let filteredRiskAssessments = this.props.riskAssessments.find((d) => d.name == this.props.selectedRiskAssessment.name);
 
     return (
       <div className="patient-list-results col-md-9 col-sm-8">
@@ -104,7 +105,7 @@ export default class PatientListResults extends Component {
               <PatientListResultsItem key={patient.id}
                                     patient={patient}
                                     huddles={this.props.huddles}
-                                    riskAssessments={this.props.riskAssessments}
+                                    riskAssessments={filteredRiskAssessments}
                                     nextHuddles={this.state.nextHuddleForPatients} />
             )}
 

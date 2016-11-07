@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import patientProps from '../prop-types/patient';
-import { fetchPatient, setSelectedPatient} from '../actions/patient';
+import { fetchPatient, selectPatient} from '../actions/patient';
 import PageHeader from '../components/Header/PageHeader';
 import PatientView from '../components/PatientView/PatientView';
 
@@ -11,8 +11,8 @@ import PatientView from '../components/PatientView/PatientView';
 class Patient extends Component {
 
 	componentWillMount(){
-		
-		this.props.setSelectedPatient(this.props.params.patient_id);
+
+		this.props.selectPatient(this.props.params.patient_id);
 		if(!(this.props.params.patient_id == this.props.selectedPatient.id)) {
 			// Fire action to set the selectedPatient correctly
 			this.props.fetchPatient(this.props.params.patient_id);
@@ -35,16 +35,10 @@ Patient.contextTypes = {
 
 Patient.propTypes = {
 	selectedPatient: patientProps,
-	setSelectedPatient: PropTypes.func.isRequired,
+	selectPatient: PropTypes.func.isRequired,
 	fetchPatient: PropTypes.func.isRequired,
 	params: PropTypes.shape({patient_id: PropTypes.string}).isRequired
 };
-
-// Patient.defaultProps = {
-// 	selectedPatient: {}
-// };
-
-
 
 function mapStateToProps(state) {
 	return {
@@ -55,7 +49,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
 		fetchPatient,
-		setSelectedPatient
+		selectPatient
 	}, dispatch);
 }
 

@@ -74,10 +74,7 @@ class Patients extends Component {
         _count: this.props.patientsPerPage,
         _revinclude: 'RiskAssessment:subject'
       });
-    } else if (!equal(nextProps.selectedRiskAssessment, this.props.selectedRiskAssessment)) {
-      let patientIds = nextProps.patients.map((patient) => patient.id);
-      this.props.fetchRiskAssessments(nextProps.selectedRiskAssessment, patientIds);
-    }
+    } 
   }
 
   render() {

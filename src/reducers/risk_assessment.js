@@ -15,11 +15,11 @@ export default function riskAssessmentReducer(state = {
   selectedRiskAssessment: DEFAULT_SELECTED_RISK_ASSESSMENT
 }, action)  {
   switch (action.type) {
-    case FETCH_PATIENTS_FULFILLED:
-      return { ...state, riskAssessments: action.payload.data.RiskAssessment||[] };
-    case SELECT_RISK_ASSESSMENT:
-      return { ...state, selectedRiskAssessment: action.payload };
-    default:
-      return state;
+  case FETCH_PATIENTS_FULFILLED:
+    return { ...state, riskAssessments: action.payload.data.RiskAssessment||[] };
+  case SELECT_RISK_ASSESSMENT:
+    return { ...state, selectedRiskAssessment: action.payload };
+  default:
+    return state;
   }
 }

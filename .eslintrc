@@ -8,6 +8,7 @@
             2,
             "always"
         ],
+        "indent": ["error", 2],
         'react/jsx-no-duplicate-props': 2,
         'react/jsx-no-undef': 2,
         'react/jsx-uses-react': 2,

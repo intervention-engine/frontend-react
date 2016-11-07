@@ -4,7 +4,7 @@ import patientProps from '../../prop-types/patient';
 import PatientViewBanner from './PatientViewBanner/PatientViewBanner';
 
 const PatientView = ({patient}) => {
-	return (
+  return (
 		<div>
 			<PatientViewBanner patient={patient} />
 		</div>
@@ -12,7 +12,7 @@ const PatientView = ({patient}) => {
 };
 
 PatientView.propTypes = {
-	patient: patientProps.isRequired
+  patient: patientProps.isRequired
 };
 
 export default PatientView;

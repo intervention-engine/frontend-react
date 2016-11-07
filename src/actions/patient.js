@@ -48,7 +48,7 @@ export function fetchPatient(id) {
   };
 }
 
-export function setSelectedPatient(id) {
+export function selectPatient(id) {
   return {
     type: SELECT_PATIENT,
     payload: id

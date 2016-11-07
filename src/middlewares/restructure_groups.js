@@ -11,7 +11,6 @@ function groupHuddles(huddles) {
 }
 
 function restructurePopulation(population) {
-  // let { resource } = population;
   return {
     id: population.id,
     meta: population.meta,

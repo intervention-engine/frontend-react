@@ -18,11 +18,11 @@ const DEFAULT_SORT_ASCENDING = sortOptions[0].defaultSortAscending;
 export default function sortReducer(state = { sortOption: DEFAULT_SORT_OPTION,
                                               sortAscending: DEFAULT_SORT_ASCENDING }, action)  {
   switch (action.type) {
-    case SELECT_SORT_OPTION:
-      return { ...state, sortOption: action.payload, sortAscending: action.payload.defaultSortAscending };
-    case SET_SORT_ASCENDING:
-      return { ...state, sortAscending: action.payload};
-    default:
-      return state;
+  case SELECT_SORT_OPTION:
+    return { ...state, sortOption: action.payload, sortAscending: action.payload.defaultSortAscending };
+  case SET_SORT_ASCENDING:
+    return { ...state, sortAscending: action.payload};
+  default:
+    return state;
   }
 }
