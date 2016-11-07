@@ -11,7 +11,7 @@ describe('Patients List Results Item', () => {
       key: '1',
       patient: patientTestObject1,
       huddles: [ huddleGroupTestObject1 ],
-      riskAssessments: [ riskAssessmentTestObject ],
+      riskAssessments: riskAssessmentTestObject,
       nextHuddles: nextHuddlesObject
     }
 

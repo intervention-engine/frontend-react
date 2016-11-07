@@ -72,7 +72,7 @@ export default class PatientListResultsItem extends Component {
   }
 
   renderedRisk(patient, riskAssessment) {
-    if (!riskAssessment || riskAssessment.length === 0) { return; }
+    if (!riskAssessment || riskAssessment.length === 0 || !riskAssessment.patients) { return; }
 
     let patientRisk = riskAssessment.patients.find((patientRisk) => {
       return patientRisk.id === patient.id;
