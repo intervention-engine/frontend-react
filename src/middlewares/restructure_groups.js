@@ -1,18 +1,22 @@
 // Restructures the response of the Group endpoint for use in huddles
 import _ from 'lodash';
 
-import {
-  FETCH_HUDDLES_FULFILLED,
-  FETCH_HUDDLES_RESOLVED
-} from '../actions/types';
-
 // Groups huddles by name
 function groupHuddles(huddles) {
   return _.chain(huddles)
-    .groupBy((object) => object.resource.name)
+    .groupBy((object) => object.name)
     .toPairs()
     .map((item) => _.zipObject(['name', 'dates'], item))
     .value();
+}
+
+function restructurePopulation(population) {
+  return {
+    id: population.id,
+    meta: population.meta,
+    name: population.name,
+    characteristic: population.characteristic
+  };
 }
 
 function restructureHuddles(huddleGroup) {
@@ -24,12 +28,11 @@ function restructureHuddles(huddleGroup) {
 }
 
 function restructureHuddle(huddle) {
-  let { resource } = huddle;
   return {
-    id: resource.id,
-    datetime: resource.extension[0].valueDateTime,
-    practioner: resource.extension[1].valueReference.reference,
-    patients: restructurePatients(resource.member)
+    id: huddle.id,
+    datetime: huddle.extension[0].valueDateTime,
+    practioner: huddle.extension[1].valueReference.reference,
+    patients: restructurePatients(huddle.member)
   };
 }
 
@@ -50,18 +53,15 @@ function restructurePatients(patients) {
   return [];
 }
 
-export default function({ dispatch }) {
+export default function() {
   return next => action => {
-    switch (action.type) {
-      case FETCH_HUDDLES_FULFILLED:
-        let huddles = action.payload.data.entry;
-        dispatch({
-          type: FETCH_HUDDLES_RESOLVED,
-          payload: groupHuddles(huddles).map((huddleGroup) => restructureHuddles(huddleGroup))
-        });
-        return;
-    }
+    if (action.payload && action.payload.data && action.payload.data.Group) {
+      let huddles = action.payload.data.Group;
 
+      let Huddle = groupHuddles(huddles.filter((g) => g.actual )).map((huddleGroup) => restructureHuddles(huddleGroup));
+      let Population  = huddles.filter((g) => !g.actual ).map((population) => restructurePopulation(population));
+      action.payload.data.Group = {Huddle, Population};
+    }
     return next(action);
   };
 }

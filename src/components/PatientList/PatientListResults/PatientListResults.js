@@ -5,6 +5,7 @@ import ReactPaginate from 'react-paginate';
 import { param } from 'jquery';
 import equal from 'deep-equal';
 
+
 import PatientListResultsItem from './PatientListResultsItem';
 
 import patientProps from '../../../prop-types/patient';
@@ -74,6 +75,7 @@ export default class PatientListResults extends Component {
 
   render() {
     let slidingSearchClassnames = classNames('sliding-search', { 'expanded': this.state.searchExpanded === true });
+    let filteredRiskAssessments = this.props.riskAssessments.find((d) => d.name == this.props.selectedRiskAssessment.name);
 
     return (
       <div className="patient-list-results col-md-9 col-sm-8">
@@ -101,10 +103,10 @@ export default class PatientListResults extends Component {
           <div className="panel-body">
             {this.props.patients.map((patient) =>
               <PatientListResultsItem key={patient.id}
-                                      patient={patient}
-                                      huddles={this.props.huddles}
-                                      riskAssessments={this.props.riskAssessments}
-                                      nextHuddles={this.state.nextHuddleForPatients} />
+                                    patient={patient}
+                                    huddles={this.props.huddles}
+                                    riskAssessments={filteredRiskAssessments}
+                                    nextHuddles={this.state.nextHuddleForPatients} />
             )}
 
             <div className="pagination-centered">

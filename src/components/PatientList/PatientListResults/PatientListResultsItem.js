@@ -27,18 +27,18 @@ export default class PatientListResultsItem extends Component {
 
     let nextHuddleReasonIcon = '';
     switch (nextHuddle.huddlePatient.reason.code) {
-      case REASON_CODES.ROLL_OVER:
-        nextHuddleReasonIcon = 'arrow-circle-o-right';
-        break;
-      case REASON_CODES.MANUAL_ADDITION:
-        nextHuddleReasonIcon = 'pencil';
-        break;
-      case REASON_CODES.RECENT_ENCOUNTER:
-        nextHuddleReasonIcon = 'hospital-o';
-        break;
-      case REASON_CODES.RISK_SCORE:
-        nextHuddleReasonIcon = 'pie-chart';
-        break;
+    case REASON_CODES.ROLL_OVER:
+      nextHuddleReasonIcon = 'arrow-circle-o-right';
+      break;
+    case REASON_CODES.MANUAL_ADDITION:
+      nextHuddleReasonIcon = 'pencil';
+      break;
+    case REASON_CODES.RECENT_ENCOUNTER:
+      nextHuddleReasonIcon = 'hospital-o';
+      break;
+    case REASON_CODES.RISK_SCORE:
+      nextHuddleReasonIcon = 'pie-chart';
+      break;
     }
 
     return (
@@ -72,14 +72,14 @@ export default class PatientListResultsItem extends Component {
   }
 
   renderedRisk(patient, riskAssessment) {
-    if (riskAssessment.length === 0) { return; }
+    if (!riskAssessment || riskAssessment.length === 0 || !riskAssessment.patients) { return; }
 
-    let patientRisk = riskAssessment[0].patients.find((patientRisk) => {
+    let patientRisk = riskAssessment.patients.find((patientRisk) => {
       return patientRisk.id === patient.id;
     });
 
     if (patientRisk != null) {
-      let risk = patientRisk.risks[0].value;
+      let risk = patientRisk.risks.sort((a,b) => new Date(b.datetime) - new Date(a.datetime))[0].value;
       let maxRisk = 4; // TODO: get from backend
       let barWidth = Math.floor(100 / maxRisk * risk);
       let riskBarWidth = { width: `${barWidth}px` };
@@ -157,7 +157,7 @@ export default class PatientListResultsItem extends Component {
 PatientListResultsItem.propTypes = {
   patient: patientProps.isRequired,
   huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
-  riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired,
+  riskAssessments:riskAssessmentProps,
   nextHuddles: PropTypes.object.isRequired
 };
 
