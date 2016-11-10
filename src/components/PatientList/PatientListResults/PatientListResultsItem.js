@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
 import ReactTooltip from 'react-tooltip';
 import moment from 'moment';
+import { Link } from 'react-router';
 
 import { isTodayOrAfter } from '../../../reducers/huddle';
 import sortByDate from '../../../utils/sort_by_date';
@@ -115,7 +116,8 @@ export default class PatientListResultsItem extends Component {
     }
 
     return (
-      <div className="patient-list-results-item">
+      <Link className="patient-list-results-item" to={`/patients/${this.props.patient.id}`}>
+      <div >
         <div className="media">
           <div className="media-left media-middle">
             <FontAwesome name="user" className="media-object" />
@@ -150,6 +152,7 @@ export default class PatientListResultsItem extends Component {
           </div>
         </div>
       </div>
+      </Link>
     );
   }
 }
