@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-
+import patientProps from '../../../prop-types/patient';
 import PatientViewBannerSummary from './PatientViewBannerSummary';
+import PatientViewBannerRiskChart from './PatientViewBannerRiskChart';
 
 import patientProps from '../../../prop-types/patient';
 import huddleGroupProps from '../../../prop-types/huddle_group';
@@ -22,6 +23,7 @@ export default class PatientViewBanner extends Component {
           <PatientViewBannerSummary patient={this.props.patient}
                                     huddles={this.props.huddles}
                                     filteredRiskAssessments={filteredRiskAssessments} />
+        <PatientViewBannerRiskChart riskAssessments={riskAssessments}/>
         </div>
       </div>
     );
