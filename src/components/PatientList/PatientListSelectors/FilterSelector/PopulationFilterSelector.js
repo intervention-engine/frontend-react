@@ -25,7 +25,7 @@ export default class PopulationFilterSelector extends Component {
       <div key={population.id} className="population">
         <div className="control-group">
           <label htmlFor={`population-checkbox-${population.id}`} className={`control control-checkbox`}>
-            <span className="population-name">{population.name}</span>
+            <span className="population-name">{population.name} ({this.isSelected(population)?'Y':'N'})</span>
 
             <input type="checkbox"
               name="population"

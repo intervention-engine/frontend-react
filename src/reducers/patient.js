@@ -10,7 +10,7 @@ export default function(state = { patients: [],
                                   meta: {},
                                   patientSearch: '',
                                   pageNum: 1,
-                                  selectedPatient: {},
+                                  selectedPatient: null,
                                   currentPage: 1,
                                   patientsPerPage: 10 }, action)  {
   switch (action.type) {

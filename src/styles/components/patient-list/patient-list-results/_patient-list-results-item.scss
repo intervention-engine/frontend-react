@@ -10,9 +10,11 @@
   min-height: 80px;
   cursor: pointer;
 
-  .media {
-    // margin-top: 15px;
+  &:hover {
+    text-decoration: none;
+  }
 
+  .media {
     .media-left {
       padding-right: 1em;
       padding-top: 10px;
@@ -24,11 +26,12 @@
     }
 
     .media-body {
-      padding-top: 10px;
+      padding-top: 5px;
 
       .patient-name {
         margin-left: 10px;
         font-size: 24px;
+        color: $brand-secondary;
       }
 
       .patient-age-gender,
@@ -59,7 +62,7 @@
           background-color: $brand-primary;
           font-size: 20px;
           line-height: 24px;
-          color: #fff;
+          color: $white;
           padding: 0 6px;
           min-width: 32px;
         }
@@ -78,19 +81,20 @@
   &:nth-child(odd),
   &:nth-child(even) {
     &:hover {
-      color: #fff;
+      color: $white;
       background-color: $brand-primary;
 
       .patient-age-gender,
       .patient-next-huddle-date,
-      .media-object {
-        color: #fff;
+      .media-object,
+      .patient-name {
+        color: $white;
       }
 
       .patient-risk-bar-container .patient-risk-bar {
         color: $brand-primary;
         font-weight: 500;
-        background-color: #fff;
+        background-color: $white;
       }
     }
   }

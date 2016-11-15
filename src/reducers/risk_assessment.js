@@ -1,6 +1,7 @@
 import {
   FETCH_PATIENTS_FULFILLED,
-  SELECT_RISK_ASSESSMENT
+  SELECT_RISK_ASSESSMENT,
+  FETCH_RISK_ASSESSMENTS_FULFILLED
 } from '../actions/types';
 
 export const riskAssessmentTypes = [
@@ -15,11 +16,13 @@ export default function riskAssessmentReducer(state = {
   selectedRiskAssessment: DEFAULT_SELECTED_RISK_ASSESSMENT
 }, action)  {
   switch (action.type) {
-  case FETCH_PATIENTS_FULFILLED:
-    return { ...state, riskAssessments: action.payload.data.RiskAssessment||[] };
-  case SELECT_RISK_ASSESSMENT:
-    return { ...state, selectedRiskAssessment: action.payload };
-  default:
-    return state;
+    case FETCH_PATIENTS_FULFILLED:
+    case FETCH_RISK_ASSESSMENTS_FULFILLED:
+      return { ...state, riskAssessments: action.payload.data.RiskAssessment || [] };
+    case SELECT_RISK_ASSESSMENT:
+      return { ...state, selectedRiskAssessment: action.payload };
+      return state;
+    default:
+      return state;
   }
 }

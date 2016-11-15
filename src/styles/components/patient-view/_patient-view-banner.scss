@@ -1,0 +1,18 @@
+@import "../../elements/variables";
+
+.patient-view-banner {
+  background-color: $brand-primary;
+  
+  .media {
+    padding: 6px 0 6px 12px;
+    color: #fff;
+
+    .media-left {
+      padding-right: 1em;
+
+      .media-object {
+        font-size: 64px;
+      }
+    }
+  }
+}

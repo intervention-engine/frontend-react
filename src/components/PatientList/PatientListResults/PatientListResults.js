@@ -5,7 +5,6 @@ import ReactPaginate from 'react-paginate';
 import { param } from 'jquery';
 import equal from 'deep-equal';
 
-
 import PatientListResultsItem from './PatientListResultsItem';
 
 import patientProps from '../../../prop-types/patient';
@@ -105,8 +104,9 @@ export default class PatientListResults extends Component {
               <PatientListResultsItem key={patient.id}
                                     patient={patient}
                                     huddles={this.props.huddles}
-                                    riskAssessments={filteredRiskAssessments}
-                                    nextHuddles={this.state.nextHuddleForPatients} />
+                                    filteredRiskAssessments={filteredRiskAssessments}
+                                    nextHuddles={this.state.nextHuddleForPatients}
+                                    selectedRiskAssessment={this.props.selectedRiskAssessment} />
             )}
 
             <div className="pagination-centered">

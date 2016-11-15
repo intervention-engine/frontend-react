@@ -74,7 +74,7 @@ class Patients extends Component {
         _count: this.props.patientsPerPage,
         _revinclude: 'RiskAssessment:subject'
       });
-    } 
+    }
   }
 
   render() {
