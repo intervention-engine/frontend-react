@@ -11,7 +11,9 @@ export default class PatientViewBanner extends Component {
   render() {
     let filteredRiskAssessments = null;
     if (this.props.riskAssessments != null) {
-      filteredRiskAssessments = this.props.riskAssessments.find((d) => d.name == this.props.selectedRiskAssessment.name);
+      filteredRiskAssessments = this.props.riskAssessments.find((riskAssessment) => {
+        return riskAssessment.name == this.props.selectedRiskAssessment.name;
+      });
     }
 
     return (
@@ -24,7 +26,7 @@ export default class PatientViewBanner extends Component {
       </div>
     );
   }
-};
+}
 
 PatientViewBanner.displayName = 'PatientViewBanner';
 

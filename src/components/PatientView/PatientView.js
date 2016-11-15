@@ -32,7 +32,7 @@ export default class PatientView extends Component {
       </div>
     );
   }
-};
+}
 
 PatientView.displayName = 'PatientView';
 

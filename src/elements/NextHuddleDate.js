@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import classNames from 'classnames';
 import ReactTooltip from 'react-tooltip';
 import FontAwesome from 'react-fontawesome';
 import moment from 'moment';

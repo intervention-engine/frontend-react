@@ -2,8 +2,7 @@ import {
   FETCH_PATIENTS_FULFILLED,
   SET_PATIENT_SEARCH,
   SELECT_PAGE,
-  FETCH_PATIENT_FULFILLED,
-  SELECT_PATIENT
+  FETCH_PATIENT_FULFILLED
 } from '../actions/types';
 
 export default function(state = { patients: null,

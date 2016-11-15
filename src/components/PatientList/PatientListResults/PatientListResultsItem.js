@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
-import ReactTooltip from 'react-tooltip';
-import moment from 'moment';
 import { Link } from 'react-router';
 
 import NextHuddleDate from '../../../elements/NextHuddleDate';

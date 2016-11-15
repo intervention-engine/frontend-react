@@ -32,6 +32,8 @@ export default class PatientViewBannerSummary extends Component {
   }
 
   render() {
+    if (this.props.patient == null) { return <div></div>; }
+
     let fullName = '';
     if (this.props.patient.name) {
       fullName = this.props.patient.name.full;
@@ -69,7 +71,7 @@ export default class PatientViewBannerSummary extends Component {
       </div>
     );
   }
-};
+}
 
 PatientViewBannerSummary.displayName = 'PatientViewBannerSummary';
 

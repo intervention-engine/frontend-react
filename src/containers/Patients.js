@@ -27,8 +27,8 @@ import { selectSortOption, setSortAscending } from '../actions/sort';
 
 class Patients extends Component {
   componentWillMount() {
-    if (this.props.populations == null) { this.props.fetchPopulations() };
-    if (this.props.huddles == null) { this.props.fetchHuddles() };
+    if (this.props.populations == null) { this.props.fetchPopulations(); }
+    if (this.props.huddles == null) { this.props.fetchHuddles(); }
   }
 
   componentWillReceiveProps(nextProps) {

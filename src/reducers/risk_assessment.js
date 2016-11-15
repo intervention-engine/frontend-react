@@ -19,7 +19,6 @@ export default function riskAssessmentReducer(state = { riskAssessments: null,
       return { ...state, riskAssessments: action.payload.data.RiskAssessment || [] };
     case SELECT_RISK_ASSESSMENT:
       return { ...state, selectedRiskAssessment: action.payload };
-      return state;
     default:
       return state;
   }

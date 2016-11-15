@@ -11,7 +11,7 @@ import huddleGroupProps from '../prop-types/huddle_group';
 import riskAssessmentTypeProps from '../prop-types/risk_assessment_type';
 import riskAssessmentProps from '../prop-types/risk_assessment';
 
-import { fetchPatient, selectPatient } from '../actions/patient';
+import { fetchPatient } from '../actions/patient';
 import { fetchHuddles } from '../actions/huddle';
 import { fetchRiskAssessments, selectRiskAssessment } from '../actions/risk_assessment';
 
@@ -60,6 +60,7 @@ export class Patient extends Component {
     return (
       <div className="patient container">
         <PageHeader title="Patients"/>
+
         <PatientView patient={this.props.selectedPatient}
                      huddles={this.props.huddles}
                      riskAssessments={this.props.riskAssessments}
@@ -70,6 +71,7 @@ export class Patient extends Component {
 }
 
 Patient.propTypes = {
+  patient: patientProps,
   selectedPatient: patientProps,
   huddles: PropTypes.arrayOf(huddleGroupProps),
   riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
@@ -78,7 +80,7 @@ Patient.propTypes = {
   fetchHuddles: PropTypes.func.isRequired,
   fetchRiskAssessments: PropTypes.func.isRequired,
   selectRiskAssessment: PropTypes.func.isRequired,
-  params: PropTypes.shape({patient_id: PropTypes.string}).isRequired
+  params: PropTypes.shape({ patient_id: PropTypes.string }).isRequired
 };
 
 function mapDispatchToProps(dispatch) {
@@ -90,7 +92,7 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   return {
     selectedPatient: state.patient.selectedPatient,
     huddles: state.huddle.huddles,
