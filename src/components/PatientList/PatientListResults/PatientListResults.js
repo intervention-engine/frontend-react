@@ -72,9 +72,26 @@ export default class PatientListResults extends Component {
     this.props.selectPage(data.selected + 1);
   }
 
+  renderedPatients() {
+    let filteredRiskAssessments = null;
+    if (this.props.riskAssessments != null) {
+      filteredRiskAssessments = this.props.riskAssessments.find((d) => d.name == this.props.selectedRiskAssessment.name);
+    }
+
+    if (this.props.patients != null) {
+      return this.props.patients.map((patient) =>
+        <PatientListResultsItem key={patient.id}
+                              patient={patient}
+                              huddles={this.props.huddles}
+                              filteredRiskAssessments={filteredRiskAssessments}
+                              nextHuddles={this.state.nextHuddleForPatients}
+                              selectedRiskAssessment={this.props.selectedRiskAssessment} />
+      );
+    }
+  }
+
   render() {
     let slidingSearchClassnames = classNames('sliding-search', { 'expanded': this.state.searchExpanded === true });
-    let filteredRiskAssessments = this.props.riskAssessments.find((d) => d.name == this.props.selectedRiskAssessment.name);
 
     return (
       <div className="patient-list-results col-md-9 col-sm-8">
@@ -100,14 +117,7 @@ export default class PatientListResults extends Component {
           </div>
 
           <div className="panel-body">
-            {this.props.patients.map((patient) =>
-              <PatientListResultsItem key={patient.id}
-                                    patient={patient}
-                                    huddles={this.props.huddles}
-                                    filteredRiskAssessments={filteredRiskAssessments}
-                                    nextHuddles={this.state.nextHuddleForPatients}
-                                    selectedRiskAssessment={this.props.selectedRiskAssessment} />
-            )}
+            {this.renderedPatients()}
 
             <div className="pagination-centered">
               <ReactPaginate previousLabel={"«"}
@@ -129,15 +139,15 @@ export default class PatientListResults extends Component {
 }
 
 PatientListResults.propTypes = {
-  patients: PropTypes.arrayOf(patientProps).isRequired,
+  patients: PropTypes.arrayOf(patientProps),
   patientsMeta: patientsMetaProps.isRequired,
   patientSearch: PropTypes.string.isRequired,
   pageNum: PropTypes.number.isRequired,
   selectedPopulations: PropTypes.arrayOf(populationProps).isRequired,
   populationSelectorType: PropTypes.string.isRequired,
-  huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
+  huddles: PropTypes.arrayOf(huddleGroupProps),
   selectedHuddle: huddleProps,
-  riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired,
+  riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
   selectedRiskAssessment: riskAssessmentTypeProps.isRequired,
   sortOption: sortProps.isRequired,
   sortAscending: PropTypes.bool.isRequired,

@@ -20,10 +20,16 @@ import { riskAssessmentTypes } from '../reducers/risk_assessment';
 import queryParamsHash from '../utils/query_params_hash';
 
 export class Patient extends Component {
-  componentWillMount() {
-    this.props.selectPatient(this.props.params.patient_id);
+  constructor(...args) {
+    super(...args);
 
-    if (this.props.selectedPatient == null || this.props.params.patient_id !== this.props.selectedPatient.id) {
+    this.state = { loading: false };
+  }
+
+  componentWillMount() {
+    if (this.props.selectedPatient == null ||
+        this.props.params.patient_id !== this.props.selectedPatient.id) {
+      this.setState({ loading: true });
       this.props.fetchPatient(this.props.params.patient_id);
     }
 
@@ -36,10 +42,16 @@ export class Patient extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.patient == this.props.patient) {
+      this.setState({ loading: false });
+    }
+  }
+
   render() {
-    if (this.props.selectedPatient == null) {
+    if (this.state.loading) {
       return (
-        <div className="loading text-center">
+        <div className="loading text-center container">
           <FontAwesome name="spinner" size="3x" spin pulse />
         </div>
       );
@@ -59,10 +71,9 @@ export class Patient extends Component {
 
 Patient.propTypes = {
   selectedPatient: patientProps,
-  huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
-  riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired,
+  huddles: PropTypes.arrayOf(huddleGroupProps),
+  riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
   selectedRiskAssessment: riskAssessmentTypeProps.isRequired,
-  selectPatient: PropTypes.func.isRequired,
   fetchPatient: PropTypes.func.isRequired,
   fetchHuddles: PropTypes.func.isRequired,
   fetchRiskAssessments: PropTypes.func.isRequired,
@@ -75,8 +86,7 @@ function mapDispatchToProps(dispatch) {
     fetchPatient,
     fetchHuddles,
     fetchRiskAssessments,
-    selectRiskAssessment,
-    selectPatient
+    selectRiskAssessment
   }, dispatch);
 }
 

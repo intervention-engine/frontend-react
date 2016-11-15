@@ -13,12 +13,10 @@ import riskAssessmentProps from '../../../prop-types/risk_assessment';
 
 export default class PatientViewBannerSummary extends Component {
   renderedNextHuddle() {
+    if (this.props.huddles == null) { return; }
     let nextHuddles = nextHuddleForPatients(this.props.huddles);
     let nextHuddle = nextHuddles[this.props.patient.id];
-
-    if (nextHuddle == null) {
-      return;
-    }
+    if (nextHuddle == null) { return; }
 
     return (
       <NextHuddleDate huddleIconName={getHuddleReasonIcon(nextHuddle.huddlePatient.reason.code)}
@@ -76,7 +74,7 @@ export default class PatientViewBannerSummary extends Component {
 PatientViewBannerSummary.displayName = 'PatientViewBannerSummary';
 
 PatientViewBannerSummary.propTypes = {
-  patient: patientProps.isRequired,
-  huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
+  patient: patientProps,
+  huddles: PropTypes.arrayOf(huddleGroupProps),
   filteredRiskAssessments: riskAssessmentProps
 };

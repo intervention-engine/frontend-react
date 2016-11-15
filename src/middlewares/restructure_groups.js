@@ -56,12 +56,12 @@ function restructurePatients(patients) {
 export default function() {
   return next => action => {
     if (action.payload && action.payload.data && action.payload.data.Group) {
-      let huddles = action.payload.data.Group;
-
-      let Huddle = groupHuddles(huddles.filter((g) => g.actual )).map((huddleGroup) => restructureHuddles(huddleGroup));
-      let Population  = huddles.filter((g) => !g.actual ).map((population) => restructurePopulation(population));
-      action.payload.data.Group = {Huddle, Population};
+      let groups = action.payload.data.Group;
+      let Huddle = groupHuddles(groups.filter((g) => g.actual)).map((huddleGroup) => restructureHuddles(huddleGroup));
+      let Population  = groups.filter((g) => !g.actual).map((population) => restructurePopulation(population));
+      action.payload.data.Group = { Huddle, Population };
     }
+    
     return next(action);
   };
 }

@@ -4,6 +4,8 @@ import { isTodayOrAfter } from '../reducers/huddle';
 
 // Returns patient next huddle mapping as follows { patient id: { huddleGroup, huddle, huddlePatient }}
 export default function nextHuddleForPatients(huddleGroups) {
+  if (!huddleGroups) { return null; }
+  
   let patientHuddleMapping = {};
 
   for (let i = 0; i < huddleGroups.length; ++i) {

@@ -37,8 +37,8 @@ export default class PatientView extends Component {
 PatientView.displayName = 'PatientView';
 
 PatientView.propTypes = {
-  patient: patientProps.isRequired,
-  huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
-  riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired,
+  patient: patientProps,
+  huddles: PropTypes.arrayOf(huddleGroupProps),
+  riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
   selectedRiskAssessment: riskAssessmentTypeProps.isRequired
 };

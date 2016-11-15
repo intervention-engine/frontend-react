@@ -6,7 +6,7 @@ import {
   SELECT_PATIENT
 } from '../actions/types';
 
-export default function(state = { patients: [],
+export default function(state = { patients: null,
                                   meta: {},
                                   patientSearch: '',
                                   pageNum: 1,
@@ -14,8 +14,8 @@ export default function(state = { patients: [],
                                   currentPage: 1,
                                   patientsPerPage: 10 }, action)  {
   switch (action.type) {
-  case FETCH_PATIENTS_FULFILLED:
-    return { ...state, patients: action.payload.data.Patient||[],
+    case FETCH_PATIENTS_FULFILLED:
+      return { ...state, patients: action.payload.data.Patient || [],
                          meta: action.payload.data.Meta,
                          pageNum: Math.ceil(action.payload.data.Meta.total / state.patientsPerPage) };
     case SET_PATIENT_SEARCH:
@@ -24,11 +24,8 @@ export default function(state = { patients: [],
       return { ...state, currentPage: action.payload };
     case FETCH_PATIENT_FULFILLED:
       let { Encounter, Condition, MedicationStatement, RiskAssessment } = action.payload.data;
-      selectedPatient = {... action.payload.data.Patient[0],  Encounter, Condition, MedicationStatement, RiskAssessment  };
-      return { ...state, selectedPatient};
-    case SELECT_PATIENT:
-      let selectedPatient = state.patients.find((pat) => pat.id===action.payload );
-      return {...state, selectedPatient};
+      let selectedPatient = { ...action.payload.data.Patient[0], Encounter, Condition, MedicationStatement, RiskAssessment };
+      return { ...state, selectedPatient };
     default:
       return state;
   }

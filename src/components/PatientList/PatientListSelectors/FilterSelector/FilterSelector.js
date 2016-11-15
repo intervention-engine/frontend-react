@@ -36,10 +36,10 @@ export default class FilterSelector extends Component {
 FilterSelector.displayName = 'FilterSelector';
 
 FilterSelector.propTypes = {
-  populations: PropTypes.arrayOf(populationProps).isRequired,
+  populations: PropTypes.arrayOf(populationProps),
   selectedPopulations: PropTypes.arrayOf(populationProps).isRequired,
   populationSelectorType: PropTypes.string.isRequired,
-  huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
+  huddles: PropTypes.arrayOf(huddleGroupProps),
   selectedHuddleGroup: huddleGroupProps,
   selectedHuddle: huddleProps,
   selectPopulation: PropTypes.func.isRequired,

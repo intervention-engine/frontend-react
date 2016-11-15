@@ -9,7 +9,10 @@ import riskAssessmentProps from '../../../prop-types/risk_assessment';
 
 export default class PatientViewBanner extends Component {
   render() {
-    let filteredRiskAssessments = this.props.riskAssessments.find((d) => d.name == this.props.selectedRiskAssessment.name);
+    let filteredRiskAssessments = null;
+    if (this.props.riskAssessments != null) {
+      filteredRiskAssessments = this.props.riskAssessments.find((d) => d.name == this.props.selectedRiskAssessment.name);
+    }
 
     return (
       <div className="patient-view-banner row">
@@ -26,8 +29,8 @@ export default class PatientViewBanner extends Component {
 PatientViewBanner.displayName = 'PatientViewBanner';
 
 PatientViewBanner.propTypes = {
-  patient: patientProps.isRequired,
-  huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
-  riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired,
+  patient: patientProps,
+  huddles: PropTypes.arrayOf(huddleGroupProps),
+  riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
   selectedRiskAssessment: riskAssessmentTypeProps.isRequired
 };

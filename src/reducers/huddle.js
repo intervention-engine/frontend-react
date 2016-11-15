@@ -7,19 +7,19 @@ import {
   SELECT_HUDDLE
 } from '../actions/types';
 
-export default function huddleReducer(state = { huddles: [],
+export default function huddleReducer(state = { huddles: null,
                                                 selectedHuddleGroup: null,
                                                 selectedHuddle: null }, action)  {
   switch (action.type) {
-  case FETCH_HUDDLES_FULFILLED:
-    return { ...state, huddles: action.payload.data.Group.Huddle };
-  case SELECT_HUDDLE_GROUP:
-    return { ...state, selectedHuddleGroup: action.payload,
-                         selectedHuddle: action.payload ? firstHuddle(action.payload.dates) : null };
-  case SELECT_HUDDLE:
-    return { ...state, selectedHuddle: action.payload };
-  default:
-    return state;
+    case FETCH_HUDDLES_FULFILLED:
+      return { ...state, huddles: action.payload.data.Group.Huddle };
+    case SELECT_HUDDLE_GROUP:
+      return { ...state, selectedHuddleGroup: action.payload,
+                           selectedHuddle: action.payload ? firstHuddle(action.payload.dates) : null };
+    case SELECT_HUDDLE:
+      return { ...state, selectedHuddle: action.payload };
+    default:
+      return state;
   }
 }
 

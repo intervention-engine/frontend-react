@@ -31,6 +31,12 @@ export default class HuddleFilterSelector extends Component {
     );
   }
 
+  renderedHuddles() {
+    if (this.props.huddles) {
+      return this.props.huddles.map((huddle) => this.renderedHuddle(huddle));
+    }
+  }
+
   renderedHuddle(huddleGroup) {
     return (
       <div key={huddleGroup.id} className="huddleGroup">
@@ -55,25 +61,12 @@ export default class HuddleFilterSelector extends Component {
     );
   }
 
-  debugSelected() {
-    if (this.props.selectedHuddleGroup) {
-      return (
-        <div>
-          <div>SELECTED HUDDLE GROUP: {this.props.selectedHuddleGroup.name}</div>
-          <div>SELECTED HUDDLE: {this.props.selectedHuddle.datetime}</div>
-        </div>
-      );
-    }
-  }
-
   render() {
     return (
       <div className="huddle-filter-selector">
         <form className="form-horizontal form-group-striped">
-          {this.props.huddles.map((huddle) => this.renderedHuddle(huddle))}
+          {this.renderedHuddles()}
         </form>
-
-        {/*<div className="debug">{debugSelected()}</div>*/}
       </div>
     );
   }
@@ -82,7 +75,7 @@ export default class HuddleFilterSelector extends Component {
 HuddleFilterSelector.displayName = 'HuddleFilterSelector';
 
 HuddleFilterSelector.propTypes = {
-  huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
+  huddles: PropTypes.arrayOf(huddleGroupProps),
   selectedHuddleGroup: huddleGroupProps,
   selectedHuddle: huddleProps,
   selectHuddleGroup: PropTypes.func.isRequired,

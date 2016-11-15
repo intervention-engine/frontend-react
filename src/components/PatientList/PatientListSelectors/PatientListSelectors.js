@@ -50,10 +50,10 @@ export default class PatientListSelectors extends Component {
 PatientListSelectors.displayName = 'PatientListSelectors';
 
 PatientListSelectors.propTypes = {
-  populations: PropTypes.arrayOf(populationProps).isRequired,
+  populations: PropTypes.arrayOf(populationProps),
   selectedPopulations: PropTypes.arrayOf(populationProps).isRequired,
   populationSelectorType: PropTypes.string.isRequired,
-  huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
+  huddles: PropTypes.arrayOf(huddleGroupProps),
   selectedHuddleGroup: huddleGroupProps,
   selectedHuddle: huddleProps,
   riskAssessmentTypes: PropTypes.arrayOf(riskAssessmentTypeProps).isRequired,

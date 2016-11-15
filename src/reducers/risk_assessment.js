@@ -11,10 +11,8 @@ export const riskAssessmentTypes = [
 
 const DEFAULT_SELECTED_RISK_ASSESSMENT = riskAssessmentTypes[0];
 
-export default function riskAssessmentReducer(state = {
-  riskAssessments: [],
-  selectedRiskAssessment: DEFAULT_SELECTED_RISK_ASSESSMENT
-}, action)  {
+export default function riskAssessmentReducer(state = { riskAssessments: null,
+                                                        selectedRiskAssessment: DEFAULT_SELECTED_RISK_ASSESSMENT }, action)  {
   switch (action.type) {
     case FETCH_PATIENTS_FULFILLED:
     case FETCH_RISK_ASSESSMENTS_FULFILLED:

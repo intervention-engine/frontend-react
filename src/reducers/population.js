@@ -6,21 +6,21 @@ import {
   CHANGE_POPULATION_SELECTOR_TYPE
 } from '../actions/types';
 
-export default function populationReducer(state = { populations: [],
+export default function populationReducer(state = { populations: null,
                                                     selectedPopulations: [],
                                                     populationSelectorType: 'union' }, action) {
   switch (action.type) {
-  case FETCH_POPULATIONS_FULFILLED:
-    return { ...state, populations: action.payload.data.Group.Population };
-  case SELECT_POPULATION:
-    let newSelectedPopulations = _.concat(state.selectedPopulations, action.payload);
-    return { ...state, selectedPopulations: newSelectedPopulations };
-  case UNSELECT_POPULATION:
-    let newSelectedPop = _.pull(state.selectedPopulations.slice(), action.payload);
-    return { ...state, selectedPopulations: newSelectedPop };
-  case CHANGE_POPULATION_SELECTOR_TYPE:
-    return { ...state, populationSelectorType: action.payload };
-  default:
-    return state;
+    case FETCH_POPULATIONS_FULFILLED:
+      return { ...state, populations: action.payload.data.Group.Population };
+    case SELECT_POPULATION:
+      let newSelectedPopulations = _.concat(state.selectedPopulations, action.payload);
+      return { ...state, selectedPopulations: newSelectedPopulations };
+    case UNSELECT_POPULATION:
+      let newSelectedPop = _.pull(state.selectedPopulations.slice(), action.payload);
+      return { ...state, selectedPopulations: newSelectedPop };
+    case CHANGE_POPULATION_SELECTOR_TYPE:
+      return { ...state, populationSelectorType: action.payload };
+    default:
+      return state;
   }
 }
