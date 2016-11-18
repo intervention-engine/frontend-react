@@ -3,6 +3,7 @@ import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router';
 
 import PatientViewBanner from './PatientViewBanner/PatientViewBanner';
+import PatientViewStats from './PatientViewStats/PatientViewStats';
 
 import patientProps from '../../prop-types/patient';
 import huddleGroupProps from '../../prop-types/huddle_group';
@@ -21,11 +22,22 @@ export default class PatientView extends Component {
               </Link>
             </div>
 
-            <div className="patient-panel-body">
-              <PatientViewBanner patient={this.props.patient}
-                                 huddles={this.props.huddles}
-                                 riskAssessments={this.props.patient.RiskAssessment}
-                                 selectedRiskAssessment={this.props.selectedRiskAssessment} />
+            <div className="patient-panel-body row">
+              <div className="patient-panel-body-section col-xs-12">
+                <PatientViewBanner patient={this.props.patient}
+                                   huddles={this.props.huddles}
+                                   riskAssessments={this.props.riskAssessments}
+                                   selectedRiskAssessment={this.props.selectedRiskAssessment} />
+              </div>
+
+              <div className="patient-panel-body-section col-xs-3">
+                <PatientViewStats patient={this.props.patient}
+                                  huddles={this.props.huddles}
+                                  riskAssessmentTypes={this.props.riskAssessmentTypes}
+                                  riskAssessments={this.props.riskAssessments}
+                                  selectedRiskAssessment={this.props.selectedRiskAssessment}
+                                  selectRiskAssessment={this.props.selectRiskAssessment} />
+              </div>
             </div>
           </div>
         </div>
@@ -39,6 +51,8 @@ PatientView.displayName = 'PatientView';
 PatientView.propTypes = {
   patient: patientProps,
   huddles: PropTypes.arrayOf(huddleGroupProps),
+  riskAssessmentTypes: PropTypes.arrayOf(riskAssessmentTypeProps).isRequired,
   riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
-  selectedRiskAssessment: riskAssessmentTypeProps.isRequired
+  selectedRiskAssessment: riskAssessmentTypeProps.isRequired,
+  selectRiskAssessment: PropTypes.func.isRequired
 };

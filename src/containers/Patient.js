@@ -63,8 +63,10 @@ export class Patient extends Component {
 
         <PatientView patient={this.props.selectedPatient}
                      huddles={this.props.huddles}
+                     riskAssessmentTypes={riskAssessmentTypes}
                      riskAssessments={this.props.riskAssessments}
-                     selectedRiskAssessment={this.props.selectedRiskAssessment} />
+                     selectedRiskAssessment={this.props.selectedRiskAssessment}
+                     selectRiskAssessment={this.props.selectRiskAssessment} />
       </div>
     );
   }
