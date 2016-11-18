@@ -20,6 +20,12 @@ export default class PopulationFilterSelector extends Component {
     else { this.props.selectPopulation(population); }
   }
 
+  renderedPopulations() {
+    if (this.props.populations != null) {
+      return this.props.populations.map((population) => this.renderedPopulation(population));
+    }
+  }
+
   renderedPopulation(population) {
     return (
       <div key={population.id} className="population">
@@ -45,12 +51,6 @@ export default class PopulationFilterSelector extends Component {
     );
   }
 
-  debugSelected() {
-    if (this.props.selectedPopulations) {
-      return this.props.selectedPopulations.map((pop) => pop.name + ', ');
-    }
-  }
-
   render() {
     return (
       <div className="population-filter-selector">
@@ -59,9 +59,7 @@ export default class PopulationFilterSelector extends Component {
                         intersectionFunction={this.props.changePopulationSelectorType}
                         selectorType={this.props.populationSelectorType} />
 
-          {/*<div className="debug">TYPE: {this.props.populationSelectorType}</div>*/}
-
-          {this.props.populations.map((population) => this.renderedPopulation(population))}
+          {this.renderedPopulations()}
 
           <div className="add-new-filter">
             <Link to="/FilterBuilder">
@@ -69,8 +67,6 @@ export default class PopulationFilterSelector extends Component {
             </Link>
           </div>
         </form>
-
-        {/*<div className="debug">SELECTED: {this.debugSelected()}</div>*/}
       </div>
     );
   }
@@ -79,7 +75,7 @@ export default class PopulationFilterSelector extends Component {
 PopulationFilterSelector.displayName = 'PopulationFilterSelector';
 
 PopulationFilterSelector.propTypes = {
-  populations: PropTypes.arrayOf(populationProps).isRequired,
+  populations: PropTypes.arrayOf(populationProps),
   selectedPopulations: PropTypes.arrayOf(populationProps).isRequired,
   populationSelectorType: PropTypes.string.isRequired,
   selectPopulation: PropTypes.func.isRequired,

@@ -8,10 +8,10 @@ var autoprefixer = require('autoprefixer');
 module.exports = {
   entry: [
     'bootstrap-loader',
-    'font-awesome-sass-loader!./font-awesome.config.js',
+    'font-awesome-sass-loader!./font-awesome.production.config.js',
     path.join(__dirname, "src", "index.js")
   ],
-  
+
   output: {
     path: path.join(__dirname, "dist"),
     filename: "assets/[name]-[hash].js",
@@ -21,8 +21,8 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
-      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff&name=assets/[name]-[hash].[ext]' },
-      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader?name=assets/[name]-[hash].[ext]' },
+      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff&name=/assets/[name]-[hash].[ext]' },
+      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader?name=/assets/[name]-[hash].[ext]' },
       { test: /\.css$/, loaders: ExtractTextPlugin.extract('style', 'css!postcss') },
       { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!postcss!sass') },
     ]

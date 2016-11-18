@@ -51,7 +51,7 @@
   }
 }
 
-/* -------------------------------- CONTENT PANELS -------------------------------- */
+/* ------------------------- CONTENT PANELS -------------------------------- */
 
 .panel {
   margin: 0;
@@ -123,5 +123,30 @@
         background-color: $navbar-inverse-link-active-bg;
       }
     }
+  }
+}
+
+// ------------------------- PATIENT PANELS -------------------------------- //
+
+.patient-panel {
+  .patient-panel-header {
+    border-radius: 0;
+    height: 48px;
+    font-size: 18px;
+    color: #fff;
+    padding: 10px 15px;
+    background-color: $navbar-inverse-bg;
+
+    a {
+      color: #fff;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .patient-panel-body {
+    background-color: #fff;
   }
 }

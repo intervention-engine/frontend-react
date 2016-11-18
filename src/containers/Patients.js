@@ -27,8 +27,8 @@ import { selectSortOption, setSortAscending } from '../actions/sort';
 
 class Patients extends Component {
   componentWillMount() {
-    this.props.fetchPopulations();
-    this.props.fetchHuddles();
+    if (this.props.populations == null) { this.props.fetchPopulations(); }
+    if (this.props.huddles == null) { this.props.fetchHuddles(); }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -56,12 +56,14 @@ class Patients extends Component {
     let sortParams = { _sort: `${sortDir}${nextProps.sortOption.sortKey}` };
 
     // fetch patients and risks with params when nextProps has changed
-    if (!equal(nextProps.patientSearch, this.props.patientSearch) ||
+    if (this.props.patients == null ||
+        !equal(nextProps.patientSearch, this.props.patientSearch) ||
         !equal(nextProps.pageNum, this.props.pageNum) ||
         !equal(nextProps.currentPage, this.props.currentPage) ||
         !equal(nextProps.populations, this.props.populations) ||
         !equal(nextProps.selectedPopulations, this.props.selectedPopulations) ||
         !equal(nextProps.populationSelectorType, this.props.populationSelectorType) ||
+        !equal(nextProps.selectedRiskAssessment, this.props.selectedRiskAssessment) ||
         !equal(nextProps.selectedHuddle, this.props.selectedHuddle) ||
         !equal(nextProps.sortAscending, this.props.sortAscending) ||
         !equal(nextProps.sortOption, this.props.sortOption)) {
@@ -74,7 +76,7 @@ class Patients extends Component {
         _count: this.props.patientsPerPage,
         _revinclude: 'RiskAssessment:subject'
       });
-    } 
+    }
   }
 
   render() {
@@ -117,19 +119,19 @@ class Patients extends Component {
 Patients.displayName = 'Patients';
 
 Patients.propTypes = {
-  patients: PropTypes.arrayOf(patientProps).isRequired,
+  patients: PropTypes.arrayOf(patientProps),
   patientsMeta: patientsMetaProps.isRequired,
   patientSearch: PropTypes.string.isRequired,
   pageNum: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
   patientsPerPage: PropTypes.number.isRequired,
-  populations: PropTypes.arrayOf(populationProps).isRequired,
+  populations: PropTypes.arrayOf(populationProps),
   selectedPopulations: PropTypes.arrayOf(populationProps).isRequired,
   populationSelectorType: PropTypes.string.isRequired,
-  huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
+  huddles: PropTypes.arrayOf(huddleGroupProps),
   selectedHuddleGroup: huddleGroupProps,
   selectedHuddle: huddleProps,
-  riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired,
+  riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
   selectedRiskAssessment: riskAssessmentTypeProps.isRequired,
   sortOption: sortProps.isRequired,
   sortAscending: PropTypes.bool.isRequired,

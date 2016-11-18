@@ -13,7 +13,7 @@ import riskAssessmentProps from '../../prop-types/risk_assessment';
 import sortProps from '../../prop-types/sort';
 
 export default class PatientList extends Component {
-  render(){
+  render() {
     return (
       <div className="patient-list row">
         <PatientListSelectors populations={this.props.populations}
@@ -60,20 +60,20 @@ export default class PatientList extends Component {
 PatientList.displayName = 'PatientList';
 
 PatientList.propTypes = {
-  patients: PropTypes.arrayOf(patientProps).isRequired,
+  patients: PropTypes.arrayOf(patientProps),
   patientsMeta: patientsMetaProps.isRequired,
   patientSearch: PropTypes.string.isRequired,
   pageNum: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
   patientsPerPage: PropTypes.number.isRequired,
-  populations: PropTypes.arrayOf(populationProps).isRequired,
+  populations: PropTypes.arrayOf(populationProps),
   selectedPopulations: PropTypes.arrayOf(populationProps).isRequired,
   populationSelectorType: PropTypes.string.isRequired,
-  huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
+  huddles: PropTypes.arrayOf(huddleGroupProps),
   selectedHuddleGroup: huddleGroupProps,
   selectedHuddle: huddleProps,
   riskAssessmentTypes: PropTypes.arrayOf(riskAssessmentTypeProps).isRequired,
-  riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired,
+  riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
   selectedRiskAssessment: riskAssessmentTypeProps.isRequired,
   sortOptions: PropTypes.arrayOf(sortProps).isRequired,
   sortOption: sortProps.isRequired,

@@ -5,8 +5,7 @@ import {
   FETCH_PATIENTS,
   FETCH_PATIENT,
   SET_PATIENT_SEARCH,
-  SELECT_PAGE,
-  SELECT_PATIENT
+  SELECT_PAGE
 } from './types';
 
 export function fetchPatients(params= {}) {
@@ -45,12 +44,5 @@ export function fetchPatient(id) {
   return {
     type: FETCH_PATIENT,
     payload: axios.get(PATIENT_URL)
-  };
-}
-
-export function selectPatient(id) {
-  return {
-    type: SELECT_PATIENT,
-    payload: id
   };
 }

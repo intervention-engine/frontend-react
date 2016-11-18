@@ -1,0 +1,40 @@
+@import "../../elements/variables";
+
+.patient-view-banner-summary {
+  padding: 10px 0;
+  color: $white;
+
+  .patient-image {
+    text-align: center;
+
+    span {
+      font-size: 64px;
+    }
+  }
+
+  .patient-stats {
+    padding: 5px 0;
+    
+    .patient-stats-name {
+      font-size: 24px;
+      margin-left: 10px;
+    }
+
+    .patient-stats-age,
+    .patient-stats-gender,
+    .patient-stats-next-huddle {
+      display: inline-block;
+      margin: 0 12px;
+    }
+
+    .patient-stats-next-huddle {
+      cursor: pointer;
+    }
+  }
+
+  .patient-risk-score {
+    float: right;
+    font-size: 48px;
+    line-height: 48px;
+  }
+}
