@@ -38,7 +38,7 @@ export class Patient extends Component {
 
       this.props.fetchHuddles();
       this.props.selectRiskAssessment(riskAssessmentTypes.find((type) => type.method === queryParams.riskAssessment));
-      this.props.fetchRiskAssessments(queryParams.riskAssessment, [this.props.params.patient_id]);
+      // this.props.fetchRiskAssessments(queryParams.riskAssessment, [this.props.params.patient_id]);
     }
   }
 
