@@ -14,11 +14,13 @@ describe('Patient' , () => {
       patient: patientTestObject1,
       selectedPatient: patientTestObject1,
       huddles: [ huddleGroupTestObject1 ],
+      selectedHuddle: huddleTestObject,
       riskAssessments: [ riskAssessmentTestObject ],
       selectedRiskAssessment: riskAssessmentTypeTestObject1,
       fetchPatient: () => null,
       fetchHuddles: () => null,
       fetchRiskAssessments: () => null,
+      selectHuddle: () => null,
       selectRiskAssessment:  () => null,
       params: { patient_id: '1' }
     };

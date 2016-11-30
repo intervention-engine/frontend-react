@@ -8,11 +8,12 @@ import PatientView from '../components/PatientView/PatientView';
 
 import patientProps from '../prop-types/patient';
 import huddleGroupProps from '../prop-types/huddle_group';
+import huddleProps from '../prop-types/huddle';
 import riskAssessmentTypeProps from '../prop-types/risk_assessment_type';
 import riskAssessmentProps from '../prop-types/risk_assessment';
 
 import { fetchPatient } from '../actions/patient';
-import { fetchHuddles } from '../actions/huddle';
+import { fetchHuddles, selectHuddle } from '../actions/huddle';
 import { fetchRiskAssessments, selectRiskAssessment } from '../actions/risk_assessment';
 
 import { riskAssessmentTypes } from '../reducers/risk_assessment';
@@ -63,9 +64,11 @@ export class Patient extends Component {
 
         <PatientView patient={this.props.selectedPatient}
                      huddles={this.props.huddles}
+                     selectedHuddle={this.props.selectedHuddle}
                      riskAssessmentTypes={riskAssessmentTypes}
                      riskAssessments={this.props.riskAssessments}
                      selectedRiskAssessment={this.props.selectedRiskAssessment}
+                     selectHuddle={this.props.selectHuddle}
                      selectRiskAssessment={this.props.selectRiskAssessment} />
       </div>
     );
@@ -76,11 +79,13 @@ Patient.propTypes = {
   patient: patientProps,
   selectedPatient: patientProps,
   huddles: PropTypes.arrayOf(huddleGroupProps),
+  selectedHuddle: huddleProps,
   riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
   selectedRiskAssessment: riskAssessmentTypeProps.isRequired,
   fetchPatient: PropTypes.func.isRequired,
   fetchHuddles: PropTypes.func.isRequired,
   fetchRiskAssessments: PropTypes.func.isRequired,
+  selectHuddle: PropTypes.func.isRequired,
   selectRiskAssessment: PropTypes.func.isRequired,
   params: PropTypes.shape({ patient_id: PropTypes.string }).isRequired
 };
@@ -90,6 +95,7 @@ function mapDispatchToProps(dispatch) {
     fetchPatient,
     fetchHuddles,
     fetchRiskAssessments,
+    selectHuddle,
     selectRiskAssessment
   }, dispatch);
 }
@@ -98,6 +104,7 @@ export function mapStateToProps(state) {
   return {
     selectedPatient: state.patient.selectedPatient,
     huddles: state.huddle.huddles,
+    selectedHuddle:state.huddle.selectedHuddle,
     riskAssessments: state.riskAssessment.riskAssessments,
     selectedRiskAssessment: state.riskAssessment.selectedRiskAssessment
   };
