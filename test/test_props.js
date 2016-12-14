@@ -52,14 +52,17 @@ export const populationsTestObject2 = {
 
 export const huddleTestObject = {
   'id': '5',
+  'name': 'Sample Huddle Group 1',
   'datetime': '2099-01-01',
   'practioner': 'SamplePractioner',
   'patients': [ { 'id': '1',
                   'reason': { 'code': 'RISK_SCORE',
-                              'text': 'Risk Score Warrants Discussion' } },
+                              'text': 'Risk Score Warrants Discussion' },
+                  'reviewed': null },
                 { 'id': '2',
                   'reason': { 'code': 'RECENT_ENCOUNTER',
-                              'text': 'Recent Encounter Warrants Discussion' } } ]
+                              'text': 'Recent Encounter Warrants Discussion' },
+                  'reviewed': null } ]
 };
 
 export const huddleGroupTestObject1 = {
@@ -79,7 +82,8 @@ export const nextHuddlesObject = {
          'huddleGroup': huddleGroupTestObject1,
          'huddlePatient': { 'id': '1',
                             'reason': { 'code': 'RISK_SCORE',
-                                        'text': 'Risk Score Warrants Discussion' } } }
+                                        'text': 'Risk Score Warrants Discussion' },
+                            'reviewed': null } }
 }
 
 // ------------------------- RISK ASSESSMENTS ------------------------------ //

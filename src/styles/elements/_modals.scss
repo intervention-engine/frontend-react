@@ -1,0 +1,16 @@
+.modal-header {
+  padding: 15px 35px;
+
+  .modal-title {
+    font-size: 24px;
+
+    small {
+      display: block;
+      font-size: 80%;
+    }
+  }
+
+  button.close span {
+    font-size: 32px;
+  }
+}

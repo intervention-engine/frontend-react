@@ -2,6 +2,7 @@ import { PropTypes } from 'react';
 
 const huddleProps = {
   id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   datetime: PropTypes.string.isRequired,
   practioner: PropTypes.string.isRequired,
   patients: PropTypes.arrayOf(PropTypes.shape({
@@ -9,7 +10,8 @@ const huddleProps = {
     reason: PropTypes.shape({
       code: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired
-    }).isRequired
+    }).isRequired,
+    reviewed: PropTypes.string
   })).isRequired
 };
 

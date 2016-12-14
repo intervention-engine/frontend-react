@@ -22,3 +22,15 @@
     }
   }
 }
+
+.patient-view-stats-huddles {
+  .pikaday-container {
+    padding-top: 0.5em;
+    width: 258px;
+    margin: 0 auto;
+
+    .pika-single {
+      z-index: 1;
+    }
+  }
+}

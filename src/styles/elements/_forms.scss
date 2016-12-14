@@ -1,5 +1,20 @@
 @import "variables";
 
+form {
+  margin: 10px;
+  font-size: 18px;
+  font-weight: 200;
+}
+
+label {
+  font-weight: 400;
+  font-size: 20px;
+}
+
+input {
+  padding-left: 15px;
+}
+
 /* ------------------------- CHECKBOXES & RADIO BUTTONS -------------------- */
 
 .control-group {
@@ -68,4 +83,78 @@
       }
     }
   }
+}
+
+/* ------------------------- FORM GROUP ------------------------------------ */
+
+.form-group {
+  padding: 5px 0;
+
+  .input-addon {
+    position: relative;
+
+    .left-addon-icon,
+    .right-addon-icon {
+      position: absolute;
+      padding: 8px 0 8px 15px;
+      pointer-events: none;
+      line-height: 25px;
+      color: lighten($brand-secondary, 40%);
+    }
+  }
+
+  .left-addon {
+    .left-addon-icon {
+      left: 0;
+    }
+
+    input.login-input {
+      padding-left: 40px;
+    }
+  }
+
+  .right-addon {
+    .right-addon-icon {
+      right: 0;
+    }
+
+    input.login-input {
+      padding-right: 40px;
+    }
+  }
+}
+
+.form-horizontal {
+  margin: 0;
+}
+
+.form-group-striped {
+  > .form-group:nth-child(odd) {
+    background-color: $table-bg-accent;
+  }
+
+  .form-group {
+    margin: 0;
+    padding: 5px 2px 2px 15px;
+    border-bottom: 1px solid $body-bg;
+
+    label {
+      font-size: 16px;
+      line-height: 16px;
+    }
+
+    i {
+      font-size: 14px;
+      padding: 10px 10px 0 0;
+      color: lighten($brand-secondary, 30%);
+    }
+  }
+}
+
+.form-input {
+  border: 1px solid lighten($brand-secondary, 30%);
+  border-radius: 0;
+  padding-left: 50px;
+  height: 40px;
+  line-height: 1.5;
 }

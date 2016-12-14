@@ -104,7 +104,7 @@ export function mapStateToProps(state) {
   return {
     selectedPatient: state.patient.selectedPatient,
     huddles: state.huddle.huddles,
-    selectedHuddle:state.huddle.selectedHuddle,
+    selectedHuddle: state.huddle.selectedHuddle,
     riskAssessments: state.riskAssessment.riskAssessments,
     selectedRiskAssessment: state.riskAssessment.selectedRiskAssessment
   };

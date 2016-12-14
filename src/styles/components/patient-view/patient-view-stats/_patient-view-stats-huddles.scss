@@ -1,40 +1,30 @@
 @import "../../../elements/variables";
 
 .patient-view-stats-huddles {
-  #patientViewPikaday {
-    padding-top: 0.5em;
-    width: 258px;
-    margin: 0 auto;
+  .patient-view-stats-huddles-details {
+    margin-top: 0.5em;
+    font-weight: 400;
+    text-align: center;
+    position: relative;
 
-    #patientViewPikadayCalendar .pika-single {
-      z-index: 1;
+    .patient-view-stats-huddles-details-icons {
+      position: absolute;
+      top: 0;
+      right: 0;
     }
 
-    .patient-view-stats-huddles-details {
-      margin-top: 0.5em;
-      font-weight: 400;
-      text-align: center;
-      position: relative;
+    .patient-view-stats-huddles-details-date {
+      font-size: 1.2em;
+    }
 
-      .patient-view-stats-huddles-details-icons {
-        position: absolute;
-        top: 0;
-        right: 0;
-      }
+    .fa {
+      color: $brand-primary;
+      cursor: pointer;
+    }
 
-      .patient-view-stats-huddles-details-date {
-        font-size: 1.2em;
-      }
-
-      .fa {
-        color: $brand-primary;
-        cursor: pointer;
-      }
-
-      .patient-view-stats-huddles-details-meta {
-        font-size: 0.8em;
-        color: $brand-secondary;
-      }
+    .patient-view-stats-huddles-details-meta {
+      font-size: 0.8em;
+      color: $brand-secondary;
     }
   }
 }
