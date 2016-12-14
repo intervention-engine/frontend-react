@@ -1,0 +1,16 @@
+@import "../../elements/variables";
+
+.patient-view-banner-risk-chart {
+  .path {
+    fill: $white;
+  }
+
+  .data-point {
+    stroke: $white;
+    stroke-width: .1;
+  }
+
+  .click-target {
+    fill-opacity: 0;
+  }
+}

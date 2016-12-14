@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
 
 import NextHuddleDate from '../../../elements/NextHuddleDate';
+import PatientViewBannerRiskChart from './PatientViewBannerRiskChart';
 
 import { getPatientAgeIcon, getPatientGenderIcon, getHuddleReasonIcon } from '../../../utils/icon';
 import nextHuddleForPatients from '../../../utils/next_huddle_for_patients';
@@ -32,11 +33,18 @@ export default class PatientViewBannerSummary extends Component {
   }
 
   render() {
+
+
     if (this.props.patient == null) { return <div></div>; }
 
     let fullName = '';
     if (this.props.patient.name) {
       fullName = this.props.patient.name.full;
+    }
+
+    let patientRiskAssessments;
+    if (this.props.filteredRiskAssessments) {
+      patientRiskAssessments = this.props.filteredRiskAssessments.patients.find((pat) => pat.id === this.props.patient.id).risks;
     }
 
     return (
@@ -63,7 +71,9 @@ export default class PatientViewBannerSummary extends Component {
           </span>
         </div>
 
-        <div className="col-xs-5 patient-risk-chart"></div>
+        <div className="col-xs-5 patient-risk-chart">
+          <PatientViewBannerRiskChart riskAssessments={patientRiskAssessments}/>
+        </div>
 
         <div className="col-xs-1 patient-risk-score">
           {this.renderedRisk()}
