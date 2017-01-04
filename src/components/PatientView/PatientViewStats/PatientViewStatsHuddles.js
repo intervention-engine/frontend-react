@@ -136,11 +136,13 @@ export default class PatientViewStatsHuddles extends Component {
 
         <BootstrapModal title="Add to Huddle"
                handleShowModal={this.state.showAddHuddleModal}
-               handleSaveModal={() => null}
+               handleSaveModal={() => this.refs.addHuddleModal.saveForm()}
                handleHideModal={() => this.setState({ showAddHuddleModal: false })} >
                <AddToHuddleModal patient={this.props.patient}
-                                 patientHuddles={this.state.patientHuddles}
-                                 selectedDate={this.state.selectedDate} />
+                                 huddles={this.props.huddles}
+                                 selectedDate={this.state.selectedDate}
+                                 addPatientToHuddle={this.props.addPatientToHuddle}
+                                 ref="addHuddleModal" />
         </BootstrapModal>
 
         <BootstrapModal title="Remove Discussed Patient"
@@ -160,5 +162,6 @@ PatientViewStatsHuddles.propTypes = {
   selectedHuddle: huddleProps,
   patient: patientProps,
   huddles: PropTypes.arrayOf(huddleGroupProps),
-  selectHuddle: PropTypes.func.isRequired
+  selectHuddle: PropTypes.func.isRequired,
+  addPatientToHuddle: PropTypes.func.isRequired
 };

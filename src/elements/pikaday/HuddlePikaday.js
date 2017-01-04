@@ -5,6 +5,8 @@ import _ from 'lodash';
 
 import Stylesheet from '../../utils/stylesheet';
 
+import huddleProps from '../../prop-types/huddle';
+
 export default class HuddlePikaday extends Component {
   constructor(...args) {
     super(...args);
@@ -65,9 +67,9 @@ export default class HuddlePikaday extends Component {
 
     this.stylesheet = new Stylesheet();
 
-    let huddles = this.props.patientHuddles;
-    for (let i = 0; i < huddles.length; i++) {
-      let date = moment(huddles[i].datetime);
+    let patientHuddles = this.props.patientHuddles;
+    for (let i = 0; i < patientHuddles.length; i++) {
+      let date = moment(patientHuddles[i].datetime);
       let year = date.year();
       let month = date.month();
       let day = date.date();
@@ -75,7 +77,7 @@ export default class HuddlePikaday extends Component {
       let backgroundColor = '#5D8FAE';
       let boxShadow = '#53809c';
 
-      if (huddles[i].reviewed) {
+      if (patientHuddles[i].reviewed) {
         backgroundColor = '#5C5C5C';
         boxShadow = '#525252';
       }
@@ -85,6 +87,23 @@ export default class HuddlePikaday extends Component {
                      border-radius: 3px;
                      box-shadow: inset 0 1px 3px ${boxShadow};`;
       this.stylesheet.addRule(`.${this.state.uniqueId} [data-pika-year="${year}"][data-pika-month="${month}"][data-pika-day="${day}"]`, cssRule);
+    }
+
+    let huddles = this.props.huddles;
+    if (huddles != null) {
+      let huddleDates = huddles.map((huddle) => moment(huddle.datetime).format('YYYY-MM-DD'));
+
+      for (let i = 0; i < huddleDates.length; ++i) {
+        let huddleDate = moment(huddleDates[i]);
+        let year = huddleDate.year();
+        let month = huddleDate.month();
+        let day = huddleDate.date();
+
+        let cssRule = `border: 1px dashed #5D8FAE;
+                       border-radius: 3px;`;
+
+        this.stylesheet.addRule(`.${this.state.uniqueId} [data-pika-year="${year}"][data-pika-month="${month}"][data-pika-day="${day}"]`, cssRule);
+      }
     }
   }
 
@@ -106,6 +125,7 @@ HuddlePikaday.displayName = 'HuddlePikaday';
 HuddlePikaday.propTypes = {
   selectedDate: PropTypes.object,
   patientHuddles: PropTypes.array,
+  huddles: PropTypes.arrayOf(huddleProps),
   input: PropTypes.bool,
   inputClassName: PropTypes.string,
   onSelect: PropTypes.func

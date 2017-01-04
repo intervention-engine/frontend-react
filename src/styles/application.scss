@@ -23,7 +23,7 @@
 @import "components/patient-list/patient-list-selectors/filter-selector/sort-by-selector";
 @import "components/patient-list/patient-list-selectors/patient-list-selectors";
 @import "components/patient-view/patient-view";
-@import "components/patient-view/patient-view-banner";
+@import "components/patient-view/patient-view-banner/patient-view-banner";
 @import "components/patient-view/patient-view-banner/patient-view-banner-summary";
 @import "components/patient-view/patient-view-stats/patient-view-stats-huddles";
 @import "components/patient-view/patient-view-banner-risk-chart";
@@ -49,9 +49,15 @@ html {
 
 body {
   font-family: "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   padding-bottom: 2em;
   overflow-x: hidden;
+}
+
+input,
+textarea {
+  font-family: "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+  font-weight: 400;
 }
 
 h1 {

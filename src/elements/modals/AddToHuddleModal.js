@@ -4,25 +4,37 @@ import moment from 'moment';
 
 import HuddlePikaday from '../pikaday/HuddlePikaday';
 
+import patientHuddles from '../../utils/patient_huddles';
+
 import patientProps from '../../prop-types/patient';
+import huddleGroupProps from '../../prop-types/huddle_group';
 
 export default class AddToHuddleModal extends Component {
   constructor(...args) {
     super(...args);
 
+    let [ selectedHuddleGroup ] = this.props.huddles;
     this.state = {
+      selectedHuddleGroup,
+      selectedHuddleGroupId: selectedHuddleGroup.id,
       selectedDate: this.props.selectedDate,
-      selectedPatientHuddle: this.findPatientHuddle(this.props.selectedDate),
-      addToHuddleReason: ''
+      huddleReason: '',
+      patientHuddles: patientHuddles(this.props.patient, [selectedHuddleGroup])
     };
   }
 
-  findPatientHuddle(selectedDate) {
-    if (this.props.patientHuddles == null) { return null; }
-    return this.props.patientHuddles.find((huddle) => moment(selectedDate).isSame(huddle.datetime, 'day'));
-  }
+  // findPatientHuddle(selectedDate) {
+  //   if (this.props.patientHuddles == null) { return null; }
+  //   return this.props.patientHuddles.find((huddle) => moment(selectedDate).isSame(huddle.datetime, 'day'));
+  // }
 
   saveForm() {
+    this.props.addPatientToHuddle({
+      patient: this.props.patient,
+      huddleGroup: this.state.selectedHuddleGroup,
+      date: moment(this.state.selectedDate).format('YYYY-MM-DD'),
+      reason: this.state.huddleReason
+    });
     return;
   }
 
@@ -30,17 +42,38 @@ export default class AddToHuddleModal extends Component {
     this.setState({ huddleReason: event.target.value });
   }
 
-  selectDate(selectedDate) {
+  selectHuddleGroup(event) {
+    let selectedHuddleGroupId = event.target.value;
+    let selectedHuddleGroup = this.props.huddles.find((huddleGroup) => huddleGroup.id === selectedHuddleGroupId);
+
     this.setState({
-      selectedDate,
-      selectedPatientHuddle: this.findPatientHuddle(selectedDate)
+      selectedHuddleGroupId,
+      selectedHuddleGroup,
+      patientHuddles: patientHuddles(this.props.patient, [selectedHuddleGroup])
     });
+  }
+
+  selectDate(selectedDate) {
+    this.setState({ selectedDate });
   }
 
   render() {
     return (
-      <form onSubmit={() => this.saveForm()}>
-        <div className="modal-body add-to-huddle-modal-body">
+      <form className="add-to-huddle-modal" onSubmit={() => this.saveForm()}>
+        <div className="modal-body">
+          <div className="form-group row">
+            <div className="col-sm-4">
+              <label htmlFor="">Huddle Group:</label>
+            </div>
+            <div className="col-sm-8">
+              <select value={this.state.selectedHuddleGroupId} onChange={this.selectHuddleGroup.bind(this)}>
+                {this.props.huddles.map((huddleGroup) =>
+                  <option key={huddleGroup.id} value={huddleGroup.id}>{huddleGroup.name}</option>
+                )}
+              </select>
+            </div>
+          </div>
+
           <div id="addToHuddlePikaday" className="form-group row">
             <div className="col-sm-4">
               <label htmlFor="huddleDate">Huddle Date:</label>
@@ -50,25 +83,26 @@ export default class AddToHuddleModal extends Component {
               <div className="input-addon left-addon">
                 <FontAwesome name="calendar-o" className="left-addon-icon" fixedWidth={true} />
                 <HuddlePikaday selectedDate={this.state.selectedDate}
-                               patientHuddles={this.props.patientHuddles}
+                               huddles={this.state.selectedHuddleGroup.dates}
+                               patientHuddles={this.state.patientHuddles}
                                input={true}
                                inputClassName="form-control form-input"
                                onSelect={this.selectDate.bind(this)} />
               </div>
             </div>
+          </div>
 
-            <div className="form-group row">
-              <div className="col-sm-4">
-                <label htmlFor="huddleReason">Reason:</label>
-              </div>
+          <div className="form-group row">
+            <div className="col-sm-4">
+              <label htmlFor="huddleReason">Reason:</label>
+            </div>
 
-              <div className="col-sm-8">
-                <textarea rows="3"
-                          id="huddleReason"
-                          value={this.state.addToHuddleReason}
-                          disabled={false}
-                          onChange={this.updateHuddleReason.bind(this)} />
-              </div>
+            <div className="col-sm-8">
+              <textarea rows="3"
+                        id="huddleReason"
+                        value={this.state.huddleReason}
+                        disabled={false}
+                        onChange={this.updateHuddleReason.bind(this)} />
             </div>
           </div>
         </div>
@@ -81,6 +115,7 @@ AddToHuddleModal.displayName = 'AddToHuddleModal';
 
 AddToHuddleModal.propTypes = {
   patient: patientProps,
-  patientHuddles: PropTypes.array,
+  huddles: PropTypes.arrayOf(huddleGroupProps),
   selectedDate: PropTypes.object,
+  addPatientToHuddle: PropTypes.func.isRequired
 };

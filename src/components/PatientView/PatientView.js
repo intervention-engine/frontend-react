@@ -39,7 +39,8 @@ export default class PatientView extends Component {
                                   riskAssessments={this.props.riskAssessments}
                                   selectedRiskAssessment={this.props.selectedRiskAssessment}
                                   selectHuddle={this.props.selectHuddle}
-                                  selectRiskAssessment={this.props.selectRiskAssessment} />
+                                  selectRiskAssessment={this.props.selectRiskAssessment}
+                                  addPatientToHuddle={this.props.addPatientToHuddle} />
               </div>
             </div>
           </div>
@@ -59,5 +60,6 @@ PatientView.propTypes = {
   riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
   selectedRiskAssessment: riskAssessmentTypeProps.isRequired,
   selectHuddle: PropTypes.func.isRequired,
-  selectRiskAssessment: PropTypes.func.isRequired
+  selectRiskAssessment: PropTypes.func.isRequired,
+  addPatientToHuddle: PropTypes.func.isRequired
 };

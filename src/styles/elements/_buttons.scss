@@ -18,6 +18,7 @@
 }
 
 .btn-primary,
+.btn-secondary,
 .btn-ie,
 .btn-ie-lg {
   border-radius: 0;
@@ -26,14 +27,19 @@
 }
 
 .btn-primary,
+.btn-secondary,
 .btn-ie-lg {
-  width: 200px;
   height: 45px;
 }
 
 .btn-primary {
   background-color: $brand-primary;
   border-color: darken($brand-primary, 10%);
+}
+
+.btn-secondary {
+  background-color: $white;
+  border-color: lighten($brand-secondary, 30%);
 }
 
 .fa-rounded {

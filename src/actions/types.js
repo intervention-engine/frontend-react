@@ -14,6 +14,7 @@ export const FETCH_HUDDLES_FULFILLED = 'FETCH_HUDDLES_FULFILLED';
 export const FETCH_HUDDLES_RESOLVED = 'FETCH_HUDDLES_RESOLVED';
 export const SELECT_HUDDLE_GROUP = 'SELECT_HUDDLE_GROUP';
 export const SELECT_HUDDLE = 'SELECT_HUDDLE';
+export const ADD_PATIENT_TO_HUDDLE = 'ADD_PATIENT_TO_HUDDLE';
 
 // ------------------------- RISK ASSESSMENT ------------------------------- //
 

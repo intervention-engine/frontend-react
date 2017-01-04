@@ -13,7 +13,7 @@ import riskAssessmentTypeProps from '../prop-types/risk_assessment_type';
 import riskAssessmentProps from '../prop-types/risk_assessment';
 
 import { fetchPatient } from '../actions/patient';
-import { fetchHuddles, selectHuddle } from '../actions/huddle';
+import { fetchHuddles, selectHuddle, addPatientToHuddle } from '../actions/huddle';
 import { fetchRiskAssessments, selectRiskAssessment } from '../actions/risk_assessment';
 
 import { riskAssessmentTypes } from '../reducers/risk_assessment';
@@ -69,7 +69,8 @@ export class Patient extends Component {
                      riskAssessments={this.props.riskAssessments}
                      selectedRiskAssessment={this.props.selectedRiskAssessment}
                      selectHuddle={this.props.selectHuddle}
-                     selectRiskAssessment={this.props.selectRiskAssessment} />
+                     selectRiskAssessment={this.props.selectRiskAssessment}
+                     addPatientToHuddle={this.props.addPatientToHuddle} />
       </div>
     );
   }
@@ -82,6 +83,7 @@ Patient.propTypes = {
   selectedHuddle: huddleProps,
   riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
   selectedRiskAssessment: riskAssessmentTypeProps.isRequired,
+  addPatientToHuddle: PropTypes.func.isRequired,
   fetchPatient: PropTypes.func.isRequired,
   fetchHuddles: PropTypes.func.isRequired,
   fetchRiskAssessments: PropTypes.func.isRequired,
@@ -92,6 +94,7 @@ Patient.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
+    addPatientToHuddle,
     fetchPatient,
     fetchHuddles,
     fetchRiskAssessments,

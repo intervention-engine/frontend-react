@@ -14,8 +14,8 @@ export default class BootstrapModal extends Component {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button onClick={this.props.handleHideModal}>Close</Button>
-          <Button onClick={this.props.handleSaveModal}>Save</Button>
+          <Button bsClass="btn btn-secondary" onClick={this.props.handleHideModal}>Close</Button>
+          <Button bsStyle="primary" onClick={this.props.handleSaveModal}>Save</Button>
         </Modal.Footer>
       </Modal>
     );
