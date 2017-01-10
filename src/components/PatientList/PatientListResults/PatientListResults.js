@@ -81,11 +81,11 @@ export default class PatientListResults extends Component {
     if (this.props.patients != null) {
       return this.props.patients.map((patient) =>
         <PatientListResultsItem key={patient.id}
-                              patient={patient}
-                              huddles={this.props.huddles}
-                              filteredRiskAssessments={filteredRiskAssessments}
-                              nextHuddles={this.state.nextHuddleForPatients}
-                              selectedRiskAssessment={this.props.selectedRiskAssessment} />
+                                patient={patient}
+                                huddles={this.props.huddles}
+                                filteredRiskAssessments={filteredRiskAssessments}
+                                nextHuddles={this.state.nextHuddleForPatients}
+                                selectedRiskAssessment={this.props.selectedRiskAssessment} />
       );
     }
   }

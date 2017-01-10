@@ -8,9 +8,9 @@ const huddleProps = {
   patients: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     reason: PropTypes.shape({
-      code: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired
-    }).isRequired,
+      code: PropTypes.string,
+      text: PropTypes.string
+    }),
     reviewed: PropTypes.string
   })).isRequired
 };

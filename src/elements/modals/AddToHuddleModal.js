@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import HuddlePikaday from '../pikaday/HuddlePikaday';
 
-import patientHuddles from '../../utils/patient_huddles';
+import getPatientHuddles from '../../utils/get_patient_huddles';
 
 import patientProps from '../../prop-types/patient';
 import huddleGroupProps from '../../prop-types/huddle_group';
@@ -14,12 +14,14 @@ export default class AddToHuddleModal extends Component {
     super(...args);
 
     let [ selectedHuddleGroup ] = this.props.huddles;
+    let patientHuddles = getPatientHuddles(this.props.patient, [selectedHuddleGroup]);
+
     this.state = {
       selectedHuddleGroup,
       selectedHuddleGroupId: selectedHuddleGroup.id,
       selectedDate: this.props.selectedDate,
       huddleReason: '',
-      patientHuddles: patientHuddles(this.props.patient, [selectedHuddleGroup])
+      patientHuddles
     };
   }
 
@@ -49,7 +51,7 @@ export default class AddToHuddleModal extends Component {
     this.setState({
       selectedHuddleGroupId,
       selectedHuddleGroup,
-      patientHuddles: patientHuddles(this.props.patient, [selectedHuddleGroup])
+      patientHuddles: getPatientHuddles(this.props.patient, [selectedHuddleGroup])
     });
   }
 

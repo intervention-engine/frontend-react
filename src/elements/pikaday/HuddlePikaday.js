@@ -6,6 +6,7 @@ import _ from 'lodash';
 import Stylesheet from '../../utils/stylesheet';
 
 import huddleProps from '../../prop-types/huddle';
+import patientProps from '../../prop-types/patient';
 
 export default class HuddlePikaday extends Component {
   constructor(...args) {
@@ -77,9 +78,12 @@ export default class HuddlePikaday extends Component {
       let backgroundColor = '#5D8FAE';
       let boxShadow = '#53809c';
 
-      if (patientHuddles[i].reviewed) {
-        backgroundColor = '#5C5C5C';
-        boxShadow = '#525252';
+      if (this.props.patient) {
+        let huddlePatient = patientHuddles[i].patients.find((patient) => patient.id === this.props.patient.id);
+        if (huddlePatient && huddlePatient.reviewed) {
+          backgroundColor = '#5C5C5C';
+          boxShadow = '#525252';
+        }
       }
 
       let cssRule = `background-color: ${backgroundColor};
@@ -124,6 +128,7 @@ HuddlePikaday.displayName = 'HuddlePikaday';
 
 HuddlePikaday.propTypes = {
   selectedDate: PropTypes.object,
+  patient: patientProps,
   patientHuddles: PropTypes.array,
   huddles: PropTypes.arrayOf(huddleProps),
   input: PropTypes.bool,

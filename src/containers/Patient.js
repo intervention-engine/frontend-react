@@ -77,28 +77,28 @@ export class Patient extends Component {
 }
 
 Patient.propTypes = {
+  params: PropTypes.shape({ patient_id: PropTypes.string }).isRequired,
   patient: patientProps,
   selectedPatient: patientProps,
   huddles: PropTypes.arrayOf(huddleGroupProps),
   selectedHuddle: huddleProps,
   riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
   selectedRiskAssessment: riskAssessmentTypeProps.isRequired,
-  addPatientToHuddle: PropTypes.func.isRequired,
   fetchPatient: PropTypes.func.isRequired,
   fetchHuddles: PropTypes.func.isRequired,
-  fetchRiskAssessments: PropTypes.func.isRequired,
   selectHuddle: PropTypes.func.isRequired,
-  selectRiskAssessment: PropTypes.func.isRequired,
-  params: PropTypes.shape({ patient_id: PropTypes.string }).isRequired
+  addPatientToHuddle: PropTypes.func.isRequired,
+  fetchRiskAssessments: PropTypes.func.isRequired,
+  selectRiskAssessment: PropTypes.func.isRequired
 };
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    addPatientToHuddle,
     fetchPatient,
     fetchHuddles,
-    fetchRiskAssessments,
     selectHuddle,
+    addPatientToHuddle,
+    fetchRiskAssessments,
     selectRiskAssessment
   }, dispatch);
 }

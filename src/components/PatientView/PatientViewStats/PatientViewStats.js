@@ -23,8 +23,8 @@ export default class PatientViewStats extends Component {
                                  huddles={this.props.huddles}
                                  patient={this.props.patient}
                                  addPatientToHuddle={this.props.addPatientToHuddle} />
-        <PatientViewStatsConditions />
-        <PatientViewStatsMedications />
+        <PatientViewStatsConditions patient={this.props.patient}/>
+        <PatientViewStatsMedications patient={this.props.patient}/>
       </div>
     );
   }

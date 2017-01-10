@@ -8,7 +8,7 @@ import BootstrapModal from '../../../elements/modals/BootstrapModal';
 import AddToHuddleModal from '../../../elements/modals/AddToHuddleModal';
 import HuddlePikaday from '../../../elements/pikaday/HuddlePikaday';
 
-import patientHuddles from '../../../utils/patient_huddles';
+import getPatientHuddles from '../../../utils/get_patient_huddles';
 
 import huddleProps from '../../../prop-types/huddle';
 import patientProps from '../../../prop-types/patient';
@@ -19,79 +19,91 @@ export default class PatientViewStatsHuddles extends Component {
     super(...args);
 
     this.state = {
-      selectedDate: new Date(),
+      patientHuddles: [],                       // array of all huddles the patient is in
+      selectedDate: new Date(),                 // date selected on huddle calendar
+      selectedPatientHuddle: null,              // patient huddle for selected day
+      selectedPatientHuddlePatientInfo: null,   // patient info for selected patient huddle
       showEditHuddleModal: false,
       showPatientReviewedModal: false,
       showAddHuddleModal: false,
-      showRemoveDiscussedPatientModal: false,
-      patientHuddles: patientHuddles(this.props.patient, this.props.huddles)
+      showRemoveDiscussedPatientModal: false
     };
   }
 
   componentWillReceiveProps(nextProps) {
     if (!equal(nextProps.patient, this.props.patient) ||
         !equal(nextProps.huddles, this.props.huddles)) {
-      this.setState({ patientHuddles: patientHuddles(nextProps.patient, nextProps.huddles) });
+      this.updateHuddles(nextProps.patient, nextProps.huddles, this.state.selectedDate);
     }
   }
 
-  selectedPatientHuddle(selectedDate) {
-    if (this.state.patientHuddles == null) { return null; }
-    return this.state.patientHuddles.find((huddle) => moment(selectedDate).isSame(huddle.datetime, 'day'));
+  // used in componentWillReceiveProps to update patientHuddles, selectedPatientHuddle,
+  // and selectedPatientHuddlePatientInfo state
+  updateHuddles(patient, huddles, selectedDate) {
+    let patientHuddles = getPatientHuddles(patient, huddles);
+
+    let selectedPatientHuddle;
+    if (patientHuddles != null) {
+      selectedPatientHuddle = this.selectedPatientHuddle(selectedDate, patientHuddles);
+    }
+
+    let selectedPatientHuddlePatientInfo;
+    if (selectedPatientHuddle != null) {
+      selectedPatientHuddlePatientInfo = selectedPatientHuddle.patients.find((patient) => patient.id === this.props.patient.id);
+    }
+
+    this.setState({ patientHuddles, selectedPatientHuddle, selectedPatientHuddlePatientInfo });
+  }
+
+  // used in updateHuddles to select huddle for patient on the given selected date
+  selectedPatientHuddle(selectedDate, patientHuddles) {
+    if (patientHuddles == null) { return null; }
+    return patientHuddles.find((huddle) => moment(selectedDate).isSame(huddle.datetime, 'day'));
   }
 
   renderedHuddlesDetailsIcons() {
-    let selectedPatientHuddle = this.selectedPatientHuddle(this.state.selectedDate);
-
-    if (selectedPatientHuddle != null) {
-      let patientHuddle = selectedPatientHuddle.patients.find((patient) => patient.id === this.props.patient.id);
-
-      if (patientHuddle.reason.code === 'MANUAL_ADDITION') {
+    if (this.state.selectedPatientHuddle != null) { // patient has a huddle on the selected date
+      if (this.state.selectedPatientHuddlePatientInfo.reason.code === 'MANUAL_ADDITION') {
         return <FontAwesome name="edit" onClick={() => this.setState({ showEditHuddleModal: true })} />;
       }
 
-      if (!patientHuddle.reviewed) {
+      if (!this.state.selectedPatientHuddlePatientInfo.reviewed) {
         return <FontAwesome name="check-square-o" onClick={() => this.setState({ showPatientReviewedModal: true })} />;
       }
-    } else {
+    } else { // patient does not have a huddle on the selected date
       return <FontAwesome name="plus-circle" onClick={() => this.setState({ showAddHuddleModal: true })} />;
     }
   }
 
   renderedSelectedHuddleDetails() {
-    let selectedPatientHuddle = this.selectedPatientHuddle(this.state.selectedDate);
-
-    if (this.props.selectedHuddle != null) {
+    if (this.state.selectedPatientHuddle != null && this.state.selectedPatientHuddlePatientInfo != null) {
       return (
-        <div>
-          <div>{}</div>
-          <div>Leader: {this.props.selectedHuddle.leader}</div>
-          <div>{this.selectedPatientHuddle.displayReasonText}</div>
-          {this.renderedSelectedHuddleReviewed(selectedPatientHuddle)}
-        </div>
-      );
-    }
-  }
-
-  renderedSelectedHuddleReviewed(selectedPatientHuddle) {
-    if (selectedPatientHuddle != null && selectedPatientHuddle.reviewed != null) {
-      return (
-        <div>
-          <span>Discussed on {selectedPatientHuddle.reviewed}</span>
-          <FontAwesome name="times" onClick={() => this.setState({ showRemoveDiscussedPatientModal: true })} />
+        <div className="small">
+          <div>{this.state.selectedPatientHuddle.name}</div>
+          <div>{this.state.selectedPatientHuddlePatientInfo.reason.text}</div>
+          {this.renderedSelectedHuddleReviewed(this.state.selectedPatientHuddlePatientInfo)}
         </div>
       );
     } else {
-      return <div>Not scheduled</div>;
+      return <div className="small">Not scheduled</div>;
+    }
+  }
+
+  renderedSelectedHuddleReviewed(selectedPatientHuddlePatientInfo) {
+    if (selectedPatientHuddlePatientInfo != null && selectedPatientHuddlePatientInfo.reviewed != null) {
+      return (
+        <div>
+          <span>Discussed on {moment(selectedPatientHuddlePatientInfo.reviewed).format('MMM D, YYYY')} </span>
+          <FontAwesome name="times" onClick={() => this.setState({ showRemoveDiscussedPatientModal: true })} />
+        </div>
+      );
     }
   }
 
   selectDate(selectedDate) {
     this.setState({ selectedDate });
-
-    // find and select huddle
-    let huddle = this.state.patientHuddles.find((huddle) => moment(selectedDate).isSame(huddle.datetime, 'day'));
-    this.props.selectHuddle(huddle);
+    this.updateHuddles(this.props.patient, this.props.huddles, selectedDate);
+    this.props.selectHuddle(this.selectedPatientHuddle(selectedDate));
   }
 
   render() {
@@ -102,6 +114,7 @@ export default class PatientViewStatsHuddles extends Component {
             <div className="pikaday-container">
               <HuddlePikaday selectedDate={this.state.selectedDate}
                              patientHuddles={this.state.patientHuddles}
+                             patient={this.props.patient}
                              onSelect={this.selectDate.bind(this)} />
             </div>
             <div className="patient-view-stats-huddles-details">

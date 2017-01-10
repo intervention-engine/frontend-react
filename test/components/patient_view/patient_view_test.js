@@ -15,7 +15,8 @@ describe('Patient View' , () => {
       riskAssessments: [ riskAssessmentTestObject ],
       selectedRiskAssessment: riskAssessmentTypeTestObject1,
       selectHuddle: () => null,
-      selectRiskAssessment: () => null
+      selectRiskAssessment: () => null,
+      addPatientToHuddle: () => null
     }
 
     component = renderComponent(PatientView, props);

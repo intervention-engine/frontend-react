@@ -19,6 +19,7 @@ describe('Patient' , () => {
       selectedRiskAssessment: riskAssessmentTypeTestObject1,
       fetchPatient: () => null,
       fetchHuddles: () => null,
+      addPatientToHuddle: () => null,
       fetchRiskAssessments: () => null,
       selectHuddle: () => null,
       selectRiskAssessment:  () => null,

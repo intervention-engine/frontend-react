@@ -1,4 +1,6 @@
-export default function patientHuddles(patient, huddles) {
+// returns all huddles for the given patient
+
+export default function getPatientHuddles(patient, huddles) {
   if (!patient || !huddles) { return null; }
 
   let patientHuddles = [];
