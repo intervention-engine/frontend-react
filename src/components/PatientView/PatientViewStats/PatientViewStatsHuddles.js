@@ -172,9 +172,9 @@ export default class PatientViewStatsHuddles extends Component {
 PatientViewStatsHuddles.displayName = 'PatientViewStatsHuddles';
 
 PatientViewStatsHuddles.propTypes = {
-  selectedHuddle: huddleProps,
   patient: patientProps,
   huddles: PropTypes.arrayOf(huddleGroupProps),
+  selectedHuddle: huddleProps,
   selectHuddle: PropTypes.func.isRequired,
   addPatientToHuddle: PropTypes.func.isRequired
 };

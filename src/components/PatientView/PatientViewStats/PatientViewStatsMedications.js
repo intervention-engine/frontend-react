@@ -56,7 +56,7 @@ export default class PatientViewStatsMedications extends Component {
 
   renderedMedications() {
     return this.state.uniqueMedicationsText.map((medicationText, index) => {
-      return <li key={index}>{medicationText}</li>;
+      return <li key={index} className="medication">{medicationText}</li>;
     });
   }
 

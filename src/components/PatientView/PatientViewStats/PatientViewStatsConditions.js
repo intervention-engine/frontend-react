@@ -56,7 +56,7 @@ export default class PatientViewStatsConditions extends Component {
 
   renderedConditions() {
     return this.state.uniqueConditionsText.map((conditionText, index) => {
-      return <li key={index}>{conditionText}</li>;
+      return <li key={index} className="condition">{conditionText}</li>;
     });
   }
 
