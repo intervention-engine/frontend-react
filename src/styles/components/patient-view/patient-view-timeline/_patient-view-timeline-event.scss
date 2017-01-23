@@ -1,0 +1,77 @@
+@import "../../../elements/variables";
+
+.patient-view-timeline-events {
+  margin: 0 0 0 -25px;
+
+  .timeline-line {
+    display: block;
+    position: absolute;
+    margin: 2px 0 0 24px;
+    width: 8px;
+    height: 100%;
+    background-color: $body-bg;
+  }
+
+  .patient-view-timeline-event {
+    position: relative;
+    left: 10px;
+    min-height: 100px;
+    border: 8px solid $body-bg;
+    margin: 10px 10px 10px 70px;
+    padding: 10px;
+
+    .pointer-bottom {
+      display: block;
+      position: absolute;
+      top: 10px;
+      left: -25px;
+      border-top: 18px solid transparent;
+      border-bottom: 18px solid transparent;
+      border-right: 18px solid $body-bg;
+    }
+
+    .pointer-top {
+      display: block;
+      position: absolute;
+      top: 10px;
+      left: -15px;
+      border-top: 18px solid transparent;
+      border-bottom: 18px solid transparent;
+      border-right: 18px solid #fff;
+    }
+
+    .timeline-event-icon {
+      display: block;
+      position: absolute;
+      width: 45px;
+      height: 45px;
+      top: 5px;
+      left: -83px;
+      border-radius: 50%;
+      border: 8px solid $body-bg;
+      background-color: #fff;
+
+      i {
+        font-size: 20px;
+        line-height: 26px;
+        margin: 1px 0 0 6px;
+      }
+    }
+
+    .timeline-event-text {
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .timeline-event-date {
+      font-size: 16px;
+      color: lighten($brand-secondary, 40%);
+    }
+
+    .timeline-event-type-icon {
+      color: $brand-secondary;
+      font-size: 24px;
+      padding-left: 20px;
+    }
+  }
+}

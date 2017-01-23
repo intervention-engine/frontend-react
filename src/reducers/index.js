@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { routeReducer } from 'react-router-redux';
+import { routerReducer } from 'react-router-redux';
 
 import populationReducer from './population';
 import huddleReducer from './huddle';
@@ -8,7 +8,7 @@ import patientReducer from './patient';
 import sortReducer from './sort';
 
 const rootReducer = combineReducers({
-  routing: routeReducer,
+  routing: routerReducer,
   population: populationReducer,
   huddle: huddleReducer,
   riskAssessment: riskAssessmentReducer,
