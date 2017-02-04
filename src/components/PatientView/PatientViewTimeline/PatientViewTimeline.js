@@ -10,18 +10,31 @@ export default class PatientViewTimeline extends Component {
   constructor(...args) {
     super(...args);
 
+    let patientEvents = this.patientEvents(this.props.patient);
+
     this.state = {
-      timelineSearchTerm: ''
+      timelineSearchTerm: '',
+      patientEvents,
+      filteredEvents: patientEvents
     };
   }
 
-  patientEvents() {
+  componentWillReceiveProps(nextProps) {
+    if (this.props.patient !== nextProps.patient) {
+      let patientEvents = this.patientEvents(nextProps.patient);
+      let filteredEvents = this.filterEventsByTerm(patientEvents, this.state.timelineSearchTerm);
+
+      this.setState({ patientEvents, filteredEvents });
+    }
+  }
+
+  patientEvents(patient) {
     let events = [];
 
-    if (this.props.patient != null) {
-      let encounters = this.props.patient.Encounter;
-      let conditions = this.props.patient.Condition;
-      let medications = this.props.patient.MedicationStatement;
+    if (patient != null) {
+      let encounters = patient.Encounter;
+      let conditions = patient.Condition;
+      let medications = patient.MedicationStatement;
 
       if (encounters != null) {
         encounters.forEach((encounter) => {
@@ -65,10 +78,24 @@ export default class PatientViewTimeline extends Component {
     return _.sortBy(events, 'startDate').reverse();
   }
 
-  renderedEvents() {
-    let patientEvents = this.patientEvents();
+  filterEvents(event) {
+    let timelineSearchTerm = event.target.value;
+    let filteredEvents = this.filterEventsByTerm(this.state.patientEvents, timelineSearchTerm);
 
-    return patientEvents.map((event, index) => {
+    this.setState({ timelineSearchTerm, filteredEvents });
+  }
+
+  filterEventsByTerm(events, term) {
+    if (term === '') {
+      return events;
+    }
+
+    let rx = new RegExp(term, 'gi');
+    return events.filter((timelineEvent) => timelineEvent.displayText.match(rx));
+  }
+
+  renderedEvents() {
+    return this.state.filteredEvents.map((event, index) => {
       return (
         <PatientViewTimelineEvent key={index} patient={this.props.patient} event={event} />
       );
@@ -89,7 +116,7 @@ export default class PatientViewTimeline extends Component {
               <input type="search"
                      className="form-control"
                      value={this.state.timelineSearchTerm}
-                     onChange={(e) => this.setState({ timelineSearchTerm: e.target.value })}
+                     onChange={this.filterEvents.bind(this)}
                      placeholder="Search timeline..." />
             </div>
           </div>

@@ -24,4 +24,10 @@ describe('Patient View Timeline' , () => {
   it('displays the correct number of timeline events', () => {
     expect(component.find('.patient-view-timeline-event').length).to.equal(6);
   });
+
+  it('filters events correctly', () => {
+    expect(component.find('.timeline-event-text').length).to.equal(6);
+    component.find('input[type=search]').simulate('change', 'tablet');
+    expect(component.find('.timeline-event-text').length).to.equal(3);
+  });
 });

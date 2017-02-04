@@ -41,6 +41,10 @@ export default class HuddlePikaday extends Component {
 
     this.picker = new Pikaday(pickerOptions);
 
+    // TODO: remove when this PR is merged in and released: https://github.com/dbushell/Pikaday/pull/610
+    // this disables the right and left arrows moving the date (which prevents use in search input fields)
+    document.removeEventListener('keydown', this.picker._onKeyChange);
+
     if (this.refs.pikadayContainer) {
       this.refs.pikadayContainer.appendChild(this.picker.el);
     }
