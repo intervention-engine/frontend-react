@@ -22,7 +22,6 @@ export default class PatientViewTimeline extends Component {
       let encounters = this.props.patient.Encounter;
       let conditions = this.props.patient.Condition;
       let medications = this.props.patient.MedicationStatement;
-      // let riskAssessments = this.props.patient.RiskAssessment;
 
       if (encounters != null) {
         encounters.forEach((encounter) => {
@@ -61,39 +60,9 @@ export default class PatientViewTimeline extends Component {
           });
         });
       }
-
-      // riskAssessments.forEach((riskAssessment) => {
-      // });
     }
 
-    // ** ember code:
-    // this.get('risksByOutcome').map(function(outcome) {
-    //   let riskTransitions = outcome.values.map(function(e, i) {
-    //     let previousRisk = outcome.values[i - 1];
-    //
-    //     if (!previousRisk) {
-    //       let displayText = `Risk of '${outcome.key}' started at ${e.get('value')}`;
-    //       return e.store.createRecord('risk-event', { event: e, displayText, deltaRisk: e.get('value') , type: 'riskIncreased' });
-    //     }
-    //
-    //     let deltaRisk = e.get('value') - previousRisk.get('value');
-    //     let direction = deltaRisk > 0 ? 'increased' : 'decreased';
-    //     let displayText = `Risk of '${outcome.key}' ${direction} from ${previousRisk.get('value')} to ${e.get('value')}`;
-    //     return e.store.createRecord('risk-event', { event: e, displayText, deltaRisk , type: `risk${direction.capitalize()}` });
-    //   });
-    //
-    //   events.push(...riskTransitions.filter((e) => e.get('deltaRisk') !== 0));
-    // });
-
     return _.sortBy(events, 'startDate').reverse();
-  }
-
-  filteredEvents() {
-    // let rx = new RegExp(this.state.timelineSearchTerm, 'gi');
-    return [];
-    // return this.get('patient.events').filter(function(e) {
-    //   return e.get('event.displayText').match(rx);
-    // });
   }
 
   renderedEvents() {
