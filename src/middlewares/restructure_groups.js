@@ -1,6 +1,9 @@
 // Restructures the response of the Group endpoint for use in huddles
 import _ from 'lodash';
 
+const REASON_EXTENSION = 'http://interventionengine.org/fhir/extension/group/member/reason';
+const REVIEW_EXTENSION = 'http://interventionengine.org/fhir/extension/group/member/reviewed';
+
 // Groups huddles by name
 function groupHuddles(huddles) {
   return _.chain(huddles)
@@ -30,6 +33,7 @@ function restructureHuddles(huddleGroup) {
 function restructureHuddle(huddle) {
   return {
     id: huddle.id,
+    name: huddle.name,
     datetime: huddle.extension[0].valueDateTime,
     practioner: huddle.extension[1].valueReference.reference,
     patients: restructurePatients(huddle.member)
@@ -40,17 +44,29 @@ function restructurePatients(patients) {
   let newPatients = [];
 
   if (patients != null) {
-    patients.forEach((patient) => {
-      newPatients.push({
-        id: patient.entity.reference.replace('Patient/', ''),
-        reason: { code: patient.extension[0].valueCodeableConcept.coding[0].code,
-                  text: patient.extension[0].valueCodeableConcept.text }
-      });
+    newPatients = patients.map((patient) => {
+      let data = {
+        id: patient.entity.reference.replace('Patient/', '')
+      };
+
+      for (let i = 0; i < patient.extension.length; ++i) {
+        let extension = patient.extension[i];
+
+        if (extension.url === REASON_EXTENSION) {
+          data.reason = {
+            code: extension.valueCodeableConcept.coding[0].code,
+            text: extension.valueCodeableConcept.text
+          };
+        } else if (extension.url === REVIEW_EXTENSION) {
+          data.reviewed = extension.valueDateTime;
+        }
+      }
+
+      return data;
     });
-    return newPatients;
   }
 
-  return [];
+  return newPatients;
 }
 
 export default function() {
@@ -61,7 +77,7 @@ export default function() {
       let Population  = groups.filter((g) => !g.actual).map((population) => restructurePopulation(population));
       action.payload.data.Group = { Huddle, Population };
     }
-    
+
     return next(action);
   };
 }

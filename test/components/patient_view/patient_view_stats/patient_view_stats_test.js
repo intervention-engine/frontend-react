@@ -1,9 +1,9 @@
-import { expect, renderComponent } from '../../test_helper';
+import { expect, renderComponent } from '../../../test_helper';
 import { patientTestObject1, huddleGroupTestObject1, riskAssessmentTypeTestObject1,
-         riskAssessmentTestObject, huddleTestObject } from '../../test_props';
-import PatientView from '../../../src/components/PatientView/PatientView';
+         riskAssessmentTestObject, huddleTestObject } from '../../../test_props';
+import PatientViewStats from '../../../../src/components/PatientView/PatientViewStats/PatientViewStats';
 
-describe('Patient View' , () => {
+describe('Patient View Stats' , () => {
   let component;
 
   beforeEach(() => {
@@ -19,10 +19,10 @@ describe('Patient View' , () => {
       addPatientToHuddle: () => null
     }
 
-    component = renderComponent(PatientView, props);
+    component = renderComponent(PatientViewStats, props);
   });
 
   it('has the correct class', () => {
-    expect(component).to.have.class('patient-view');
+    expect(component).to.have.class('patient-view-stats');
   });
 });

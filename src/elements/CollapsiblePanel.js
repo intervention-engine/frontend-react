@@ -19,11 +19,23 @@ export default class CollapsiblePanel extends Component {
       return;
     }
 
+    if (this.props.panelIcon.startsWith("fc")) {
+      return <i className={this.props.panelIcon}></i>;
+    }
+
     return <FontAwesome name={this.props.panelIcon} />;
   }
 
+  panelCount() {
+    if (this.props.panelCount == null || this.props.panelCount === '') {
+      return;
+    }
+
+    return <span>({this.props.panelCount})</span>;
+  }
+
   render() {
-    let chevronClassNames = classNames('pull-right', 'fa', 'fa-chevron-down', 'rotate',
+    let chevronClassNames = classNames('collapsible-chevron', 'pull-right', 'fa', 'fa-chevron-down', 'rotate',
                                        { left: this.state.chevronToggle});
     let panelClassNames = classNames('panel', 'collapsible-panel',
                                      { 'is-nested': this.props.isNested },
@@ -33,7 +45,7 @@ export default class CollapsiblePanel extends Component {
       <div className={panelClassNames}>
         <div className="panel-heading">
           <a onClick={ ()=> this.setState({ open: !this.state.open, chevronToggle: !this.state.chevronToggle })}>
-            <span className="panel-title">{this.panelIcon()}{` ${this.props.panelTitle}`}</span>
+            <span className="panel-title">{this.panelIcon()} {`${this.props.panelTitle}`} {this.panelCount()}</span>
             <i className={chevronClassNames}></i>
           </a>
         </div>
@@ -53,9 +65,10 @@ CollapsiblePanel.displayName = "CollapsiblePanel";
 CollapsiblePanel.propTypes = {
   panelTitle: PropTypes.string.isRequired,
   panelIcon: PropTypes.string,
+  panelCount: PropTypes.number,
   isNested: PropTypes.bool,
   hasNested: PropTypes.bool,
-  children: PropTypes.element.isRequired
+  children: PropTypes.element
 };
 
 CollapsiblePanel.defaultProps = { isNested: false, hasNested: false };

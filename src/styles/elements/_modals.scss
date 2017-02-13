@@ -1,0 +1,39 @@
+.modal-header {
+  padding: 15px 35px;
+
+  .modal-title {
+    font-size: 24px;
+
+    small {
+      display: block;
+      font-size: 80%;
+    }
+  }
+
+  button.close span {
+    font-size: 32px;
+  }
+}
+
+.modal-body {
+  label {
+    display: block;
+    text-align: right;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 6px;
+    font-size: 14px;
+    border-color: lighten($brand-secondary, 30%);
+  }
+
+  select {
+    width: 100%;
+    font-weight: 400;
+    font-size: 14px;
+    height: 40px;
+    border-radius: 0;
+    background-color: $white;
+  }
+}
