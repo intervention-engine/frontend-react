@@ -1,0 +1,14 @@
+@import "../../../elements/variables";
+
+.patient-view-timeline {
+  margin: 0 10px 0 30px;
+
+  .timeline-icon-search {
+    .timeline-icon {
+      margin-left: -15px;
+      float: left;
+      font-size: 48px;
+      color: $brand-primary;
+    }
+  }
+}

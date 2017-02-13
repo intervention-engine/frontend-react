@@ -24,11 +24,14 @@
 @import "components/patient-list/patient-list-selectors/patient-list-selectors";
 @import "components/patient-view/patient-view";
 @import "components/patient-view/patient-view-banner/patient-view-banner";
+@import "components/patient-view/patient-view-banner/patient-view-banner-risk-chart";
 @import "components/patient-view/patient-view-banner/patient-view-banner-summary";
 @import "components/patient-view/patient-view-stats/patient-view-stats-conditions";
 @import "components/patient-view/patient-view-stats/patient-view-stats-huddles";
 @import "components/patient-view/patient-view-stats/patient-view-stats-medications";
-@import "components/patient-view/patient-view-banner-risk-chart";
+@import "components/patient-view/patient-view-timeline/patient-view-timeline";
+@import "components/patient-view/patient-view-timeline/patient-view-timeline-event";
+
 @import "elements/animation";
 @import "elements/buttons";
 @import "elements/forms";
@@ -40,6 +43,7 @@
 @import "elements/search";
 @import "elements/tables";
 @import "elements/tooltip";
+
 @import "vendors/bootstrap";
 
 /* ------------------------- DOM ------------------------------------------- */
