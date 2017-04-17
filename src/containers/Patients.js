@@ -58,8 +58,8 @@ class Patients extends Component {
     // fetch patients and risks with params when nextProps has changed
     if (this.props.patients == null ||
         !equal(nextProps.patientSearch, this.props.patientSearch) ||
-        !equal(nextProps.pageNum, this.props.pageNum) ||
-        !equal(nextProps.currentPage, this.props.currentPage) ||
+        // !equal(nextProps.pageNum, this.props.pageNum) ||
+        // !equal(nextProps.currentPage, this.props.currentPage) ||
         !equal(nextProps.populations, this.props.populations) ||
         !equal(nextProps.selectedPopulations, this.props.selectedPopulations) ||
         !equal(nextProps.populationSelectorType, this.props.populationSelectorType) ||
@@ -71,9 +71,9 @@ class Patients extends Component {
         ...groupIdParams,
         ...sortParams,
         riskAssessment: this.props.selectedRiskAssessment,
-        name: nextProps.patientSearch,
+        search_term: nextProps.patientSearch,
         _offset: (nextProps.currentPage - 1) * this.props.patientsPerPage,
-        _count: this.props.patientsPerPage,
+        per_page: this.props.patientsPerPage,
         _revinclude: 'RiskAssessment:subject'
       });
     }

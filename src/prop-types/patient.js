@@ -11,7 +11,7 @@ const patientProps = {
     full: PropTypes.string.isRequired
   }).isRequired,
   address: PropTypes.shape({
-    street: PropTypes.string.isRequired,
+    street: PropTypes.arrayOf(PropTypes.string).isRequired,
     city: PropTypes.string.isRequired,
     state: PropTypes.string.isRequired,
     postalCode: PropTypes.string.isRequired
