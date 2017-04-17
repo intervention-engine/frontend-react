@@ -3,7 +3,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 
 import requestBundlesMiddleware from '../middlewares/request_bundles';
 import restructureGroupsMiddleware from '../middlewares/restructure_groups';
-import restructurePatientsMiddleware from '../middlewares/restructure_patients';
+// import restructurePatientsMiddleware from '../middlewares/restructure_patients';
 import restructureRiskAssessmentsMiddleware from '../middlewares/restructure_risk_assessments';
 import rootReducer from '../reducers';
 
@@ -12,7 +12,7 @@ export default function configureStore(initialState) {
     promiseMiddleware(),
     requestBundlesMiddleware,
     restructureGroupsMiddleware,
-    restructurePatientsMiddleware,
+    // restructurePatientsMiddleware,
     restructureRiskAssessmentsMiddleware
   );
 

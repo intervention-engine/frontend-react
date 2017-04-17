@@ -16,7 +16,7 @@ export function fetchPatients(params= {}) {
     delete params.name;
   }
 
-  let PATIENT_URL = `${FHIR_SERVER}/Patient?${param(params, true)}`;
+  let PATIENT_URL = `${FHIR_SERVER}/api/patients?${param(params, true)}`;
   return {
     type: FETCH_PATIENTS,
     payload: axios.get(PATIENT_URL).then((payload) => {
