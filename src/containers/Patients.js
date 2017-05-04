@@ -27,7 +27,7 @@ import { selectSortOption, setSortAscending } from '../actions/sort';
 
 class Patients extends Component {
   componentWillMount() {
-    if (this.props.populations == null) { this.props.fetchPopulations(); }
+    // if (this.props.populations == null) { this.props.fetchPopulations(); }
     if (this.props.huddles == null) { this.props.fetchHuddles(); }
   }
 
@@ -56,23 +56,23 @@ class Patients extends Component {
     let sortParams = { _sort: `${sortDir}${nextProps.sortOption.sortKey}` };
 
     // fetch patients and risks with params when nextProps has changed
-    if (this.props.patients == null ||
-        !equal(nextProps.patientSearch, this.props.patientSearch) ||
+    if (this.props.patients == null) {
+        // !equal(nextProps.patientSearch, this.props.patientSearch) ||
         // !equal(nextProps.pageNum, this.props.pageNum) ||
         // !equal(nextProps.currentPage, this.props.currentPage) ||
-        !equal(nextProps.populations, this.props.populations) ||
-        !equal(nextProps.selectedPopulations, this.props.selectedPopulations) ||
-        !equal(nextProps.populationSelectorType, this.props.populationSelectorType) ||
-        !equal(nextProps.selectedRiskAssessment, this.props.selectedRiskAssessment) ||
-        !equal(nextProps.selectedHuddle, this.props.selectedHuddle) ||
-        !equal(nextProps.sortAscending, this.props.sortAscending) ||
-        !equal(nextProps.sortOption, this.props.sortOption)) {
-      this.props.fetchPatients({
+        // !equal(nextProps.populations, this.props.populations) ||
+        // !equal(nextProps.selectedPopulations, this.props.selectedPopulations) ||
+        // !equal(nextProps.populationSelectorType, this.props.populationSelectorType) ||
+        // !equal(nextProps.selectedRiskAssessment, this.props.selectedRiskAssessment) ||
+        // !equal(nextProps.selectedHuddle, this.props.selectedHuddle) ||
+        // !equal(nextProps.sortAscending, this.props.sortAscending) ||
+        // !equal(nextProps.sortOption, this.props.sortOption)) {
+       this.props.fetchPatients({
         ...groupIdParams,
         ...sortParams,
         riskAssessment: this.props.selectedRiskAssessment,
         search_term: nextProps.patientSearch,
-        _offset: (nextProps.currentPage - 1) * this.props.patientsPerPage,
+        page: (nextProps.currentPage),
         per_page: this.props.patientsPerPage,
         _revinclude: 'RiskAssessment:subject'
       });

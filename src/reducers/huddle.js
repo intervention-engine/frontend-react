@@ -12,7 +12,7 @@ export default function huddleReducer(state = { huddles: null,
                                                 selectedHuddle: null }, action)  {
   switch (action.type) {
     case FETCH_HUDDLES_FULFILLED:
-      return { ...state, huddles: action.payload.data.Group.Huddle };
+      return { ...state, huddles: action.payload.data };
     case SELECT_HUDDLE_GROUP:
       return { ...state, selectedHuddleGroup: action.payload,
                            selectedHuddle: action.payload ? firstHuddle(action.payload.dates) : null };

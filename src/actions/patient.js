@@ -15,7 +15,6 @@ export function fetchPatients(params= {}) {
   if (params.name == null || params.name === '') {
     delete params.name;
   }
-
   let PATIENT_URL = `${FHIR_SERVER}/api/patients?${param(params, true)}`;
   return {
     type: FETCH_PATIENTS,
