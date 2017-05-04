@@ -11,7 +11,7 @@ import {
 import huddleToFhir from '../utils/huddle_to_fhir';
 
 export function fetchHuddles() {
-  const FETCH_HUDDLES_URL = `${FHIR_SERVER}/Group?actual=true`;
+  const FETCH_HUDDLES_URL = `${FHIR_SERVER}/api/care_teams`;
   return {
     type: FETCH_HUDDLES,
     payload: axios.get(FETCH_HUDDLES_URL)
