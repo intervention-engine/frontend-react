@@ -14,7 +14,6 @@ import sortProps from '../../prop-types/sort';
 
 export default class PatientList extends Component {
   render() {
-    console.log(this.props.patientsMeta);
     return (
       <div className="patient-list row">
         <PatientListSelectors populations={this.props.populations}
