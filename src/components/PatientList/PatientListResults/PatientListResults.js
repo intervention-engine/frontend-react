@@ -29,9 +29,9 @@ export default class PatientListResults extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!equal(nextProps.huddles, this.props.huddles)) {
-      this.setState({ nextHuddleForPatients: nextHuddleForPatients(nextProps.huddles) });
-    }
+    // if (!equal(nextProps.huddles, this.props.huddles)) {
+    //   this.setState({ nextHuddleForPatients: nextHuddleForPatients(nextProps.huddles) });
+    // }
   }
 
   openPatientPrintList(event) {

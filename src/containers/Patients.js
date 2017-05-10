@@ -56,10 +56,10 @@ class Patients extends Component {
     let sortParams = { _sort: `${sortDir}${nextProps.sortOption.sortKey}` };
 
     // fetch patients and risks with params when nextProps has changed
-    if (this.props.patients == null) {
+    if (this.props.patients == null ||
         // !equal(nextProps.patientSearch, this.props.patientSearch) ||
         // !equal(nextProps.pageNum, this.props.pageNum) ||
-        // !equal(nextProps.currentPage, this.props.currentPage) ||
+        !equal(nextProps.currentPage, this.props.currentPage) ||
         // !equal(nextProps.populations, this.props.populations) ||
         // !equal(nextProps.selectedPopulations, this.props.selectedPopulations) ||
         // !equal(nextProps.populationSelectorType, this.props.populationSelectorType) ||
@@ -67,6 +67,8 @@ class Patients extends Component {
         // !equal(nextProps.selectedHuddle, this.props.selectedHuddle) ||
         // !equal(nextProps.sortAscending, this.props.sortAscending) ||
         // !equal(nextProps.sortOption, this.props.sortOption)) {
+        false 
+        ) {
        this.props.fetchPatients({
         ...groupIdParams,
         ...sortParams,
