@@ -53,7 +53,7 @@ class Patients extends Component {
     // sort params
     let sortDir = nextProps.sortAscending ? '' : '-';
     if (nextProps.sortOption.invert) { sortDir = sortDir === '' ? '-' : ''; }
-    let sortParams = { _sort: `${sortDir}${nextProps.sortOption.sortKey}` };
+    let sortParams = { sort_by: `${sortDir}${nextProps.sortOption.sortKey}` };
 
     // fetch patients and risks with params when nextProps has changed
     if (this.props.patients == null ||
@@ -65,10 +65,8 @@ class Patients extends Component {
         // !equal(nextProps.populationSelectorType, this.props.populationSelectorType) ||
         // !equal(nextProps.selectedRiskAssessment, this.props.selectedRiskAssessment) ||
         // !equal(nextProps.selectedHuddle, this.props.selectedHuddle) ||
-        // !equal(nextProps.sortAscending, this.props.sortAscending) ||
-        // !equal(nextProps.sortOption, this.props.sortOption)) {
-        false 
-        ) {
+        !equal(nextProps.sortAscending, this.props.sortAscending) ||
+        !equal(nextProps.sortOption, this.props.sortOption)) {
        this.props.fetchPatients({
         ...groupIdParams,
         ...sortParams,
