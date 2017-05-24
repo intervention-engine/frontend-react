@@ -1,7 +1,7 @@
 
 
 
-import { expect, isProp } from '../test_helper';
+import { expect } from '../test_helper';
 
 import { patientsResponse } from '../fixtures/fhir';
 import patients from '../../src/middlewares/restructure_patients';
