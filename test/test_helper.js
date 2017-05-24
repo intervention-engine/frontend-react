@@ -7,7 +7,6 @@ import chai, { expect } from 'chai';
 import chaiJquery from 'chai-jquery';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import check from 'react-prop-types-check';
 import reducers from '../src/reducers';
 
 global.document = jsdom.jsdom('<!doctype html><html><body></body></html>');
@@ -36,14 +35,5 @@ $.fn.simulate = function(eventName, value) {
   TestUtils.Simulate[eventName](this[0]);
 };
 
-let isProp = function(obj, propType){
-  try {
-    check(obj, propType, true)
-  } catch (e) {
-    console.error(e.message);
-    return false;
-  }
-  return true;
-}
 
-export {renderComponent, expect, isProp};
+export {renderComponent, expect};
