@@ -3,7 +3,7 @@ import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames';
 import ReactPaginate from 'react-paginate';
 import { param } from 'jquery';
-import equal from 'deep-equal';
+// import equal from 'deep-equal';
 
 import PatientListResultsItem from './PatientListResultsItem';
 
@@ -28,11 +28,11 @@ export default class PatientListResults extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!equal(nextProps.huddles, this.props.huddles)) {
-      this.setState({ nextHuddleForPatients: nextHuddleForPatients(nextProps.huddles) });
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+    // if (!equal(nextProps.huddles, this.props.huddles)) {
+    //   this.setState({ nextHuddleForPatients: nextHuddleForPatients(nextProps.huddles) });
+    // }
+  // }
 
   openPatientPrintList(event) {
     event.preventDefault();

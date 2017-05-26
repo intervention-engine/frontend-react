@@ -16,6 +16,8 @@ import riskAssessmentTypeProps from '../../../prop-types/risk_assessment_type';
 
 export default class PatientListResultsItem extends Component {
   renderedNextHuddle(patient) {
+    if(!this.props.nextHuddles)
+      return null;
     let nextHuddle = this.props.nextHuddles[patient.id];
 
     if (nextHuddle == null) {
@@ -109,7 +111,7 @@ PatientListResultsItem.propTypes = {
   patient: patientProps.isRequired,
   huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
   filteredRiskAssessments: riskAssessmentProps,
-  nextHuddles: PropTypes.object.isRequired,
+  nextHuddles: PropTypes.object,
   selectedRiskAssessment: riskAssessmentTypeProps.isRequired,
 };
 

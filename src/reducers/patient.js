@@ -14,9 +14,10 @@ export default function(state = { patients: null,
                                   patientsPerPage: 10 }, action)  {
   switch (action.type) {
     case FETCH_PATIENTS_FULFILLED:
-      return { ...state, patients: action.payload.data.Patient || [],
-                         meta: action.payload.data.Meta,
-                         pageNum: Math.ceil(action.payload.data.Meta.total / state.patientsPerPage) };
+      let total = parseInt(action.payload.headers.link.match(/total=(\d+)/i)[1]);
+      return { ...state, patients: action.payload.data || [],
+                         meta: {total},
+                         pageNum: Math.ceil(total / state.patientsPerPage) };
     case SET_PATIENT_SEARCH:
       // We want to reset the page to 1 so the search results are shown.
       return { ...state, patientSearch: action.payload, currentPage: 1 };
