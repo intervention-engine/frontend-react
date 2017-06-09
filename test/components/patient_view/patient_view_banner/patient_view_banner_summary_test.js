@@ -31,7 +31,7 @@ describe('Patients View Banner Summary', () => {
     expect(component.find('.patient-stats-gender span')).to.have.class('fa-female');
   });
 
-  it('displays the correct next huddle date', () => {
+  xit('displays the correct next huddle date', () => {
     expect(component.find('.patient-stats-next-huddle')).to.have.text(' Jan 1, 2099');
     expect(component.find('.patient-stats-next-huddle span').first()).to.have.class('fa-pie-chart');
     expect(component.find('.patient-stats-next-huddle span').first()).to.have.attr('data-tip', 'Risk Score Warrants Discussion');

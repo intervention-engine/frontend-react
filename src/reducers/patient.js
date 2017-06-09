@@ -24,8 +24,8 @@ export default function(state = { patients: null,
     case SELECT_PAGE:
       return { ...state, currentPage: action.payload };
     case FETCH_PATIENT_FULFILLED:
-      let { Encounter, Condition, MedicationStatement, RiskAssessment } = action.payload.data;
-      let selectedPatient = { ...action.payload.data.Patient[0], Encounter, Condition, MedicationStatement, RiskAssessment };
+      // let { Encounter, Condition, MedicationStatement, RiskAssessment } = action.payload.data;
+      let selectedPatient = { ...action.payload.data };//, Encounter, Condition, MedicationStatement, RiskAssessment };
       return { ...state, selectedPatient };
     default:
       return state;
