@@ -18,7 +18,7 @@ import { fetchRiskAssessments, selectRiskAssessment } from '../actions/risk_asse
 
 import { riskAssessmentTypes } from '../reducers/risk_assessment';
 
-import queryParamsHash from '../utils/query_params_hash';
+// import queryParamsHash from '../utils/query_params_hash';
 
 export class Patient extends Component {
   constructor(...args) {
@@ -35,11 +35,11 @@ export class Patient extends Component {
     }
 
     if (this.props.selectedPatient == null) {
-      let queryParams = queryParamsHash();
+      // let queryParams = queryParamsHash();
 
       this.props.fetchHuddles();
-      this.props.selectRiskAssessment(riskAssessmentTypes.find((type) => type.method === queryParams.riskAssessment));
-      this.props.fetchRiskAssessments(queryParams.riskAssessment, [this.props.params.patient_id]);
+      // this.props.selectRiskAssessment(riskAssessmentTypes.find((type) => type.method === queryParams.riskAssessment));
+      // this.props.fetchRiskAssessments(queryParams.riskAssessment, [this.props.params.patient_id]);
     }
   }
 
