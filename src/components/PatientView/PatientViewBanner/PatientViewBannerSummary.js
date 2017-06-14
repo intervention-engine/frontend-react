@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
 
-import NextHuddleDate from '../../../elements/NextHuddleDate';
+// import NextHuddleDate from '../../../elements/NextHuddleDate';
 import PatientViewBannerRiskChart from './PatientViewBannerRiskChart';
 
-import { getPatientAgeIcon, getPatientGenderIcon, getHuddleReasonIcon } from '../../../utils/icon';
-import nextHuddleForPatients from '../../../utils/next_huddle_for_patients';
+import { getPatientAgeIcon, getPatientGenderIcon/*, getHuddleReasonIcon*/ } from '../../../utils/icon';
+// import nextHuddleForPatients from '../../../utils/next_huddle_for_patients';
 import patientRisk from '../../../utils/patient_risk';
 
 import patientProps from '../../../prop-types/patient';
@@ -14,17 +14,18 @@ import riskAssessmentProps from '../../../prop-types/risk_assessment';
 
 export default class PatientViewBannerSummary extends Component {
   renderedNextHuddle() {
-    if (this.props.huddles == null) { return; }
-    let nextHuddles = nextHuddleForPatients(this.props.huddles);
-    let nextHuddle = nextHuddles[this.props.patient.id];
-    if (nextHuddle == null) { return; }
-
-    return (
-      <NextHuddleDate huddleIconName={getHuddleReasonIcon(nextHuddle.huddlePatient.reason.code)}
-                      huddleGroupName={nextHuddle.huddleGroup.name}
-                      huddleReason={nextHuddle.huddlePatient.reason.text}
-                      huddleDate={nextHuddle.huddle.datetime} />
-    );
+    return;
+    // if (this.props.huddles == null) { return; }
+    // let nextHuddles = nextHuddleForPatients(this.props.huddles);
+    // let nextHuddle = nextHuddles[this.props.patient.id];
+    // if (nextHuddle == null) { return; }
+    //
+    // return (
+    //   <NextHuddleDate huddleIconName={getHuddleReasonIcon(nextHuddle.huddlePatient.reason.code)}
+    //                   huddleGroupName={nextHuddle.huddleGroup.name}
+    //                   huddleReason={nextHuddle.huddlePatient.reason.text}
+    //                   huddleDate={nextHuddle.huddle.datetime} />
+    // );
   }
 
   renderedRisk() {
@@ -33,8 +34,6 @@ export default class PatientViewBannerSummary extends Component {
   }
 
   render() {
-
-
     if (this.props.patient == null) { return <div></div>; }
 
     let fullName = '';

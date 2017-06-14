@@ -8,7 +8,7 @@ import BootstrapModal from '../../../elements/modals/BootstrapModal';
 import AddToHuddleModal from '../../../elements/modals/AddToHuddleModal';
 import HuddlePikaday from '../../../elements/pikaday/HuddlePikaday';
 
-import getPatientHuddles from '../../../utils/get_patient_huddles';
+// import getPatientHuddles from '../../../utils/get_patient_huddles';
 
 import huddleProps from '../../../prop-types/huddle';
 import patientProps from '../../../prop-types/patient';
@@ -40,19 +40,21 @@ export default class PatientViewStatsHuddles extends Component {
   // used in componentWillReceiveProps to update patientHuddles, selectedPatientHuddle,
   // and selectedPatientHuddlePatientInfo state
   updateHuddles(patient, huddles, selectedDate) {
-    let patientHuddles = getPatientHuddles(patient, huddles);
-
-    let selectedPatientHuddle;
-    if (patientHuddles != null) {
-      selectedPatientHuddle = this.selectedPatientHuddle(selectedDate, patientHuddles);
-    }
-
-    let selectedPatientHuddlePatientInfo;
-    if (selectedPatientHuddle != null) {
-      selectedPatientHuddlePatientInfo = selectedPatientHuddle.patients.find((patient) => patient.id === this.props.patient.id);
-    }
-
-    this.setState({ patientHuddles, selectedPatientHuddle, selectedPatientHuddlePatientInfo });
+    `This function is currently disabled, updateHuddles(${patient}, ${huddles}, ${selectedDate});`;
+    return;
+    // let patientHuddles = getPatientHuddles(patient, huddles);
+    //
+    // let selectedPatientHuddle;
+    // if (patientHuddles != null) {
+    //   selectedPatientHuddle = this.selectedPatientHuddle(selectedDate, patientHuddles);
+    // }
+    //
+    // let selectedPatientHuddlePatientInfo;
+    // if (selectedPatientHuddle != null) {
+    //   selectedPatientHuddlePatientInfo = selectedPatientHuddle.patients.find((patient) => patient.id === this.props.patient.id);
+    // }
+    //
+    // this.setState({ patientHuddles, selectedPatientHuddle, selectedPatientHuddlePatientInfo });
   }
 
   // used in updateHuddles to select huddle for patient on the given selected date

@@ -39,7 +39,8 @@ export function selectPage(page) {
 }
 
 export function fetchPatient(id) {
-  let PATIENT_URL = `${FHIR_SERVER}/Patient?_id=${id}&_revinclude=Encounter:patient&_revinclude=MedicationStatement:patient&_revinclude=Condition:patient&_revinclude=RiskAssessment:subject`;
+  // let PATIENT_URL = `${FHIR_SERVER}/Patient?_id=${id}&_revinclude=Encounter:patient&_revinclude=MedicationStatement:patient&_revinclude=Condition:patient&_revinclude=RiskAssessment:subject`;
+  let PATIENT_URL = `${FHIR_SERVER}/api/patients/${id}`;
   return {
     type: FETCH_PATIENT,
     payload: axios.get(PATIENT_URL)

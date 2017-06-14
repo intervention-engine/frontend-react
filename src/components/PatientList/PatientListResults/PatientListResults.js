@@ -16,7 +16,7 @@ import riskAssessmentTypeProps from '../../../prop-types/risk_assessment_type';
 import riskAssessmentProps from '../../../prop-types/risk_assessment';
 import sortProps from '../../../prop-types/sort';
 
-import nextHuddleForPatients from '../../../utils/next_huddle_for_patients';
+// import nextHuddleForPatients from '../../../utils/next_huddle_for_patients';
 
 export default class PatientListResults extends Component {
   constructor(...args) {
@@ -24,7 +24,7 @@ export default class PatientListResults extends Component {
 
     this.state = {
       searchExpanded: false,
-      nextHuddleForPatients: nextHuddleForPatients(this.props.huddles)
+      // nextHuddleForPatients: nextHuddleForPatients(this.props.huddles)
     };
   }
 
