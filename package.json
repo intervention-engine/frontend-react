@@ -67,6 +67,7 @@
     "react-addons-test-utils": "^15.3.1",
     "react-bootstrap": "^0.30.3",
     "react-dom": "^15.3.1",
+    "react-dragula": "^1.1.17",
     "react-fontawesome": "^1.1.0",
     "react-paginate": "^2.2.3",
     "react-pikaday-component": "^2.1.4",

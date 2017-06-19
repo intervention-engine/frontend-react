@@ -5,6 +5,7 @@
 /* ------------------------- IMPORT 3RD PARTY VENDORS ---------------------- */
 
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import '~react-dragula/dist/dragula';
 
 /* ------------------------- IMPORT CUSTOM FONTS --------------------------- */
 
@@ -31,6 +32,7 @@
 @import "components/patient-view/patient-view-stats/patient-view-stats-medications";
 @import "components/patient-view/patient-view-timeline/patient-view-timeline";
 @import "components/patient-view/patient-view-timeline/patient-view-timeline-event";
+@import "components/filter-builder/dragula";
 
 @import "elements/animation";
 @import "elements/buttons";
