@@ -1,32 +1,23 @@
-import axios from 'axios';
-import { param } from 'jquery';
+// import axios from 'axios'; // TODO - add once risk assessment api works
 
 import {
-  FETCH_RISK_ASSESSMENTS,
-  SELECT_RISK_ASSESSMENT
+  FETCH_RISK_ASSESSMENTS
 } from './types';
 
-export function fetchRiskAssessments(riskAssessment, patientIds) {
-  let riskAssessmentString = typeof riskAssessment === 'string' ? riskAssessment : riskAssessment.method;
+export function fetchRiskAssessments() { // TODO - add patientId to arguments onces risk assessment api works
+  // let riskServiceURL = `${FHIR_SERVER}/api/patients/${patientId}/risk_assessments`;  // TODO - add once risk assessment api works
 
-  let riskParams = {
-    method: `http://interventionengine.org/risk-assessments|${riskAssessmentString}`,
-    _tag: 'http://interventionengine.org/tags/|MOST_RECENT',
-    'subject:Patient': patientIds.join(','),
-    _count: patientIds.length
-  };
-
-  let riskAssessmentURL = `${FHIR_SERVER}/RiskAssessment?${param(riskParams, true)}` || [];
+  let tempPayload = [                                                                   // TODO - remove once risk assessment api works
+    { "id": "ra1", "risk_service_id": "rs1", "date": "2016-06-01", "value": 3 },
+    { "id": "ra2", "risk_service_id": "rs1", "date": "2016-05-01", "value": 3 },
+    { "id": "ra3", "risk_service_id": "rs1", "date": "2016-05-06", "value": 2 },
+    { "id": "ra4", "risk_service_id": "rs2", "date": "2016-01-01", "value": 2 },
+    { "id": "ra5", "risk_service_id": "rs2", "date": "2016-02-06", "value": 1 }
+  ];
 
   return {
     type: FETCH_RISK_ASSESSMENTS,
-    payload: axios.get(riskAssessmentURL)
-  };
-}
-
-export function selectRiskAssessment(riskAssessment) {
-  return {
-    type: SELECT_RISK_ASSESSMENT,
-    payload: riskAssessment
+    // payload: axios.get(riskAssessmentURL)  // TODO - add once risk assessment api works
+    payload: Promise.resolve(tempPayload)     // TODO - remove once risk assessment api works
   };
 }

@@ -15,17 +15,17 @@ export default function(state = { patients: null,
   switch (action.type) {
     case FETCH_PATIENTS_FULFILLED:
       let total = parseInt(action.payload.headers.link.match(/total=(\d+)/i)[1]);
+
       return { ...state, patients: action.payload.data || [],
-                         meta: {total},
+                         meta: { total },
                          pageNum: Math.ceil(total / state.patientsPerPage) };
     case SET_PATIENT_SEARCH:
-      // We want to reset the page to 1 so the search results are shown.
+      // reset the page to 1 so the search results are shown
       return { ...state, patientSearch: action.payload, currentPage: 1 };
     case SELECT_PAGE:
       return { ...state, currentPage: action.payload };
     case FETCH_PATIENT_FULFILLED:
-      // let { Encounter, Condition, MedicationStatement, RiskAssessment } = action.payload.data;
-      let selectedPatient = { ...action.payload.data };//, Encounter, Condition, MedicationStatement, RiskAssessment };
+      let selectedPatient = { ...action.payload.data };
       return { ...state, selectedPatient };
     default:
       return state;

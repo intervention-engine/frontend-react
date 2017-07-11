@@ -12,17 +12,13 @@ import patientRisk from '../../../utils/patient_risk';
 import patientProps from '../../../prop-types/patient';
 import huddleGroupProps from '../../../prop-types/huddle_group';
 import riskAssessmentProps from '../../../prop-types/risk_assessment';
-import riskAssessmentTypeProps from '../../../prop-types/risk_assessment_type';
+import riskServiceProps from '../../../prop-types/risk_service';
 
 export default class PatientListResultsItem extends Component {
   renderedNextHuddle(patient) {
-    if(!this.props.nextHuddles)
-      return null;
+    if(!this.props.nextHuddles) { return null; }
     let nextHuddle = this.props.nextHuddles[patient.id];
-
-    if (nextHuddle == null) {
-      return;
-    }
+    if (nextHuddle == null) { return; }
 
     return (
       <NextHuddleDate huddleIconName={getHuddleReasonIcon(nextHuddle.huddlePatient.reason.code)}
@@ -46,8 +42,8 @@ export default class PatientListResultsItem extends Component {
     return patientHuddles.sort(sortByDate('datetime'));
   }
 
-  renderedRisk(patient, riskAssessment) {
-    let risk = patientRisk(patient, riskAssessment);
+  renderedRisk(patient, riskAssessments) {
+    let risk = patientRisk(patient, riskAssessments);
 
     if (risk) {
       let maxRisk = 4; // TODO: get from backend
@@ -66,42 +62,42 @@ export default class PatientListResultsItem extends Component {
 
   render() {
     return (
-      <Link className="patient-list-results-item" to={`/patients/${this.props.patient.id}?riskAssessment=${this.props.selectedRiskAssessment.method}`}>
-      <div >
-        <div className="media">
-          <div className="media-left media-middle">
-            <FontAwesome name="user" className="media-object" />
-          </div>
-
-          <div className="media-body">
-            <div className="row">
-              <div className="patient-name col-xs-12">{this.props.patient.name.full}</div>
+      <Link className="patient-list-results-item" to={`/patients/${this.props.patient.id}?riskService=${this.props.selectedRiskService.id}`}>
+        <div>
+          <div className="media">
+            <div className="media-left media-middle">
+              <FontAwesome name="user" className="media-object" />
             </div>
 
-            <div className="row">
-              <div className="col-md-5">
-                <div className="patient-age-gender">
-                  <span className="patient-age">
-                    <i className={getPatientAgeIcon(this.props.patient.age)}></i>{this.props.patient.age} yrs
-                  </span>
+            <div className="media-body">
+              <div className="row">
+                <div className="patient-name col-xs-12">{this.props.patient.name.full}</div>
+              </div>
 
-                  <span className="patient-gender">
-                    <FontAwesome name={getPatientGenderIcon(this.props.patient.gender)} /> {this.props.patient.gender}
-                  </span>
+              <div className="row">
+                <div className="col-md-5">
+                  <div className="patient-age-gender">
+                    <span className="patient-age">
+                      <i className={getPatientAgeIcon(this.props.patient.age)}></i>{this.props.patient.age} yrs
+                    </span>
+
+                    <span className="patient-gender">
+                      <FontAwesome name={getPatientGenderIcon(this.props.patient.gender)} /> {this.props.patient.gender}
+                    </span>
+                  </div>
                 </div>
-              </div>
 
-              <div className="col-md-3 patient-next-huddle-date">
-                {this.renderedNextHuddle(this.props.patient, this.props.huddles)}
-              </div>
+                <div className="col-md-3 patient-next-huddle-date">
+                  {this.renderedNextHuddle(this.props.patient, this.props.huddles)}
+                </div>
 
-              <div className="col-md-4 patient-risk-bar-container">
-                {this.renderedRisk(this.props.patient, this.props.filteredRiskAssessments)}
+                <div className="col-md-4 patient-risk-bar-container">
+                  {this.renderedRisk(this.props.patient, this.props.filteredRiskAssessments)}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
       </Link>
     );
   }
@@ -110,9 +106,9 @@ export default class PatientListResultsItem extends Component {
 PatientListResultsItem.propTypes = {
   patient: patientProps.isRequired,
   huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
-  filteredRiskAssessments: riskAssessmentProps,
+  filteredRiskAssessments: PropTypes.arrayOf(riskAssessmentProps),
   nextHuddles: PropTypes.object,
-  selectedRiskAssessment: riskAssessmentTypeProps.isRequired,
+  selectedRiskService: riskServiceProps,
 };
 
 PatientListResultsItem.displayName = 'PatientListResultsItem';

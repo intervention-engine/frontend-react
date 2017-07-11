@@ -1,16 +1,19 @@
 import React, { Component, PropTypes } from 'react';
-import patientProps from '../../../prop-types/patient';
+
 import PatientViewBannerSummary from './PatientViewBannerSummary';
+
+import patientProps from '../../../prop-types/patient';
 import huddleGroupProps from '../../../prop-types/huddle_group';
-import riskAssessmentTypeProps from '../../../prop-types/risk_assessment_type';
+import riskServiceProps from '../../../prop-types/risk_service';
 import riskAssessmentProps from '../../../prop-types/risk_assessment';
 
 export default class PatientViewBanner extends Component {
   render() {
     let filteredRiskAssessments = null;
-    if (this.props.riskAssessments != null) {
-      filteredRiskAssessments = this.props.riskAssessments.find((riskAssessment) => {
-        return riskAssessment.name == this.props.selectedRiskAssessment.name;
+
+    if (this.props.riskAssessments != null && this.props.selectedRiskService != null) {
+      filteredRiskAssessments = this.props.riskAssessments.filter((riskAssessment) => {
+        return riskAssessment.risk_service_id == this.props.selectedRiskService.id;
       });
     }
 
@@ -20,7 +23,6 @@ export default class PatientViewBanner extends Component {
           <PatientViewBannerSummary patient={this.props.patient}
                                     huddles={this.props.huddles}
                                     filteredRiskAssessments={filteredRiskAssessments} />
-
         </div>
       </div>
     );
@@ -33,5 +35,5 @@ PatientViewBanner.propTypes = {
   patient: patientProps,
   huddles: PropTypes.arrayOf(huddleGroupProps),
   riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
-  selectedRiskAssessment: riskAssessmentTypeProps.isRequired
+  selectedRiskService: riskServiceProps
 };

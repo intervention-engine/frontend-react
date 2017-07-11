@@ -41,11 +41,6 @@ export default class PatientViewBannerSummary extends Component {
       fullName = this.props.patient.name.full;
     }
 
-    let patientRiskAssessments;
-    if (this.props.filteredRiskAssessments) {
-      patientRiskAssessments = this.props.filteredRiskAssessments.patients.find((pat) => pat.id === this.props.patient.id).risks;
-    }
-
     return (
       <div className="patient-view-banner-summary row">
         <div className="col-xs-1 patient-image">
@@ -71,7 +66,7 @@ export default class PatientViewBannerSummary extends Component {
         </div>
 
         <div className="col-xs-5 patient-risk-chart">
-          <PatientViewBannerRiskChart riskAssessments={patientRiskAssessments}/>
+          <PatientViewBannerRiskChart riskAssessments={this.props.filteredRiskAssessments}/>
         </div>
 
         <div className="col-xs-1 patient-risk-score">
@@ -87,5 +82,5 @@ PatientViewBannerSummary.displayName = 'PatientViewBannerSummary';
 PatientViewBannerSummary.propTypes = {
   patient: patientProps,
   huddles: PropTypes.arrayOf(huddleGroupProps),
-  filteredRiskAssessments: riskAssessmentProps
+  filteredRiskAssessments: PropTypes.arrayOf(riskAssessmentProps)
 };
