@@ -2,7 +2,7 @@ import { expect } from '../test_helper';
 import TestUtils from 'react-addons-test-utils';
 import { patientTestObject1, patientTestObject2, patientsMetaTestObject,
          populationsTestObject1, huddleGroupTestObject1, huddleTestObject,
-         riskAssessmentTestObject, riskAssessmentTypeTestObject1,
+         riskAssessmentTestObject1,
          sortOptionTestObject1 } from '../test_props';
 import PrintPatientList, { mapStateToProps } from '../../src/containers/PrintPatientList';
 
@@ -14,7 +14,7 @@ describe('PrintPatientList' , () => {
       patient: { patients: [ patientTestObject1, patientTestObject2 ] },
       population: { selectedPopulations: [ populationsTestObject1 ] },
       huddle: { huddles: [ huddleGroupTestObject1 ] },
-      riskAssessment: { riskAssessments: [ riskAssessmentTestObject ] }
+      riskAssessment: { riskAssessments: [ riskAssessmentTestObject1 ] }
     };
   });
 

@@ -1,6 +1,6 @@
 import { expect, renderComponent } from '../../../test_helper';
-import { patientTestObject1, huddleGroupTestObject1, riskAssessmentTypeTestObject1,
-         riskAssessmentTestObject, huddleTestObject } from '../../../test_props';
+import { patientTestObject1, huddleGroupTestObject1, riskServiceTestObject1,
+         riskAssessmentTestObject1, huddleTestObject } from '../../../test_props';
 import PatientViewStats from '../../../../src/components/PatientView/PatientViewStats/PatientViewStats';
 
 describe('Patient View Stats' , () => {
@@ -11,11 +11,11 @@ describe('Patient View Stats' , () => {
       patient: patientTestObject1,
       huddles: [ huddleGroupTestObject1 ],
       selectedHuddle: huddleTestObject,
-      riskAssessmentTypes: [ riskAssessmentTypeTestObject1 ],
-      riskAssessments: [ riskAssessmentTestObject ],
-      selectedRiskAssessment: riskAssessmentTypeTestObject1,
+      riskServices: [ riskServiceTestObject1 ],
+      riskAssessments: [ riskAssessmentTestObject1 ],
+      selectedRiskService: riskServiceTestObject1,
       selectHuddle: () => null,
-      selectRiskAssessment: () => null,
+      selectRiskService: () => null,
       addPatientToHuddle: () => null
     }
 

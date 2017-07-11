@@ -1,0 +1,38 @@
+@import "variables";
+
+.linechart-withPadding {
+  padding: .625rem .625rem 0 0;
+}
+
+.linechart_grid {
+  stroke: $body-bg;
+  stroke-width: 1;
+  opacity: .2;
+}
+
+.linechart_axis {
+  stroke: $body-bg;
+}
+
+.linechart_area {
+  fill: $white;
+  stroke: none;
+  opacity: 1;
+}
+
+.linechart_path {
+  stroke: $white;
+  stroke-width: 2;
+  fill: none;
+}
+
+.linechart_point {
+  fill: $brand-primary;
+  stroke: $white;
+  stroke-width: 2;
+}
+
+.linechart_label {
+  fill: $body-bg;
+  stroke-width: 0;
+}

@@ -1,5 +1,5 @@
 import { expect, renderComponent } from '../../../test_helper';
-import { patientTestObject1, huddleGroupTestObject1, riskAssessmentTestObject } from '../../../test_props';
+import { patientTestObject1, huddleGroupTestObject1, riskAssessmentTestObject1, riskAssessmentTestObject2 } from '../../../test_props';
 import PatientViewBannerSummary from '../../../../src/components/PatientView/PatientViewBanner/PatientViewBannerSummary';
 
 describe('Patients View Banner Summary', () => {
@@ -9,7 +9,7 @@ describe('Patients View Banner Summary', () => {
     let props = {
       patient: patientTestObject1,
       huddles: [ huddleGroupTestObject1 ],
-      filteredRiskAssessments: riskAssessmentTestObject
+      filteredRiskAssessments: [ riskAssessmentTestObject1, riskAssessmentTestObject2 ]
     }
 
     component = renderComponent(PatientViewBannerSummary, props);

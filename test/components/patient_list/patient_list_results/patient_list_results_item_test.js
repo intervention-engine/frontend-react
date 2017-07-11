@@ -1,6 +1,6 @@
 import { expect, renderComponent } from '../../../test_helper';
-import { patientTestObject1, huddleGroupTestObject1, riskAssessmentTestObject,
-         nextHuddlesObject, riskAssessmentTypeTestObject1 } from '../../../test_props';
+import { patientTestObject1, huddleGroupTestObject1, riskAssessmentTestObject1,
+         nextHuddlesObject, riskServiceTestObject1 } from '../../../test_props';
 import PatientListResultsItem from '../../../../src/components/PatientList/PatientListResults/PatientListResultsItem';
 
 describe('Patients List Results Item', () => {
@@ -11,9 +11,9 @@ describe('Patients List Results Item', () => {
       key: '1',
       patient: patientTestObject1,
       huddles: [ huddleGroupTestObject1 ],
-      riskAssessments: [ riskAssessmentTestObject ],
-      selectedRiskAssessment: riskAssessmentTypeTestObject1,
-      filteredRiskAssessments: riskAssessmentTestObject,
+      riskAssessments: [ riskAssessmentTestObject1 ],
+      selectedRiskService: riskServiceTestObject1,
+      filteredRiskAssessments: [ riskAssessmentTestObject1 ],
       nextHuddles: nextHuddlesObject
     }
 
