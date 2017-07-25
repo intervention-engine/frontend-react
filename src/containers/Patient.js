@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FontAwesome from 'react-fontawesome';
-import equal from 'deep-equal';
 
 import PageHeader from '../components/Header/PageHeader';
 import PatientView from '../components/PatientView/PatientView';
