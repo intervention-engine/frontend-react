@@ -33,7 +33,9 @@ export class Patient extends Component {
       // --patient not yet fetched--
       this.setState({ loading: true });
       // fetch patient
-      this.props.fetchPatient(this.props.params.patient_id);
+      this.props.fetchPatient(this.props.params.patient_id).then(() => {
+        this.props.fetchRiskAssessments(this.props.params.patient_id, this.props.selectedRiskService.id);
+      });
     } else {
       // --patient already fetched--
       // fetch risk assessments
@@ -44,18 +46,6 @@ export class Patient extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.patient == this.props.patient) {
       this.setState({ loading: false });
-    }
-
-    // fetch risk services when nextProps has changed
-    if (this.props.riskServices.length === 0 || !equal(nextProps.riskServices, this.props.riskServices)) {
-      this.props.fetchRiskServices();
-    }
-
-    // fetch risk assessments when nextProps has changed
-    if (this.props.selectedRiskService != null &&
-        this.props.riskAssessments.length === 0 ||
-        !equal(nextProps.riskAssessments, this.props.riskAssessments)) {
-      this.props.fetchRiskAssessments(this.props.params.patient_id, this.props.selectedRiskService.id);
     }
   }
 
