@@ -34,8 +34,8 @@ export default class PatientView extends Component {
             <div className="patient-panel-body row">
               <div className="patient-panel-body-section col-xs-12">
                 <PatientViewBanner patient={this.props.patient}
-                                   huddles={this.props.huddles}
                                    riskAssessments={this.props.riskAssessments}
+                                   huddles={this.props.huddles}
                                    selectedRiskService={this.props.selectedRiskService } />
               </div>
 

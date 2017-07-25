@@ -6,11 +6,10 @@ import PatientViewBannerRiskChart from './PatientViewBannerRiskChart';
 
 import { getPatientAgeIcon, getPatientGenderIcon/*, getHuddleReasonIcon*/ } from '../../../utils/icon';
 // import nextHuddleForPatients from '../../../utils/next_huddle_for_patients';
-import patientRisk from '../../../utils/patient_risk';
 
 import patientProps from '../../../prop-types/patient';
-import huddleGroupProps from '../../../prop-types/huddle_group';
 import riskAssessmentProps from '../../../prop-types/risk_assessment';
+import huddleGroupProps from '../../../prop-types/huddle_group';
 
 export default class PatientViewBannerSummary extends Component {
   renderedNextHuddle() {
@@ -29,8 +28,10 @@ export default class PatientViewBannerSummary extends Component {
   }
 
   renderedRisk() {
-    let risk = patientRisk(this.props.patient, this.props.filteredRiskAssessments);
-    if (risk) { return <span>{risk}</span>; }
+    if (this.props.patient.recent_risk_assessment == null) { return; }
+
+    let risk = this.props.patient.recent_risk_assessment.value;
+    return <span>{risk}</span>;
   }
 
   render() {
@@ -66,7 +67,7 @@ export default class PatientViewBannerSummary extends Component {
         </div>
 
         <div className="col-xs-5 patient-risk-chart">
-          <PatientViewBannerRiskChart riskAssessments={this.props.filteredRiskAssessments}/>
+          <PatientViewBannerRiskChart riskAssessments={this.props.riskAssessments}/>
         </div>
 
         <div className="col-xs-1 patient-risk-score">
@@ -81,6 +82,6 @@ PatientViewBannerSummary.displayName = 'PatientViewBannerSummary';
 
 PatientViewBannerSummary.propTypes = {
   patient: patientProps,
-  huddles: PropTypes.arrayOf(huddleGroupProps),
-  filteredRiskAssessments: PropTypes.arrayOf(riskAssessmentProps)
+  riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
+  huddles: PropTypes.arrayOf(huddleGroupProps)
 };
