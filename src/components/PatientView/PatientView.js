@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 
 import PatientViewBanner from './PatientViewBanner/PatientViewBanner';
 import PatientViewStats from './PatientViewStats/PatientViewStats';
+import PatientViewRiskAsterChart from './PatientViewRiskAsterChart/PatientViewRiskAsterChart';
 import PatientViewTimeline from './PatientViewTimeline/PatientViewTimeline';
 
 import patientProps from '../../prop-types/patient';
@@ -51,7 +52,11 @@ export default class PatientView extends Component {
                                   addPatientToHuddle={this.props.addPatientToHuddle} />
               </div>
 
-              <div className="patient-panel-body-section col-xs-5 col-xs-offset-4">
+              <div className="patient-panel-body-section col-xs-4">
+                <PatientViewRiskAsterChart />
+              </div>
+
+              <div className="patient-panel-body-section col-xs-5">
                 <PatientViewTimeline patient={this.props.patient} />
               </div>
             </div>
