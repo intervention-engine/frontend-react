@@ -9,7 +9,6 @@ import populationProps from '../../prop-types/population';
 import huddleGroupProps from '../../prop-types/huddle_group';
 import huddleProps from '../../prop-types/huddle';
 import riskServiceProps from '../../prop-types/risk_service';
-import riskAssessmentProps from '../../prop-types/risk_assessment';
 import sortProps from '../../prop-types/sort';
 
 export default class PatientList extends Component {
@@ -46,7 +45,6 @@ export default class PatientList extends Component {
                             populationSelectorType={this.props.populationSelectorType}
                             huddles={this.props.huddles}
                             selectedHuddle={this.props.selectedHuddle}
-                            riskAssessments={this.props.riskAssessments}
                             selectedRiskService={this.props.selectedRiskService}
                             sortOption={this.props.sortOption}
                             sortAscending={this.props.sortAscending}
@@ -73,9 +71,7 @@ PatientList.propTypes = {
   selectedHuddleGroup: huddleGroupProps,
   selectedHuddle: huddleProps,
   riskServices: PropTypes.arrayOf(riskServiceProps).isRequired,
-  riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired,
   selectedRiskService: riskServiceProps,
-  selectedRiskAssessment: riskAssessmentProps,
   sortOptions: PropTypes.arrayOf(sortProps).isRequired,
   sortOption: sortProps.isRequired,
   sortAscending: PropTypes.bool.isRequired,

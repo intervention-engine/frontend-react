@@ -6,7 +6,7 @@ export default function riskServiceReducer(state = { riskAssessments: [],
                                                      selectedRiskAssessment: null }, action)  {
   switch (action.type) {
     case FETCH_RISK_ASSESSMENTS_FULFILLED:
-      return { ...state, riskAssessments: action.payload || [] };
+      return { ...state, riskAssessments: action.payload.data || [] };
     default:
       return state;
   }

@@ -1,4 +1,4 @@
-// import axios from 'axios'; // TODO - add once risk service api works
+import axios from 'axios';
 
 import {
   FETCH_RISK_SERVICES,
@@ -6,23 +6,11 @@ import {
 } from './types';
 
 export function fetchRiskServices() {
-  // let riskServiceURL = `${FHIR_SERVER}/api/risk_services`; // TODO - add once risk service api works
-
-  let tempPayload = [                                         // TODO - remove once risk service api works
-    {
-      "id": "rs1",
-      "name": "Catastrophic Health Event"
-    },
-    {
-      "id": "rs2",
-      "name": "Ischemic Stroke Risk"
-    }
-  ];
+  let riskServiceURL = `${FHIR_SERVER}/api/risk_services`;
 
   return {
     type: FETCH_RISK_SERVICES,
-    // payload: axios.get(riskAssessmentURL)  // TODO - add once risk service api works
-    payload: Promise.resolve(tempPayload)     // TODO - remove once risk service api works
+    payload: axios.get(riskServiceURL)
   };
 }
 

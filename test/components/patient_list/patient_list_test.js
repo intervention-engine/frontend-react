@@ -1,7 +1,6 @@
 import { renderComponent , expect } from '../../test_helper';
 import { patientTestObject1, patientsMetaTestObject, populationsTestObject1, huddleGroupTestObject1,
-         huddleTestObject, riskServiceTestObject1, riskAssessmentTestObject1,
-         sortOptionTestObject1 } from '../../test_props';
+         huddleTestObject, riskServiceTestObject1, sortOptionTestObject1 } from '../../test_props';
 import PatientList from '../../../src/components/PatientList/PatientList';
 
 describe('PatientList' , () => {
@@ -22,9 +21,7 @@ describe('PatientList' , () => {
       selectedHuddleGroup: huddleGroupTestObject1,
       selectedHuddle: huddleTestObject,
       riskServices: [ riskServiceTestObject1 ],
-      riskAssessments: [ riskAssessmentTestObject1 ],
       selectedRiskService: riskServiceTestObject1,
-      selectedRiskAssessment: riskAssessmentTestObject1,
       sortOptions: [ sortOptionTestObject1 ],
       sortOption: sortOptionTestObject1,
       sortAscending: true,
@@ -34,7 +31,6 @@ describe('PatientList' , () => {
       unselectPopulation: () => null,
       changePopulationSelectorType: () => null,
       selectRiskService: () => null,
-      selectRiskAssessment: () => null,
       selectHuddleGroup: () => null,
       selectHuddle: () => null,
       selectSortOption: () => null,

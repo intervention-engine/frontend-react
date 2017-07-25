@@ -11,6 +11,8 @@ describe.only('Patient' , () => {
 
   beforeEach(() => {
     props = {
+      params: { patient_id: '1' },
+      patient: patientTestObject1,
       selectedPatient: patientTestObject1,
       huddles: [ huddleGroupTestObject1 ],
       selectedHuddle: huddleTestObject,
@@ -23,8 +25,7 @@ describe.only('Patient' , () => {
       addPatientToHuddle: () => null,
       fetchRiskServices: () => null,
       fetchRiskAssessments: () => null,
-      selectRiskService: () => null,
-      params: { patient_id: '1' }
+      selectRiskService: () => null
     };
 
     component = renderComponent(Patient, props);

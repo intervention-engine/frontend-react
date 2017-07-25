@@ -1,7 +1,6 @@
 import { expect, renderComponent } from '../../../test_helper';
-import { patientTestObject1, patientTestObject2, huddleGroupTestObject1,
-         riskAssessmentTestObject1, patientsMetaTestObject, populationsTestObject1,
-         riskServiceTestObject1, sortOptionTestObject1 } from '../../../test_props';
+import { patientTestObject1, patientTestObject2, huddleGroupTestObject1, riskAssessmentTestObject1,
+         patientsMetaTestObject, populationsTestObject1, riskServiceTestObject1, sortOptionTestObject1 } from '../../../test_props';
 import PatientListResults from '../../../../src/components/PatientList/PatientListResults/PatientListResults';
 
 describe('Patients List Results', () => {
@@ -10,7 +9,6 @@ describe('Patients List Results', () => {
   let currentPatientSearchValue;
 
   beforeEach(() => {
-    currentPage = 1;
     currentPatientSearchValue = '';
 
     let props = {
@@ -18,12 +16,10 @@ describe('Patients List Results', () => {
       patientsMeta: patientsMetaTestObject,
       patientSearch: '',
       pageNum: 2,
-      currentPage,
-      patientsPerPage: 1,
       selectedPopulations: [ populationsTestObject1 ],
       populationSelectorType: 'union',
       huddles: [ huddleGroupTestObject1 ],
-      riskAssessments: [ riskAssessmentTestObject1 ],
+      selectedHuddle: huddleGroupTestObject1,
       selectedRiskService: riskServiceTestObject1,
       sortOption: sortOptionTestObject1,
       sortAscending: true,

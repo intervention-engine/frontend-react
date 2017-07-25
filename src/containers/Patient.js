@@ -37,7 +37,7 @@ export class Patient extends Component {
     } else {
       // --patient already fetched--
       // fetch risk assessments
-      this.props.fetchRiskAssessments(this.props.selectedPatient.id);
+      this.props.fetchRiskAssessments(this.props.selectedPatient.id, this.props.selectedRiskService.id);
     }
   }
 
@@ -52,8 +52,10 @@ export class Patient extends Component {
     }
 
     // fetch risk assessments when nextProps has changed
-    if (this.props.riskAssessments.length === 0 || !equal(nextProps.riskAssessments, this.props.riskAssessments)) {
-      this.props.fetchRiskAssessments();
+    if (this.props.selectedRiskService != null &&
+        this.props.riskAssessments.length === 0 ||
+        !equal(nextProps.riskAssessments, this.props.riskAssessments)) {
+      this.props.fetchRiskAssessments(this.props.params.patient_id, this.props.selectedRiskService.id);
     }
   }
 

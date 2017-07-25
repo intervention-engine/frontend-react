@@ -13,7 +13,6 @@ import populationProps from '../../../prop-types/population';
 import huddleGroupProps from '../../../prop-types/huddle_group';
 import huddleProps from '../../../prop-types/huddle';
 import riskServiceProps from '../../../prop-types/risk_service';
-import riskAssessmentProps from '../../../prop-types/risk_assessment';
 import sortProps from '../../../prop-types/sort';
 
 // import nextHuddleForPatients from '../../../utils/next_huddle_for_patients';
@@ -73,18 +72,11 @@ export default class PatientListResults extends Component {
   }
 
   renderedPatients() {
-    let filteredRiskAssessments = null;
-
-    if (this.props.riskAssessments != null && this.props.selectedRiskService != null) {
-      filteredRiskAssessments = this.props.riskAssessments.filter((d) => d.risk_service_id === this.props.selectedRiskService.id);
-    }
-
     if (this.props.patients != null) {
       return this.props.patients.map((patient) =>
         <PatientListResultsItem key={patient.id}
                                 patient={patient}
                                 huddles={this.props.huddles}
-                                filteredRiskAssessments={filteredRiskAssessments}
                                 nextHuddles={this.state.nextHuddleForPatients}
                                 selectedRiskService={this.props.selectedRiskService} />
       );
@@ -148,7 +140,6 @@ PatientListResults.propTypes = {
   populationSelectorType: PropTypes.string.isRequired,
   huddles: PropTypes.arrayOf(huddleGroupProps),
   selectedHuddle: huddleProps,
-  riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
   selectedRiskService: riskServiceProps,
   sortOption: sortProps.isRequired,
   sortAscending: PropTypes.bool.isRequired,
