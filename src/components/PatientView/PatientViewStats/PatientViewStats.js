@@ -3,21 +3,21 @@ import React, { Component, PropTypes } from 'react';
 import PatientViewStatsConditions from './PatientViewStatsConditions';
 import PatientViewStatsHuddles from './PatientViewStatsHuddles';
 import PatientViewStatsMedications from './PatientViewStatsMedications';
-import PatientViewStatsRiskAssessment from './PatientViewStatsRiskAssessment';
+import PatientViewStatsRiskService from './PatientViewStatsRiskService';
 
 import patientProps from '../../../prop-types/patient';
 import huddleGroupProps from '../../../prop-types/huddle_group';
 import huddleProps from '../../../prop-types/huddle';
-import riskAssessmentTypeProps from '../../../prop-types/risk_assessment_type';
+import riskServiceProps from '../../../prop-types/risk_service';
 import riskAssessmentProps from '../../../prop-types/risk_assessment';
 
 export default class PatientViewStats extends Component {
   render() {
     return (
       <div className="patient-view-stats">
-        <PatientViewStatsRiskAssessment riskAssessmentTypes={this.props.riskAssessmentTypes}
-                                        selectedRiskAssessment={this.props.selectedRiskAssessment}
-                                        selectRiskAssessment={this.props.selectRiskAssessment} />
+        <PatientViewStatsRiskService riskServices={this.props.riskServices}
+                                     selectedRiskService={this.props.selectedRiskService}
+                                     selectRiskService={this.props.selectRiskService} />
         <PatientViewStatsHuddles selectedHuddle={this.props.selectedHuddle}
                                  selectHuddle={this.props.selectHuddle}
                                  huddles={this.props.huddles}
@@ -36,10 +36,10 @@ PatientViewStats.propTypes = {
   patient: patientProps,
   huddles: PropTypes.arrayOf(huddleGroupProps),
   selectedHuddle: huddleProps,
-  riskAssessmentTypes: PropTypes.arrayOf(riskAssessmentTypeProps).isRequired,
+  riskServices: PropTypes.arrayOf(riskServiceProps),
   riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
-  selectedRiskAssessment: riskAssessmentTypeProps.isRequired,
+  selectedRiskService: riskServiceProps.isRequired,
   selectHuddle: PropTypes.func.isRequired,
-  selectRiskAssessment: PropTypes.func.isRequired,
+  selectRiskService: PropTypes.func.isRequired,
   addPatientToHuddle: PropTypes.func.isRequired
 };

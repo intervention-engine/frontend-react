@@ -9,18 +9,29 @@ import {
 } from './types';
 
 export function fetchPatients(params= {}) {
-  let riskAssessment = params.riskAssessment;
+  let riskService = params.riskAssessment;
   delete params.riskAssessment; // remove from params for use in queryParams
 
   if (params.name == null || params.name === '') {
     delete params.name;
   }
+
   let PATIENT_URL = `${FHIR_SERVER}/api/patients?${param(params, true)}`;
+
   return {
     type: FETCH_PATIENTS,
     payload: axios.get(PATIENT_URL).then((payload) => {
-      return { ...payload, riskAssessment };
+      return { ...payload, riskService };
     })
+  };
+}
+
+export function fetchPatient(id) {
+  let PATIENT_URL = `${FHIR_SERVER}/api/patients/${id}`;
+
+  return {
+    type: FETCH_PATIENT,
+    payload: axios.get(PATIENT_URL)
   };
 }
 
@@ -35,14 +46,5 @@ export function selectPage(page) {
   return {
     type: SELECT_PAGE,
     payload: page
-  };
-}
-
-export function fetchPatient(id) {
-  // let PATIENT_URL = `${FHIR_SERVER}/Patient?_id=${id}&_revinclude=Encounter:patient&_revinclude=MedicationStatement:patient&_revinclude=Condition:patient&_revinclude=RiskAssessment:subject`;
-  let PATIENT_URL = `${FHIR_SERVER}/api/patients/${id}`;
-  return {
-    type: FETCH_PATIENT,
-    payload: axios.get(PATIENT_URL)
   };
 }

@@ -12,8 +12,7 @@ import patientsMetaProps from '../../../prop-types/patients_meta';
 import populationProps from '../../../prop-types/population';
 import huddleGroupProps from '../../../prop-types/huddle_group';
 import huddleProps from '../../../prop-types/huddle';
-import riskAssessmentTypeProps from '../../../prop-types/risk_assessment_type';
-import riskAssessmentProps from '../../../prop-types/risk_assessment';
+import riskServiceProps from '../../../prop-types/risk_service';
 import sortProps from '../../../prop-types/sort';
 
 // import nextHuddleForPatients from '../../../utils/next_huddle_for_patients';
@@ -40,7 +39,7 @@ export default class PatientListResults extends Component {
     let queryParams = {
       sortBy: this.props.sortOption.sortKey,
       sortAscending: this.props.sortAscending,
-      selectedRiskAssessment: this.props.selectedRiskAssessment.method,
+      selectedRiskService: this.props.selectedRiskService,
       _count: this.props.patientsMeta.total
     };
 
@@ -73,19 +72,13 @@ export default class PatientListResults extends Component {
   }
 
   renderedPatients() {
-    let filteredRiskAssessments = null;
-    if (this.props.riskAssessments != null) {
-      filteredRiskAssessments = this.props.riskAssessments.find((d) => d.name == this.props.selectedRiskAssessment.name);
-    }
-
     if (this.props.patients != null) {
       return this.props.patients.map((patient) =>
         <PatientListResultsItem key={patient.id}
                                 patient={patient}
                                 huddles={this.props.huddles}
-                                filteredRiskAssessments={filteredRiskAssessments}
                                 nextHuddles={this.state.nextHuddleForPatients}
-                                selectedRiskAssessment={this.props.selectedRiskAssessment} />
+                                selectedRiskService={this.props.selectedRiskService} />
       );
     }
   }
@@ -147,8 +140,7 @@ PatientListResults.propTypes = {
   populationSelectorType: PropTypes.string.isRequired,
   huddles: PropTypes.arrayOf(huddleGroupProps),
   selectedHuddle: huddleProps,
-  riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
-  selectedRiskAssessment: riskAssessmentTypeProps.isRequired,
+  selectedRiskService: riskServiceProps,
   sortOption: sortProps.isRequired,
   sortAscending: PropTypes.bool.isRequired,
   setPatientSearch: PropTypes.func.isRequired,

@@ -9,16 +9,13 @@ import PatientView from '../components/PatientView/PatientView';
 import patientProps from '../prop-types/patient';
 import huddleGroupProps from '../prop-types/huddle_group';
 import huddleProps from '../prop-types/huddle';
-import riskAssessmentTypeProps from '../prop-types/risk_assessment_type';
+import riskServiceProps from '../prop-types/risk_service';
 import riskAssessmentProps from '../prop-types/risk_assessment';
 
 import { fetchPatient } from '../actions/patient';
 import { fetchHuddles, selectHuddle, addPatientToHuddle } from '../actions/huddle';
-import { fetchRiskAssessments, selectRiskAssessment } from '../actions/risk_assessment';
-
-import { riskAssessmentTypes } from '../reducers/risk_assessment';
-
-// import queryParamsHash from '../utils/query_params_hash';
+import { fetchRiskServices, selectRiskService } from '../actions/risk_service';
+import { fetchRiskAssessments } from '../actions/risk_assessment';
 
 export class Patient extends Component {
   constructor(...args) {
@@ -28,18 +25,20 @@ export class Patient extends Component {
   }
 
   componentWillMount() {
+    if (this.props.riskServices.length === 0) { this.props.fetchRiskServices(); }
+
     if (this.props.selectedPatient == null ||
         this.props.params.patient_id !== this.props.selectedPatient.id) {
+      // --patient not yet fetched--
       this.setState({ loading: true });
-      this.props.fetchPatient(this.props.params.patient_id);
-    }
-
-    if (this.props.selectedPatient == null) {
-      // let queryParams = queryParamsHash();
-
-      this.props.fetchHuddles();
-      // this.props.selectRiskAssessment(riskAssessmentTypes.find((type) => type.method === queryParams.riskAssessment));
-      // this.props.fetchRiskAssessments(queryParams.riskAssessment, [this.props.params.patient_id]);
+      // fetch patient
+      this.props.fetchPatient(this.props.params.patient_id).then(() => {
+        this.props.fetchRiskAssessments(this.props.params.patient_id, this.props.selectedRiskService.id);
+      });
+    } else {
+      // --patient already fetched--
+      // fetch risk assessments
+      this.props.fetchRiskAssessments(this.props.selectedPatient.id, this.props.selectedRiskService.id);
     }
   }
 
@@ -65,11 +64,11 @@ export class Patient extends Component {
         <PatientView patient={this.props.selectedPatient}
                      huddles={this.props.huddles}
                      selectedHuddle={this.props.selectedHuddle}
-                     riskAssessmentTypes={riskAssessmentTypes}
+                     riskServices={this.props.riskServices}
+                     selectedRiskService={this.props.selectedRiskService}
                      riskAssessments={this.props.riskAssessments}
-                     selectedRiskAssessment={this.props.selectedRiskAssessment}
                      selectHuddle={this.props.selectHuddle}
-                     selectRiskAssessment={this.props.selectRiskAssessment}
+                     selectRiskService={this.props.selectRiskService}
                      addPatientToHuddle={this.props.addPatientToHuddle} />
       </div>
     );
@@ -82,14 +81,16 @@ Patient.propTypes = {
   selectedPatient: patientProps,
   huddles: PropTypes.arrayOf(huddleGroupProps),
   selectedHuddle: huddleProps,
-  riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
-  selectedRiskAssessment: riskAssessmentTypeProps.isRequired,
+  riskServices: PropTypes.arrayOf(riskServiceProps),
+  selectedRiskService: riskServiceProps,
+  riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired,
   fetchPatient: PropTypes.func.isRequired,
   fetchHuddles: PropTypes.func.isRequired,
   selectHuddle: PropTypes.func.isRequired,
   addPatientToHuddle: PropTypes.func.isRequired,
+  fetchRiskServices: PropTypes.func.isRequired,
   fetchRiskAssessments: PropTypes.func.isRequired,
-  selectRiskAssessment: PropTypes.func.isRequired
+  selectRiskService: PropTypes.func.isRequired
 };
 
 function mapDispatchToProps(dispatch) {
@@ -98,8 +99,9 @@ function mapDispatchToProps(dispatch) {
     fetchHuddles,
     selectHuddle,
     addPatientToHuddle,
+    fetchRiskServices,
     fetchRiskAssessments,
-    selectRiskAssessment
+    selectRiskService
   }, dispatch);
 }
 
@@ -108,8 +110,9 @@ export function mapStateToProps(state) {
     selectedPatient: state.patient.selectedPatient,
     huddles: state.huddle.huddles,
     selectedHuddle: state.huddle.selectedHuddle,
-    riskAssessments: state.riskAssessment.riskAssessments,
-    selectedRiskAssessment: state.riskAssessment.selectedRiskAssessment
+    riskServices: state.riskService.riskServices,
+    selectedRiskService: state.riskService.selectedRiskService,
+    riskAssessments: state.riskAssessment.riskAssessments
   };
 }
 

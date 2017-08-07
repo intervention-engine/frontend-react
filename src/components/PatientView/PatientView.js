@@ -9,10 +9,17 @@ import PatientViewTimeline from './PatientViewTimeline/PatientViewTimeline';
 import patientProps from '../../prop-types/patient';
 import huddleGroupProps from '../../prop-types/huddle_group';
 import huddleProps from '../../prop-types/huddle';
-import riskAssessmentTypeProps from '../../prop-types/risk_assessment_type';
+import riskServiceProps from '../../prop-types/risk_service';
 import riskAssessmentProps from '../../prop-types/risk_assessment';
 
 export default class PatientView extends Component {
+  componentWillMount() {
+    // select default risk service
+    if (this.props.selectedRiskService == null && this.props.riskServices.length > 0) {
+      this.props.selectRiskService(this.props.riskServices[0]);
+    }
+  }
+
   render() {
     return (
       <div className="patient-view row">
@@ -27,20 +34,20 @@ export default class PatientView extends Component {
             <div className="patient-panel-body row">
               <div className="patient-panel-body-section col-xs-12">
                 <PatientViewBanner patient={this.props.patient}
-                                   huddles={this.props.huddles}
                                    riskAssessments={this.props.riskAssessments}
-                                   selectedRiskAssessment={this.props.selectedRiskAssessment} />
+                                   huddles={this.props.huddles}
+                                   selectedRiskService={this.props.selectedRiskService } />
               </div>
 
               <div className="patient-panel-body-section col-xs-3">
                 <PatientViewStats patient={this.props.patient}
                                   huddles={this.props.huddles}
                                   selectedHuddle={this.props.selectedHuddle}
-                                  riskAssessmentTypes={this.props.riskAssessmentTypes}
+                                  riskServices={this.props.riskServices}
                                   riskAssessments={this.props.riskAssessments}
-                                  selectedRiskAssessment={this.props.selectedRiskAssessment}
+                                  selectedRiskService={this.props.selectedRiskService}
                                   selectHuddle={this.props.selectHuddle}
-                                  selectRiskAssessment={this.props.selectRiskAssessment}
+                                  selectRiskService={this.props.selectRiskService}
                                   addPatientToHuddle={this.props.addPatientToHuddle} />
               </div>
 
@@ -61,10 +68,10 @@ PatientView.propTypes = {
   patient: patientProps,
   huddles: PropTypes.arrayOf(huddleGroupProps),
   selectedHuddle: huddleProps,
-  riskAssessmentTypes: PropTypes.arrayOf(riskAssessmentTypeProps).isRequired,
+  riskServices: PropTypes.arrayOf(riskServiceProps),
   riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
-  selectedRiskAssessment: riskAssessmentTypeProps.isRequired,
+  selectedRiskService: riskServiceProps.isRequired,
   selectHuddle: PropTypes.func.isRequired,
-  selectRiskAssessment: PropTypes.func.isRequired,
+  selectRiskService: PropTypes.func.isRequired,
   addPatientToHuddle: PropTypes.func.isRequired
 };

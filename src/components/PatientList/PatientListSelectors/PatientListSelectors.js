@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import RiskAssessmentSelector from './RiskAssessmentSelector';
+import RiskServiceSelector from './RiskServiceSelector';
 import FilterSelector from './FilterSelector/FilterSelector';
 import SortBySelector from './SortBySelector';
 import CollapsiblePanel from '../../../elements/CollapsiblePanel';
@@ -8,17 +8,17 @@ import CollapsiblePanel from '../../../elements/CollapsiblePanel';
 import populationProps from '../../../prop-types/population';
 import huddleGroupProps from '../../../prop-types/huddle_group';
 import huddleProps from '../../../prop-types/huddle';
-import riskAssessmentTypeProps from '../../../prop-types/risk_assessment_type';
+import riskServiceProps from '../../../prop-types/risk_service';
 import sortProps from '../../../prop-types/sort';
 
 export default class PatientListSelectors extends Component {
   render() {
     return (
       <div className="patient-list-selectors col-md-3 col-sm-4">
-        <CollapsiblePanel panelTitle="Risk Assessment">
-          <RiskAssessmentSelector riskAssessmentTypes={this.props.riskAssessmentTypes}
-                                  selectedRiskAssessment={this.props.selectedRiskAssessment}
-                                  selectRiskAssessment={this.props.selectRiskAssessment} />
+        <CollapsiblePanel panelTitle="Risk Service">
+          <RiskServiceSelector riskServices={this.props.riskServices}
+                               selectedRiskService={this.props.selectedRiskService}
+                               selectRiskService={this.props.selectRiskService} />
         </CollapsiblePanel>
 
         <CollapsiblePanel panelTitle="Filters" hasNested={true}>
@@ -56,15 +56,15 @@ PatientListSelectors.propTypes = {
   huddles: PropTypes.arrayOf(huddleGroupProps),
   selectedHuddleGroup: huddleGroupProps,
   selectedHuddle: huddleProps,
-  riskAssessmentTypes: PropTypes.arrayOf(riskAssessmentTypeProps).isRequired,
-  selectedRiskAssessment: riskAssessmentTypeProps.isRequired,
+  riskServices: PropTypes.arrayOf(riskServiceProps).isRequired,
+  selectedRiskService: riskServiceProps,
   sortOptions: PropTypes.arrayOf(sortProps).isRequired,
   sortOption: sortProps.isRequired,
   sortAscending: PropTypes.bool.isRequired,
   selectPopulation: PropTypes.func.isRequired,
   unselectPopulation: PropTypes.func.isRequired,
   changePopulationSelectorType: PropTypes.func.isRequired,
-  selectRiskAssessment: PropTypes.func.isRequired,
+  selectRiskService: PropTypes.func.isRequired,
   selectHuddleGroup: PropTypes.func.isRequired,
   selectHuddle: PropTypes.func.isRequired,
   selectSortOption: PropTypes.func.isRequired,

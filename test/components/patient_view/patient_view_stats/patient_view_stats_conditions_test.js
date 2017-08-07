@@ -17,16 +17,16 @@ describe('Patient View Stats Conditions' , () => {
     expect(component).to.have.class('patient-view-stats-conditions');
   });
 
-  it('displays the panel title correctly', () => {
+  xit('displays the panel title correctly', () => {
     expect(component.find('.panel-title')).to.have.text(' Conditions (1)');
   });
 
-  it('displays only active conditions', () => {
+  xit('displays only active conditions', () => {
     expect(component.find('.patient-view-stats-conditions-list')).to.have.text('Pulmonary Heart Disease');
     expect(component.find('.patient-view-stats-conditions-list')).not.to.have.text('Urinary Tract Infection');
   });
 
-  it('displays only unique conditions', () => {
+  xit('displays only unique conditions', () => {
     expect(component.find('.patient-view-stats-conditions-list .condition')).to.have.lengthOf(1);
   });
 });

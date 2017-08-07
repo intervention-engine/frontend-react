@@ -11,17 +11,15 @@ import patientsMetaProps from '../prop-types/patients_meta';
 import populationProps from '../prop-types/population';
 import huddleGroupProps from '../prop-types/huddle_group';
 import huddleProps from '../prop-types/huddle';
-import riskAssessmentTypeProps from '../prop-types/risk_assessment_type';
-import riskAssessmentProps from '../prop-types/risk_assessment';
+import riskServiceProps from '../prop-types/risk_service';
 import sortProps from '../prop-types/sort';
 
-import { riskAssessmentTypes } from '../reducers/risk_assessment';
 import { sortOptions } from '../reducers/sort';
 
 import { fetchPatients, setPatientSearch, selectPage } from '../actions/patient';
 import { fetchPopulations, selectPopulation, unselectPopulation,
          changePopulationSelectorType } from '../actions/population';
-import { fetchRiskAssessments, selectRiskAssessment } from '../actions/risk_assessment';
+import { fetchRiskServices, selectRiskService } from '../actions/risk_service';
 import { fetchHuddles, selectHuddleGroup, selectHuddle } from '../actions/huddle';
 import { selectSortOption, setSortAscending } from '../actions/sort';
 
@@ -29,27 +27,10 @@ class Patients extends Component {
   componentWillMount() {
     // if (this.props.populations == null) { this.props.fetchPopulations(); }
     if (this.props.huddles == null) { this.props.fetchHuddles(); }
+    if (this.props.riskServices.length === 0) { this.props.fetchRiskServices(); }
   }
 
   componentWillReceiveProps(nextProps) {
-    // population params
-    let groupIds = nextProps.selectedPopulations.map((pop) => pop.id);
-    let joinedGroupIds = [ groupIds.join(',') ];
-    if (nextProps.populationSelectorType === 'union' && groupIds.length > 0) {
-      groupIds = joinedGroupIds;
-    }
-
-    // huddle params -- concat to groupId
-    if (nextProps.selectedHuddle != null) {
-      groupIds.push(nextProps.selectedHuddle.id);
-    }
-
-    // group params (population + huddle params)
-    let groupIdParams = {};
-    if (groupIds.length > 0) {
-      groupIdParams = { _query: 'group', groupId: groupIds };
-    }
-
     // sort params
     let sortDir = nextProps.sortAscending ? '' : '-';
     if (nextProps.sortOption.invert) { sortDir = sortDir === '' ? '-' : ''; }
@@ -57,27 +38,23 @@ class Patients extends Component {
 
     // fetch patients and risks with params when nextProps has changed
     if (this.props.patients == null ||
-        // !equal(nextProps.patientSearch, this.props.patientSearch) ||
-        // !equal(nextProps.pageNum, this.props.pageNum) ||
         !equal(nextProps.currentPage, this.props.currentPage) ||
-        // !equal(nextProps.populations, this.props.populations) ||
-        // !equal(nextProps.selectedPopulations, this.props.selectedPopulations) ||
-        // !equal(nextProps.populationSelectorType, this.props.populationSelectorType) ||
-        // !equal(nextProps.selectedRiskAssessment, this.props.selectedRiskAssessment) ||
-        // !equal(nextProps.selectedHuddle, this.props.selectedHuddle) ||
         !equal(nextProps.sortAscending, this.props.sortAscending) ||
         !equal(nextProps.sortOption, this.props.sortOption)) {
        this.props.fetchPatients({
-        ...groupIdParams,
         ...sortParams,
-        riskAssessment: this.props.selectedRiskAssessment,
-        search_term: nextProps.patientSearch,
         page: (nextProps.currentPage),
         per_page: this.props.patientsPerPage,
-        _revinclude: 'RiskAssessment:subject'
       });
     }
+
+    // fetch risk services when nextProps has changed
+    if (this.props.riskServices.length === 0 || !equal(nextProps.riskServices, this.props.riskServices)) {
+      this.props.fetchRiskServices();
+    }
   }
+
+  get
 
   render() {
     return (
@@ -95,9 +72,8 @@ class Patients extends Component {
                      huddles={this.props.huddles}
                      selectedHuddleGroup={this.props.selectedHuddleGroup}
                      selectedHuddle={this.props.selectedHuddle}
-                     riskAssessmentTypes={riskAssessmentTypes}
-                     riskAssessments={this.props.riskAssessments}
-                     selectedRiskAssessment={this.props.selectedRiskAssessment}
+                     riskServices={this.props.riskServices}
+                     selectedRiskService={this.props.selectedRiskService}
                      sortOptions={sortOptions}
                      sortOption={this.props.sortOption}
                      sortAscending={this.props.sortAscending}
@@ -106,7 +82,7 @@ class Patients extends Component {
                      selectPopulation={this.props.selectPopulation}
                      unselectPopulation={this.props.unselectPopulation}
                      changePopulationSelectorType={this.props.changePopulationSelectorType}
-                     selectRiskAssessment={this.props.selectRiskAssessment}
+                     selectRiskService={this.props.selectRiskService}
                      selectHuddleGroup={this.props.selectHuddleGroup}
                      selectHuddle={this.props.selectHuddle}
                      selectSortOption={this.props.selectSortOption}
@@ -131,20 +107,20 @@ Patients.propTypes = {
   huddles: PropTypes.arrayOf(huddleGroupProps),
   selectedHuddleGroup: huddleGroupProps,
   selectedHuddle: huddleProps,
-  riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
-  selectedRiskAssessment: riskAssessmentTypeProps.isRequired,
+  riskServices: PropTypes.arrayOf(riskServiceProps),
+  selectedRiskService: riskServiceProps,
   sortOption: sortProps.isRequired,
   sortAscending: PropTypes.bool.isRequired,
   fetchPatients: PropTypes.func.isRequired,
   fetchPopulations: PropTypes.func.isRequired,
   fetchHuddles: PropTypes.func.isRequired,
-  fetchRiskAssessments: PropTypes.func.isRequired,
+  fetchRiskServices: PropTypes.func.isRequired,
   setPatientSearch: PropTypes.func.isRequired,
   selectPage: PropTypes.func.isRequired,
   selectPopulation: PropTypes.func.isRequired,
   unselectPopulation: PropTypes.func.isRequired,
   changePopulationSelectorType: PropTypes.func.isRequired,
-  selectRiskAssessment: PropTypes.func.isRequired,
+  selectRiskService: PropTypes.func.isRequired,
   selectHuddleGroup: PropTypes.func.isRequired,
   selectHuddle: PropTypes.func.isRequired,
   selectSortOption: PropTypes.func.isRequired,
@@ -156,13 +132,13 @@ function mapDispatchToProps(dispatch) {
     fetchPatients,
     fetchPopulations,
     fetchHuddles,
-    fetchRiskAssessments,
+    fetchRiskServices,
     setPatientSearch,
     selectPage,
     selectPopulation,
     unselectPopulation,
     changePopulationSelectorType,
-    selectRiskAssessment,
+    selectRiskService,
     selectHuddleGroup,
     selectHuddle,
     selectSortOption,
@@ -184,8 +160,8 @@ export function mapStateToProps(state) {
     huddles: state.huddle.huddles,
     selectedHuddleGroup: state.huddle.selectedHuddleGroup,
     selectedHuddle: state.huddle.selectedHuddle,
-    riskAssessments: state.riskAssessment.riskAssessments,
-    selectedRiskAssessment: state.riskAssessment.selectedRiskAssessment,
+    riskServices: state.riskService.riskServices,
+    selectedRiskService: state.riskService.selectedRiskService,
     sortOption: state.sort.sortOption,
     sortAscending: state.sort.sortAscending
   };
