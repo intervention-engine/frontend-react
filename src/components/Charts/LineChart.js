@@ -1,9 +1,26 @@
 //-- modified from: https://github.com/xuopled/react-svg-line-chart/blob/v1.0.5/src/index.js --//
 
 import React, { Component, PropTypes } from "react";
+import equal from 'deep-equal';
 import classNames from "classnames";
 
 export default class LineChart extends Component {
+  constructor(...args) {
+    super(...args);
+
+    this.state = {
+      selectedPoint: this.props.data[this.props.data.length - 1]
+    };
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (!equal(this.props.data, newProps.data)) {
+      this.setState({
+        selectedPoint: newProps.data[newProps.data.length - 1]
+      });
+    }
+  }
+
   /**
    * Chart coordinates
    */
@@ -217,8 +234,23 @@ export default class LineChart extends Component {
     );
   }
 
+  handleOnClick(point, target) {
+    this.setState({ selectedPoint: point });
+    this.props.onPointClick(point, target);
+  }
+
+  handleRadius(point, activeHoverPoint, hoveredPointRadius, pointRadius) {
+    if (activeHoverPoint &&
+        activeHoverPoint.x === point.x &&
+        activeHoverPoint.y === point.y) {
+      return hoveredPointRadius;
+    } else {
+      return pointRadius;
+    }
+  }
+
   getPoints() {
-    const {activePoint, data, hoveredPointRadius, pointRadius} = this.props;
+    const { activeHoverPoint, data, hoveredPointRadius, pointRadius } = this.props;
 
     return (
       <g className="linechart_points">
@@ -227,12 +259,13 @@ export default class LineChart extends Component {
           return (
             <circle
               key={"linechart_point_" + i}
-              className="linechart_point"
-              r={activePoint && activePoint.x === point.x && activePoint.y === point.y ? hoveredPointRadius : pointRadius}
+              className={classNames("linechart_point", { "selected": pointMatches(this.state.selectedPoint, point) })}
+              r={this.handleRadius(point, activeHoverPoint, hoveredPointRadius, pointRadius)}
               cx={this.getSvgX(point.x)}
               cy={this.getSvgY(point.y)}
               onMouseEnter={(e) => this.props.onPointHover(point, e.target)}
               onMouseLeave={() => this.props.onPointHover(null, null)}
+              onClick={(e) => this.handleOnClick(point, e.target)}
               data-tip={ `${point.x}, ${point.y}` }
             />
           );
@@ -264,15 +297,9 @@ export default class LineChart extends Component {
 }
 
 LineChart.propTypes = {
-  activePoint: PropTypes.shape({
-    x: PropTypes.number,
-    y: PropTypes.number,
-  }),
+  activeHoverPoint: PropTypes.shape({ x: PropTypes.number, y: PropTypes.number }),
   className: PropTypes.string,
-  data: PropTypes.arrayOf(PropTypes.shape({
-    x: PropTypes.number,
-    y: PropTypes.number,
-  })).isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape({ x: PropTypes.number, y: PropTypes.number })).isRequired,
   formatX: PropTypes.func,
   formatY: PropTypes.func,
   hoveredPointRadius: PropTypes.number,
@@ -291,6 +318,7 @@ LineChart.propTypes = {
   nopath: PropTypes.bool,
   nopoint: PropTypes.bool,
   onPointHover: PropTypes.func,
+  onPointClick: PropTypes.func,
   pointRadius: PropTypes.number,
   viewBoxHeight: PropTypes.number,
   viewBoxWidth: PropTypes.number,
@@ -300,10 +328,7 @@ LineChart.propTypes = {
 };
 
 LineChart.defaultProps = {
-  activePoint: {
-    x: null,
-    y: null,
-  },
+  activeHoverPoint: { x: null, y: null },
   data: [],
   hoveredPointRadius: 12,
   noarea: false,
@@ -321,6 +346,7 @@ LineChart.defaultProps = {
   nopath: false,
   nopoint: false,
   onPointHover: () => {},
+  onPointClick: () => {},
   pointRadius: 10,
   viewBoxHeight: 120,
   viewBoxWidth: 1000,
@@ -328,3 +354,11 @@ LineChart.defaultProps = {
   xLabelsStep: -1,
   yLabelsWidth: 40,
 };
+
+function pointMatches(pointA, pointB) {
+  if (pointA == null || pointB == null) {
+    return false;
+  }
+
+  return pointA.x === pointB.x && pointA.y === pointB.y;
+}

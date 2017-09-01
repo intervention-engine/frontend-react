@@ -1,4 +1,4 @@
-@import "variables";
+@import "../elements/variables";
 
 .linechart-withPadding {
   padding: .625rem .625rem 0 0;
@@ -30,6 +30,10 @@
   fill: $brand-primary;
   stroke: $white;
   stroke-width: 2;
+
+  &.selected {
+    fill: $brand-alert;
+  }
 }
 
 .linechart_label {

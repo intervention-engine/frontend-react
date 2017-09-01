@@ -12,6 +12,9 @@
 
 /* ------------------------- IMPORT CUSTOM SCSS ---------------------------- */
 
+@import "charts/aster-plot";
+@import "charts/line-chart";
+
 @import "components/footer";
 @import "components/header";
 @import "components/patient-list/patient-list-results/patient-list-results";
@@ -31,12 +34,13 @@
 @import "components/patient-view/patient-view-stats/patient-view-stats-medications";
 @import "components/patient-view/patient-view-timeline/patient-view-timeline";
 @import "components/patient-view/patient-view-timeline/patient-view-timeline-event";
+@import "components/patient-view/patient-view-risk-aster-chart/patient-view-risk-aster-chart-details";
+@import "components/patient-view/patient-view-risk-aster-chart/patient-view-risk-aster-chart";
 
 @import "elements/animation";
 @import "elements/buttons";
 @import "elements/forms";
 @import "elements/icons";
-@import "elements/line-chart";
 @import "elements/modals";
 @import "elements/panels";
 @import "elements/pikaday";

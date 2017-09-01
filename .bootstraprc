@@ -10,5 +10,5 @@ env:
     extractStyles: false
   production:
     extractStyles: true
-styles: true
+styles: false
 scripts: true

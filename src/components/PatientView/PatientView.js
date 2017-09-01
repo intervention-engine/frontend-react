@@ -12,6 +12,7 @@ import huddleGroupProps from '../../prop-types/huddle_group';
 import huddleProps from '../../prop-types/huddle';
 import riskServiceProps from '../../prop-types/risk_service';
 import riskAssessmentProps from '../../prop-types/risk_assessment';
+import riskAssessmentBreakdownProps from '../../prop-types/risk_assessment_breakdown';
 
 export default class PatientView extends Component {
   componentWillMount() {
@@ -37,7 +38,9 @@ export default class PatientView extends Component {
                 <PatientViewBanner patient={this.props.patient}
                                    riskAssessments={this.props.riskAssessments}
                                    huddles={this.props.huddles}
-                                   selectedRiskService={this.props.selectedRiskService } />
+                                   selectedRiskService={this.props.selectedRiskService }
+                                   selectRiskAssessment={this.props.selectRiskAssessment}
+                                   selectedRiskAssessment={this.props.selectedRiskAssessment} />
               </div>
 
               <div className="patient-panel-body-section col-xs-3">
@@ -53,7 +56,8 @@ export default class PatientView extends Component {
               </div>
 
               <div className="patient-panel-body-section col-xs-4">
-                <PatientViewRiskAsterChart />
+                <PatientViewRiskAsterChart riskAssessmentBreakdown={this.props.riskAssessmentBreakdown}
+                                           selectedRiskAssessment={this.props.selectedRiskAssessment} />
               </div>
 
               <div className="patient-panel-body-section col-xs-5">
@@ -75,8 +79,11 @@ PatientView.propTypes = {
   selectedHuddle: huddleProps,
   riskServices: PropTypes.arrayOf(riskServiceProps),
   riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
+  selectedRiskAssessment: riskAssessmentProps,
+  riskAssessmentBreakdown: PropTypes.arrayOf(riskAssessmentBreakdownProps),
   selectedRiskService: riskServiceProps.isRequired,
   selectHuddle: PropTypes.func.isRequired,
   selectRiskService: PropTypes.func.isRequired,
-  addPatientToHuddle: PropTypes.func.isRequired
+  addPatientToHuddle: PropTypes.func.isRequired,
+  selectRiskAssessment: PropTypes.func.isRequired
 };

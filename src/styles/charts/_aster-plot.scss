@@ -1,0 +1,12 @@
+@import "../elements/variables";
+
+.aster-plot {
+  margin: 0 auto;
+  padding: 10px;
+  width: 100%;
+  @include respond-to(desktop) { width: 400px; }
+
+  path {
+    cursor: pointer;
+  }
+}

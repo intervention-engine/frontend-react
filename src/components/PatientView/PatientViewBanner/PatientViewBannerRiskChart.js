@@ -13,16 +13,21 @@ export default class PatientViewBannerRiskChart extends Component {
     super(...args);
 
     this.state = {
-      activePoint: null,
+      activeHoverPoint: null,
       tooltipTrigger: null
     };
   }
 
   handlePointHover(point, trigger) {
     this.setState({
-      activePoint: point,
+      activeHoverPoint: point,
       tooltipTrigger: trigger
     });
+  }
+
+  handlePointClick(point) {
+    let riskAssessment = this.props.riskAssessments.find((ra) => ra.id === point.id);
+    this.props.selectRiskAssessment(riskAssessment);
   }
 
   getData() {
@@ -36,7 +41,7 @@ export default class PatientViewBannerRiskChart extends Component {
 
     let data = [];
     sortedRisks.forEach((riskAssessment) => {
-      data.push({ x: timeScale(new Date(riskAssessment.date)), y: riskAssessment.value, date: riskAssessment.date });
+      data.push({ x: timeScale(new Date(riskAssessment.date)), y: riskAssessment.value, date: riskAssessment.date, id: riskAssessment.id });
     });
 
     return data;
@@ -47,8 +52,8 @@ export default class PatientViewBannerRiskChart extends Component {
 
     return (
       <ReactTooltip placement="top" trigger={ this.state.tooltipTrigger }>
-        <div>{ moment(this.state.activePoint.date).format('MMM D, YYYY') }</div>
-        <div>Risk : { this.state.activePoint.y }</div>
+        <div>{ moment(this.state.activeHoverPoint.date).format('MMM D, YYYY') }</div>
+        <div>Risk : { this.state.activeHoverPoint.y }</div>
       </ReactTooltip>
     );
   }
@@ -61,8 +66,9 @@ export default class PatientViewBannerRiskChart extends Component {
     return (
       <LineChart
         data={ this.getData() }
-        activePoint={ this.state.activePoint }
+        activeHoverPoint={ this.state.activeHoverPoint }
         onPointHover={ this.handlePointHover.bind(this) }
+        onPointClick={ this.handlePointClick.bind(this) }
       />
     );
   }
@@ -80,5 +86,6 @@ export default class PatientViewBannerRiskChart extends Component {
 PatientViewBannerRiskChart.displayName = 'PatientViewBannerRiskChart';
 
 PatientViewBannerRiskChart.propTypes = {
-  riskAssessments: PropTypes.arrayOf(riskAssessmentProps)
+  riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
+  selectRiskAssessment: PropTypes.func.isRequired
 };
