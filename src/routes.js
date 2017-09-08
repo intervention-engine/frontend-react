@@ -11,7 +11,7 @@ export default (
   <Route component={App}>
     <Route path="/" component={Patients} />
     <Route path="/patients/:patient_id" component={Patient} />
-    <Route path="/FilterBuilder" component={FilterBuilder} />
+    <Route path="/FilterBuilder/:population_id" component={FilterBuilder} />
     <Route path="/PrintPatientList" component={PrintPatientList} />
   </Route>
 );
