@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import {
   FETCH_POPULATIONS,
+  FETCH_POPULATION,
   SELECT_POPULATION,
   UNSELECT_POPULATION,
   CHANGE_POPULATION_SELECTOR_TYPE
@@ -11,6 +12,14 @@ export function fetchPopulations() {
   const FETCH_POPULATIONS_URL = `${FHIR_SERVER}/Group?actual=false`;
   return {
     type: FETCH_POPULATIONS,
+    payload: axios.get(FETCH_POPULATIONS_URL)
+  };
+}
+
+export function fetchPopulation(id) {
+  const FETCH_POPULATIONS_URL = `${FHIR_SERVER}/api/populations/${id}`;
+  return {
+    type: FETCH_POPULATION,
     payload: axios.get(FETCH_POPULATIONS_URL)
   };
 }
