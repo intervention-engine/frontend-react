@@ -5,8 +5,6 @@ import {set} from 'lodash';
 import FilterBuilderEditorItem from './FilterBuilderEditorItem';
 import { filterTypes } from '../../utils/FilterTypes';
 
-
-
 class FilterBuilderEditor extends Component {
     constructor(...args) {
       super(...args);

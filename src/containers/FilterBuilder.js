@@ -10,10 +10,16 @@ class FilterBuilder extends Component {
 
   constructor(...args) {
     super(...args);
-    this.state = this.setStateForEditOrCreate(this.props);
+    if(this.props.params.population_id){
+      this.state = this.setStateForEdit(this.props);
+    }
+    else {
+      this.state = this.setStateForCreate();
+    }
+
   }
 
-  setStateForEditOrCreate(props) {
+  setStateForEdit(props) {
     return {
       "id": "2805a12a8bd4d4d95e38a43c",
       "name": "Age 65 and under",
@@ -49,6 +55,16 @@ class FilterBuilder extends Component {
             }
           ]
         }
+      ]
+    }
+  }
+
+  setStateForCreate() {
+    return {
+      "id": null,
+      "name": "",
+      "filters": [
+
       ]
     }
   }
