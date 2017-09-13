@@ -16,7 +16,7 @@ class SelectItem extends Component {
       return (
         <div className='selected-filter-details'>
           <span className="pane-inner-label">is</span>
-          <select class="cs-select cs-skin-border" value={filter.value} onChange={(e) => this.props.updateFilter('value', e.target.value)}>
+          <select className="cs-select cs-skin-border" value={filter.value} onChange={(e) => this.props.updateFilter('value', e.target.value)}>
             {filter.options.map((opt) => <option value={opt}>{opt}</option>)}
           </select>
         </div>
