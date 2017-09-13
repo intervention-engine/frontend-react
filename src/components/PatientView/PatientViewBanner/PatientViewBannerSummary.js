@@ -28,9 +28,9 @@ export default class PatientViewBannerSummary extends Component {
   }
 
   renderedRisk() {
-    if (this.props.patient.recent_risk_assessment == null) { return; }
+    if (this.props.selectedRiskAssessment == null) { return; }
 
-    let risk = this.props.patient.recent_risk_assessment.value;
+    let risk = this.props.selectedRiskAssessment.value;
     return <span>{risk}</span>;
   }
 
@@ -67,7 +67,8 @@ export default class PatientViewBannerSummary extends Component {
         </div>
 
         <div className="col-xs-5 patient-risk-chart">
-          <PatientViewBannerRiskChart riskAssessments={this.props.riskAssessments}/>
+          <PatientViewBannerRiskChart riskAssessments={this.props.riskAssessments}
+                                      selectRiskAssessment={this.props.selectRiskAssessment} />
         </div>
 
         <div className="col-xs-1 patient-risk-score">
@@ -83,5 +84,7 @@ PatientViewBannerSummary.displayName = 'PatientViewBannerSummary';
 PatientViewBannerSummary.propTypes = {
   patient: patientProps,
   riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
-  huddles: PropTypes.arrayOf(huddleGroupProps)
+  huddles: PropTypes.arrayOf(huddleGroupProps),
+  selectedRiskAssessment: riskAssessmentProps,
+  selectRiskAssessment: PropTypes.func.isRequired
 };

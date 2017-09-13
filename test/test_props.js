@@ -114,35 +114,32 @@ export const riskAssessmentTestObject2 = {
   'value': 2
 };
 
-export const riskAssessmentBreakdownObject = {
-  "risk_assessment_id": "rab1",
-  "categories": [
-    {
-      "name": "Clinical Risk",
-      "weight": 25,
-      "value": 1,
-      "max_value": 4
-    },
-    {
-      "name": "Functional and Environmental Risk",
-      "weight": 25,
-      "value": 1,
-      "max_value": 4
-    },
-    {
-      "name": "Psychosocial and Mental Health Risk",
-      "weight": 25,
-      "value": 2,
-      "max_value": 4
-    },
-    {
-      "name": "Utilization Risk",
-      "weight": 25,
-      "value": 1,
-      "max_value": 4
-    }
-  ]
-}
+export const riskAssessmentBreakdownObject = [
+  {
+    "name": "Clinical Risk",
+    "weight": 25,
+    "value": 1,
+    "max_value": 4
+  },
+  {
+    "name": "Functional and Environmental Risk",
+    "weight": 25,
+    "value": 1,
+    "max_value": 4
+  },
+  {
+    "name": "Psychosocial and Mental Health Risk",
+    "weight": 25,
+    "value": 2,
+    "max_value": 4
+  },
+  {
+    "name": "Utilization Risk",
+    "weight": 25,
+    "value": 1,
+    "max_value": 4
+  }
+]
 
 // ------------------------- SORT ------------------------------------------ //
 

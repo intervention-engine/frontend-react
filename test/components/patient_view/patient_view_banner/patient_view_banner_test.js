@@ -11,7 +11,9 @@ describe('Patients View Banner', () => {
       patient: patientTestObject1,
       huddles: [ huddleGroupTestObject1 ],
       riskAssessments: [ riskAssessmentTestObject1 ],
-      selectedRiskAssessment: riskServiceTestObject1
+      selectedRiskAssessment: riskAssessmentTestObject1,
+      selectedRiskService: riskServiceTestObject1,
+      selectRiskAssessment: () => null
     }
 
     component = renderComponent(PatientViewBanner, props);

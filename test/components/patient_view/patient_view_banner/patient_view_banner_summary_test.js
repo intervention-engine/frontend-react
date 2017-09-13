@@ -8,8 +8,10 @@ describe('Patients View Banner Summary', () => {
   beforeEach(() => {
     let props = {
       patient: patientTestObject1,
+      riskAssessments: [ riskAssessmentTestObject1, riskAssessmentTestObject2 ],
       huddles: [ huddleGroupTestObject1 ],
-      filteredRiskAssessments: [ riskAssessmentTestObject1, riskAssessmentTestObject2 ]
+      selectedRiskAssessment: riskAssessmentTestObject1,
+      selectRiskAssessment: () => null
     }
 
     component = renderComponent(PatientViewBannerSummary, props);

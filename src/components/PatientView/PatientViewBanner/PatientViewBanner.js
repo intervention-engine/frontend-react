@@ -14,7 +14,9 @@ export default class PatientViewBanner extends Component {
         <div className="col-xs-12">
           <PatientViewBannerSummary patient={this.props.patient}
                                     riskAssessments={this.props.riskAssessments}
-                                    huddles={this.props.huddles} />
+                                    huddles={this.props.huddles}
+                                    selectRiskAssessment={this.props.selectRiskAssessment}
+                                    selectedRiskAssessment={this.props.selectedRiskAssessment} />
         </div>
       </div>
     );
@@ -25,7 +27,9 @@ PatientViewBanner.displayName = 'PatientViewBanner';
 
 PatientViewBanner.propTypes = {
   patient: patientProps,
-  riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
   huddles: PropTypes.arrayOf(huddleGroupProps),
-  selectedRiskService: riskServiceProps
+  riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
+  selectedRiskAssessment: riskAssessmentProps,
+  selectedRiskService: riskServiceProps,
+  selectRiskAssessment: PropTypes.func.isRequired
 };

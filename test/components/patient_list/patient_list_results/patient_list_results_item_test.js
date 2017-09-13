@@ -2,7 +2,7 @@ import { expect, renderComponent } from '../../../test_helper';
 import { patientTestObject1, huddleGroupTestObject1, nextHuddlesObject, riskServiceTestObject1 } from '../../../test_props';
 import PatientListResultsItem from '../../../../src/components/PatientList/PatientListResults/PatientListResultsItem';
 
-describe('Patients List Results Item', () => {
+describe('Patient List Results Item', () => {
   let component;
 
   beforeEach(() => {

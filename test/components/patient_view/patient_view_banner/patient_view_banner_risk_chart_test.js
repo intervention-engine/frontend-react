@@ -7,7 +7,8 @@ describe('Patients View Banner Risk Chart', () => {
 
   beforeEach(() => {
     let props = {
-      riskAssessments: [ riskAssessmentTestObject1, riskAssessmentTestObject2 ]
+      riskAssessments: [ riskAssessmentTestObject1, riskAssessmentTestObject2 ],
+      selectRiskAssessment: () => null
     }
 
     component = renderComponent(PatientViewBannerRiskChart, props);
