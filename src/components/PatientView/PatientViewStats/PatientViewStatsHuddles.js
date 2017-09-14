@@ -10,6 +10,7 @@ import HuddlePikaday from '../../../elements/pikaday/HuddlePikaday';
 
 // import getPatientHuddles from '../../../utils/get_patient_huddles';
 
+import careTeamProps from '../../../propTypes/care_team';
 import huddleProps from '../../../prop-types/huddle';
 import patientProps from '../../../prop-types/patient';
 import huddleGroupProps from '../../../prop-types/huddle_group';
@@ -108,17 +109,43 @@ export default class PatientViewStatsHuddles extends Component {
     this.props.selectHuddle(this.selectedPatientHuddle(selectedDate));
   }
 
+  renderedCareTeams() {
+    if (this.props.careTeams == null) { return; }
+
+    return this.props.careTeams.map((careTeam) => {
+      return (
+        <div key={careTeam.id} className="care-team control-group">
+          <label htmlFor={`care-team-radio-${careTeam.id}`} className={`control control-radio`}>
+            <span className="care-team-name">{careTeam.name}</span>
+
+            <input type="radio"
+              name="careTeam"
+              id={`care-team-radio-${careTeam.id}`}
+              value={careTeam.id}
+              checked={this.isSelected(careTeam)}
+              onChange={() => this.handleInputChange(careTeam)} />
+
+            <div className="control-indicator"></div>
+          </label>
+        </div>
+      );
+    });
+  }
+
   render() {
     return (
       <div className="patient-view-stats-huddles">
         <CollapsiblePanel panelTitle="Huddles" panelIcon="users">
           <form className="form-horizontal">
+            {this.renderedCareTeams()}
+
             <div className="pikaday-container">
               <HuddlePikaday selectedDate={this.state.selectedDate}
                              patientHuddles={this.state.patientHuddles}
                              patient={this.props.patient}
                              onSelect={this.selectDate.bind(this)} />
             </div>
+
             <div className="patient-view-stats-huddles-details">
               <div className="patient-view-stats-huddles-details-icons">
                 {this.renderedHuddlesDetailsIcons()}
@@ -175,6 +202,7 @@ PatientViewStatsHuddles.displayName = 'PatientViewStatsHuddles';
 
 PatientViewStatsHuddles.propTypes = {
   patient: patientProps,
+  careTeams: careTeamProps,
   huddles: PropTypes.arrayOf(huddleGroupProps),
   selectedHuddle: huddleProps,
   selectHuddle: PropTypes.func.isRequired,

@@ -47,8 +47,6 @@ export default class RiskServiceSelector extends Component {
         <form className="form-horizontal form-group-striped">
           {this.renderedRiskServices()}
         </form>
-
-        {/*<div className="debug">SELECTED: {this.debugSelected()}</div>*/}
       </div>
     );
   }

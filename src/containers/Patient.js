@@ -127,6 +127,7 @@ function mapDispatchToProps(dispatch) {
 export function mapStateToProps(state) {
   return {
     selectedPatient: state.patient.selectedPatient,
+    careTeams: state.huddle.careTeams,
     huddles: state.huddle.huddles,
     selectedHuddle: state.huddle.selectedHuddle,
     riskServices: state.riskService.riskServices,

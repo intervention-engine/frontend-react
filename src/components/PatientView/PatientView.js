@@ -8,6 +8,7 @@ import PatientViewRiskAsterChart from './PatientViewRiskAsterChart/PatientViewRi
 import PatientViewTimeline from './PatientViewTimeline/PatientViewTimeline';
 
 import patientProps from '../../prop-types/patient';
+import careTeamProps from '../../propTypes/care_team';
 import huddleGroupProps from '../../prop-types/huddle_group';
 import huddleProps from '../../prop-types/huddle';
 import riskServiceProps from '../../prop-types/risk_service';
@@ -45,6 +46,7 @@ export default class PatientView extends Component {
 
               <div className="patient-panel-body-section col-xs-3">
                 <PatientViewStats patient={this.props.patient}
+                                  careTeams={this.props.careTeams}
                                   huddles={this.props.huddles}
                                   selectedHuddle={this.props.selectedHuddle}
                                   riskServices={this.props.riskServices}
@@ -75,6 +77,7 @@ PatientView.displayName = 'PatientView';
 
 PatientView.propTypes = {
   patient: patientProps,
+  careTeams: careTeamProps,
   huddles: PropTypes.arrayOf(huddleGroupProps),
   selectedHuddle: huddleProps,
   riskServices: PropTypes.arrayOf(riskServiceProps),

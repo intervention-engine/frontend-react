@@ -6,6 +6,7 @@ import PatientViewStatsMedications from './PatientViewStatsMedications';
 import PatientViewStatsRiskService from './PatientViewStatsRiskService';
 
 import patientProps from '../../../prop-types/patient';
+import careTeamProps from '../../../propTypes/care_team';
 import huddleGroupProps from '../../../prop-types/huddle_group';
 import huddleProps from '../../../prop-types/huddle';
 import riskServiceProps from '../../../prop-types/risk_service';
@@ -18,7 +19,8 @@ export default class PatientViewStats extends Component {
         <PatientViewStatsRiskService riskServices={this.props.riskServices}
                                      selectedRiskService={this.props.selectedRiskService}
                                      selectRiskService={this.props.selectRiskService} />
-        <PatientViewStatsHuddles selectedHuddle={this.props.selectedHuddle}
+        <PatientViewStatsHuddles careTeams={this.props.careTeams}
+                                 selectedHuddle={this.props.selectedHuddle}
                                  selectHuddle={this.props.selectHuddle}
                                  huddles={this.props.huddles}
                                  patient={this.props.patient}
@@ -34,6 +36,7 @@ PatientViewStats.displayName = 'PatientViewStats';
 
 PatientViewStats.propTypes = {
   patient: patientProps,
+  careTeams: careTeamProps,
   huddles: PropTypes.arrayOf(huddleGroupProps),
   selectedHuddle: huddleProps,
   riskServices: PropTypes.arrayOf(riskServiceProps),
