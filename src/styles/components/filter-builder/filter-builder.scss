@@ -15,9 +15,17 @@
   background-color: $white;
 }
 
+.valid-drop-target {
+  border-style: dashed;
+  border-color: $brand-primary;
+}
+
 .filter-editor-drop {
   padding: 10px;
+  min-height: 200px;
+
   .title {
+    padding-bottom: 1.3em;
     font-size: 1.3em;
   }
 }
@@ -36,6 +44,7 @@
    }
 
    .filter-type-name {
+     margin-left: 1em;
      display: inline-block;
      vertical-align: top;
    }
@@ -149,5 +158,144 @@
 
       @include respond-to(tablet) { width: 230px; }
     }
+  }
+}
+
+
+.filter-types {
+
+  .filter-type,
+  .filter-type-disabled {
+    height: 60px;
+    line-height: 60px;
+    font-size: 2em;
+    margin: 15px;
+    padding: 0;
+    background-color: $body-bg;
+    cursor: move;
+
+    &:hover {
+      background-color: $brand-primary;
+      color: #fff;
+    }
+
+    .filter-type-name {
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .filter-type-icon {
+      display: inline-block;
+      font-size: 1.3em;
+      margin: 0;
+      width: 50px;
+      text-align: center;
+      background-color: $brand-primary;
+      color: #fff;
+    }
+
+    .filter-type-chevron {
+      float: right;
+      line-height: inherit;
+      padding-right: 5px;
+      font-size: 0.8em;
+    }
+  }
+
+  .filter-type-disabled {
+    cursor: default;
+    &:hover {
+      background-color: $body-bg;
+      color: inherit;
+    }
+  }
+}
+
+/* -------------------------------- FILTER DETAILS -------------------------------- */
+
+.filter-details {
+  padding: 15px !important;
+
+  .drop-area {
+    min-height: 400px;
+  }
+
+  .form-group {
+    padding: 0;
+  }
+
+  .pane-input input {
+    padding-left: 10px;
+    height: 45px;
+    min-width: 400px;
+    font-size: 20px;
+    margin: 5px 15px;
+  }
+
+  .save-new-filter {
+    float: right;
+    padding: 10px 0;
+
+
+
+    button {
+      margin: 5px 1px 5px 10px;
+    }
+  }
+}
+
+.selected-filter-details {
+  margin-left: 35px;
+  line-height: 40px;
+
+  input {
+    height: 40px;
+  }
+
+  button.close {
+    float: none;
+    display: inline-block;
+  }
+}
+
+.selected-filter-details-spaced {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.add-new-filter {
+  font-size: 0.8em;
+  text-align: center;
+  margin: 10px;
+}
+
+.pane-input input {
+  padding-left: 10px;
+  height: 45px;
+  min-width: 400px;
+  font-size: 20px;
+  margin: 5px 15px;
+}
+
+.add-new-filter-lg {
+  @extend .add-new-filter;
+  font-size: 1em;
+
+  .btn-link {
+    padding: 0;
+  }
+}
+
+/* -------------------------------- FILTER ITEM -------------------------------- */
+
+form.filter-item {
+  margin: 15px 0;
+
+  .form-group {
+    margin: 0;
+  }
+
+  label {
+    font-weight: 200;
   }
 }

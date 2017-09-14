@@ -73,11 +73,19 @@ class FilterBuilder extends Component {
     console.log(`Load ${this.props.params.population_id}`);
   }
 
+  saveFilter(filter) {
+    console.log(filter);
+  }
+
+  onFilterChange(filter) {
+    console.log(filter);
+  }
+
   render() {
     return (
       <div className="filter-builder container">
         <PageHeader title="Filter Builder" />
-        <FilterBuilderComponent {...this.state}/>
+        <FilterBuilderComponent {...this.state} onFilterChange={this.onFilterChange} saveFilter={this.saveFilter}/>
       </div>
     );
   }

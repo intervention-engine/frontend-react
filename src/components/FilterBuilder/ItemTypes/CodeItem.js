@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
-class SelectItem extends Component {
+class CodeItem extends Component {
   constructor(...args) {
       super(...args);
       this.state = {active: true, codes: this.props.filter.codes};
@@ -47,10 +47,10 @@ class SelectItem extends Component {
   renderCodeInput(c, index, systems, removeFilter) {
     return (
         <div key={index}>
-          <select class="cs-select cs-skin-border" value={c.system} onChange={(e) => this.props.updateFilter(`codes[${index}].system`, e.target.value)}>
+          <select className="cs-select cs-skin-border" value={c.system} onChange={(e) => this.props.updateFilter(`codes[${index}].system`, e.target.value)}>
             {systems.map((opt) => <option value={opt}>{opt}</option>)}
           </select>
-          <input value={c.code} onChange={(e) => this.props.updateFilter(`codes[${index}].code`, e.target.value)} />
+          <span className='pane-input'><input className='input-control' value={c.code} onChange={(e) => this.props.updateFilter(`codes[${index}].code`, e.target.value)} /></span>
           <button type="button" className="close" onClick={() => this.removeCode(index)} aria-label="Close">
             <span aria-hidden="true"><i className="fa fa-times"></i></span>
           </button>
@@ -85,4 +85,4 @@ class SelectItem extends Component {
   }
 }
 
-export default SelectItem;
+export default CodeItem;
