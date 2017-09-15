@@ -6,7 +6,7 @@ import {
   CHANGE_POPULATION_SELECTOR_TYPE
 } from '../actions/types';
 
-export default function populationReducer(state = { populations: null,
+export default function populationReducer(state = { populations: [],
                                                     selectedPopulations: [],
                                                     populationSelectorType: 'union' }, action) {
   switch (action.type) {

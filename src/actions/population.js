@@ -5,7 +5,9 @@ import {
   FETCH_POPULATION,
   SELECT_POPULATION,
   UNSELECT_POPULATION,
-  CHANGE_POPULATION_SELECTOR_TYPE
+  CHANGE_POPULATION_SELECTOR_TYPE,
+  SAVE_POPULATION,
+  GET_INSTACOUNT
 } from './types';
 
 export function fetchPopulations() {
@@ -44,3 +46,17 @@ export function changePopulationSelectorType(type) {
     payload: type
   };
 }
+
+ export function savePopulation(filter) {
+   return {
+     type: SAVE_POPULATION,
+     payload: filter
+   };
+ }
+
+ export function getInstaCount(filter) {
+   return {
+     type: GET_INSTACOUNT,
+     payload: filter
+   };
+ }

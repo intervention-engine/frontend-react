@@ -33,6 +33,12 @@ class FilterBuilderEditor extends Component {
       }
     }
 
+    updateFilterName = (e) => {
+      let name = e.target.value;
+      // Instacount shouldn't fire here
+      this.setState({name});
+    }
+
     saveFilter = () => {
       // Because there's a bunch of dnd stuff in state let's just toss that out
       let {name, id, filters} = this.state;
@@ -46,7 +52,7 @@ class FilterBuilderEditor extends Component {
       return (
         connectDropTarget(
           <div className={`filter-editor-drop ${validDrop ? 'valid-drop-target' : ''}`}>
-            <div className='title'>Filter Details <button className='btn btn-primary pull-right' onClick={this.saveFilter}>Save</button></div>
+            <div className='title'>Filter Details for <input className='input-control' type='text' defaultValue={this.state.name} onChange={this.updateFilterName} /> <button className='btn btn-primary pull-right' onClick={this.saveFilter}>Save</button></div>
             {this.state.filters.map((f,i) => {
               return <FilterBuilderEditorItem filter={f} key={f.key} removeFilter={this.removeFilter(i)} updateFilter={this.updateFilter(i)}/>
             })}

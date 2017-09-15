@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 
-import { fetchPopulation } from '../actions/population';
+import { fetchPopulation, savePopulation, getInstaCount } from '../actions/population';
 
 import PageHeader from '../components/Header/PageHeader';
 import FilterBuilderComponent from '../components/FilterBuilder/FilterBuilderComponent';
@@ -20,6 +22,7 @@ class FilterBuilder extends Component {
   }
 
   setStateForEdit(props) {
+    // return props.population;
     return {
       "id": "2805a12a8bd4d4d95e38a43c",
       "name": "Age 65 and under",
@@ -62,7 +65,7 @@ class FilterBuilder extends Component {
   setStateForCreate() {
     return {
       "id": null,
-      "name": "",
+      "name": "Unnamed Filter",
       "filters": [
 
       ]
@@ -70,26 +73,34 @@ class FilterBuilder extends Component {
   }
 
   componentWillMount() {
-    console.log(`Load ${this.props.params.population_id}`);
-  }
-
-  saveFilter(filter) {
-    console.log(filter);
-  }
-
-  onFilterChange(filter) {
-    console.log(filter);
+    if(this.props.params.population_id){
+      this.props.fetchPopulation(this.props.params.population_id);
+    }
   }
 
   render() {
     return (
       <div className="filter-builder container">
         <PageHeader title="Filter Builder" />
-        <FilterBuilderComponent {...this.state} onFilterChange={this.onFilterChange} saveFilter={this.saveFilter}/>
+        <FilterBuilderComponent {...this.state} onFilterChange={this.props.getInstaCount} saveFilter={this.props.savePopulation}/>
       </div>
     );
   }
 }
 
 
-export default FilterBuilder;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    fetchPopulation,
+    savePopulation,
+    getInstaCount
+  }, dispatch);
+}
+
+function mapStateToProps(state) {
+  return {
+    population: state.population.populations.find((p) => p.id == this.props.params.population_id)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterBuilder);
