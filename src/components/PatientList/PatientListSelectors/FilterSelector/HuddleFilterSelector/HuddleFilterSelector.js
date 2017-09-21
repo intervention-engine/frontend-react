@@ -20,11 +20,6 @@ export default class HuddleFilterSelector extends Component {
   }
 
   renderedHuddleDate(careTeam) {
-    // console.debug('!this.isSelected(careTeam): ', !this.isSelected(careTeam));
-    // console.debug('!this.props.huddles: ', !this.props.huddles);
-    // console.debug('this.props.huddles.length === 0: ', this.props.huddles.length === 0);
-    // console.debug('this.props.selectedCareTeam !== careTeam: ', this.props.selectedCareTeam !== careTeam);
-
     if (!this.props.huddles ||
         this.props.huddles.length === 0 ||
         this.props.selectedCareTeam !== careTeam) {

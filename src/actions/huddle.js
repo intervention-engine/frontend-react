@@ -142,10 +142,13 @@ function shouldFetchHuddles(state, careTeam) {
   }
 
   let huddles = state.huddle.huddlesByCareTeam[careTeam];
+  console.debug('huddles: ', huddles);
   if (!huddles) {
     return true;
   } else if (huddles.isFetching) {
     return false;
+  } else {
+    return true;
   }
 }
 
