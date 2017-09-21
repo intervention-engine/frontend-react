@@ -67,8 +67,13 @@ export default class PatientListResultsItem extends Component {
   }
 
   render() {
+    let linkHref = `/patients/${this.props.patient.id}`;
+    if (this.props.selectedRiskService) {
+      linkHref = `${linkHref}?riskService=${this.props.selectedRiskService.id}`;
+    }
+
     return (
-      <Link className="patient-list-results-item" to={`/patients/${this.props.patient.id}?riskService=${this.props.selectedRiskService.id}`}>
+      <Link className="patient-list-results-item" to={linkHref}>
         <div>
           <div className="media">
             <div className="media-left media-middle">

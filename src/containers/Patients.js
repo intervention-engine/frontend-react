@@ -15,44 +15,22 @@ import riskServiceProps from '../prop-types/risk_service';
 import sortProps from '../prop-types/sort';
 
 import { sortOptions } from '../reducers/sort';
+import { PATIENTS_PER_PAGE } from '../reducers/patient';
 
-import { fetchPatients, setPatientSearch, selectPage } from '../actions/patient';
+import { fetchPatientsIfNeeded, setPatientSearch, selectPage } from '../actions/patient';
 import { fetchPopulations, selectPopulation, unselectPopulation,
          changePopulationSelectorType } from '../actions/population';
-import { fetchRiskServices, selectRiskService } from '../actions/risk_service';
-import { fetchCareTeams, selectCareTeam, fetchHuddlesIfNeeded, selectHuddle } from '../actions/huddle';
+import { fetchRiskServicesIfNeeded, selectRiskService } from '../actions/risk_service';
+import { fetchCareTeamsIfNeeded, selectCareTeam, fetchHuddlesIfNeeded, selectHuddle } from '../actions/huddle';
 import { selectSortOption, setSortAscending } from '../actions/sort';
 
 class Patients extends Component {
   componentWillMount() {
-    // if (this.props.populations == null) { this.props.fetchPopulations(); }
+    if (this.props.patients.length === 0) { this.props.fetchPatients(); }
     if (this.props.careTeams.length === 0) { this.props.fetchCareTeams(); }
-    if (this.props.huddles == null) { this.props.fetchHuddles(); } // TODO: add careteam id
+    if (this.props.huddles.length === 0) { this.props.fetchHuddles(); } // TODO: add careteam id
     if (this.props.riskServices.length === 0) { this.props.fetchRiskServices(); }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // sort params
-    let sortDir = nextProps.sortAscending ? '' : '-';
-    if (nextProps.sortOption.invert) { sortDir = sortDir === '' ? '-' : ''; }
-    let sortParams = { sort_by: `${sortDir}${nextProps.sortOption.sortKey}` };
-
-    // fetch patients and risks with params when nextProps has changed
-    if (this.props.patients == null ||
-        !equal(nextProps.currentPage, this.props.currentPage) ||
-        !equal(nextProps.sortAscending, this.props.sortAscending) ||
-        !equal(nextProps.sortOption, this.props.sortOption)) {
-       this.props.fetchPatients({
-        ...sortParams,
-        page: (nextProps.currentPage),
-        per_page: this.props.patientsPerPage,
-      });
-    }
-
-    // fetch risk services when nextProps has changed
-    if (this.props.riskServices.length === 0 || !equal(nextProps.riskServices, this.props.riskServices)) {
-      this.props.fetchRiskServices();
-    }
+    // if (this.props.populations == null) { this.props.fetchPopulations(); }
   }
 
   render() {
@@ -64,7 +42,6 @@ class Patients extends Component {
                      patientSearch={this.props.patientSearch}
                      pageNum={this.props.pageNum}
                      currentPage={this.props.currentPage}
-                     patientsPerPage={this.props.patientsPerPage}
                      populations={this.props.populations}
                      selectedPopulations={this.props.selectedPopulations}
                      populationSelectorType={this.props.populationSelectorType}
@@ -100,7 +77,6 @@ Patients.propTypes = {
   patientSearch: PropTypes.string.isRequired,
   pageNum: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
-  patientsPerPage: PropTypes.number.isRequired,
   populations: PropTypes.arrayOf(populationProps),
   selectedPopulations: PropTypes.arrayOf(populationProps).isRequired,
   populationSelectorType: PropTypes.string.isRequired,
@@ -131,11 +107,11 @@ Patients.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    fetchPatients,
+    fetchPatients: fetchPatientsIfNeeded,
     fetchPopulations,
-    fetchCareTeams,
+    fetchCareTeams: fetchCareTeamsIfNeeded,
     fetchHuddles: fetchHuddlesIfNeeded,
-    fetchRiskServices,
+    fetchRiskServices: fetchRiskServicesIfNeeded,
     setPatientSearch,
     selectPage,
     selectPopulation,
@@ -151,25 +127,21 @@ function mapDispatchToProps(dispatch) {
 
 export function mapStateToProps(state) {
   return {
-    patients: state.patient.patients,
-    patientsMeta: state.patient.meta,
+    patients: state.patient.patients.items,
+    patientsMeta: state.patient.patients.meta,
     patientSearch: state.patient.patientSearch,
-    pageNum: state.patient.pageNum,
-    currentPage: state.patient.currentPage,
-    patientsPerPage: state.patient.patientsPerPage,
+    pageNum: state.patient.selectedPage.pageNum,
+    currentPage: state.patient.selectedPage.currentPage,
     populations: state.population.populations,
     selectedPopulations: state.population.selectedPopulations,
     populationSelectorType: state.population.populationSelectorType,
-    // careTeams: state.huddle.careTeams,
     careTeams: state.huddle.careTeams.items,
-    // selectedCareTeam: state.huddle.selectedCareTeam,
     selectedCareTeam: state.huddle.selectedCareTeam,
-    // huddles: state.huddle.huddles,
     huddles: state.huddle.huddlesByCareTeam[state.huddle.selectedCareTeam] ? state.huddle.huddlesByCareTeam[state.huddle.selectedCareTeam].items : [],
     selectedHuddle: state.huddle.selectedHuddle,
-    riskServices: state.riskService.riskServices,
+    riskServices: state.riskService.riskServices.items,
     selectedRiskService: state.riskService.selectedRiskService,
-    sortOption: state.sort.sortOption,
+    sortOption: state.sort.selectedSortOption,
     sortAscending: state.sort.sortAscending
   };
 }

@@ -1,33 +1,82 @@
+import { combineReducers } from 'redux';
+
 import {
-  FETCH_PATIENTS_FULFILLED,
+  REQUEST_PATIENTS,
+  RECEIVE_PATIENTS,
+  REQUEST_PATIENT,
+  RECEIVE_PATIENT,
   SET_PATIENT_SEARCH,
-  SELECT_PAGE,
-  FETCH_PATIENT_FULFILLED
+  SELECT_PAGE
 } from '../actions/types';
 
-export default function(state = { patients: null,
-                                  meta: {},
-                                  patientSearch: '',
-                                  pageNum: 1,
-                                  selectedPatient: null,
-                                  currentPage: 1,
-                                  patientsPerPage: 10 }, action)  {
-  switch (action.type) {
-    case FETCH_PATIENTS_FULFILLED:
-      let total = parseInt(action.payload.headers.link.match(/total=(\d+)/i)[1]);
+export const PATIENTS_PER_PAGE = 10;
 
-      return { ...state, patients: action.payload.data || [],
-                         meta: { total },
-                         pageNum: Math.ceil(total / state.patientsPerPage) };
-    case SET_PATIENT_SEARCH:
-      // reset the page to 1 so the search results are shown
-      return { ...state, patientSearch: action.payload, currentPage: 1 };
-    case SELECT_PAGE:
-      return { ...state, currentPage: action.payload };
-    case FETCH_PATIENT_FULFILLED:
-      let selectedPatient = { ...action.payload.data };
-      return { ...state, selectedPatient };
+// ------------------------- PATIENTS -------------------------------------- //
+
+function patients(state = { isFetching: false, items: [], meta: { total: 0 } }, action) {
+  switch(action.type) {
+    case REQUEST_PATIENTS:
+      return Object.assign({}, state, { isFetching: true });
+    case RECEIVE_PATIENTS:
+      let total = action.totalPatients;
+
+      return Object.assign({}, state, {
+        isFetching: false,
+        items: action.patients,
+        meta: { total, pageNum: Math.ceil(total / PATIENTS_PER_PAGE) }
+      });
     default:
       return state;
   }
 }
+
+// ------------------------- PATIENT --------------------------------------- //
+
+function selectedPatient(state = { isFetching: false, patient: null }, action) {
+  switch(action.type) {
+    case REQUEST_PATIENT:
+      return Object.assign({}, state, { isFetching: true });
+    case RECEIVE_PATIENT:
+      return Object.assign({}, state, {
+        isFetching: false,
+        patient: action.patient
+      });
+    default:
+      return state;
+  }
+}
+
+// ------------------------- PATIENT SEARCH -------------------------------- //
+
+function patientSearch(state = '', action) {
+  switch(action.type) {
+    case SET_PATIENT_SEARCH:
+      return action.term;
+    default:
+      return state;
+  }
+}
+
+// ------------------------- SELECT PAGE ----------------------------------- //
+
+function selectedPage(state = { pageNum: 1, currentPage: 1 }, action) {
+  switch(action.type) {
+    case SELECT_PAGE:
+      return Object.assign({}, state, { currentPage: action.page });
+    case RECEIVE_PATIENTS:
+      return Object.assign({}, state, {
+        pageNum: Math.ceil(action.totalPatients / PATIENTS_PER_PAGE)
+      });
+    default:
+      return state;
+  }
+}
+
+const rootReducer = combineReducers({
+  patients,
+  selectedPatient,
+  patientSearch,
+  selectedPage
+});
+
+export default rootReducer;

@@ -41,7 +41,6 @@ export default class PatientList extends Component {
                             patientSearch={this.props.patientSearch}
                             pageNum={this.props.pageNum}
                             currentPage={this.props.currentPage}
-                            patientsPerPage={this.props.patientsPerPage}
                             selectedPopulations={this.props.selectedPopulations}
                             populationSelectorType={this.props.populationSelectorType}
                             huddles={this.props.huddles}
@@ -64,7 +63,6 @@ PatientList.propTypes = {
   patientSearch: PropTypes.string.isRequired,
   pageNum: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
-  patientsPerPage: PropTypes.number.isRequired,
   populations: PropTypes.arrayOf(populationProps),
   selectedPopulations: PropTypes.arrayOf(populationProps).isRequired,
   populationSelectorType: PropTypes.string.isRequired,

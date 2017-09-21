@@ -1,18 +1,24 @@
+import { fetchPatients } from './patient';
+
 import {
   SELECT_SORT_OPTION,
   SET_SORT_ASCENDING
 } from './types';
 
+// ------------------------- SELECT SORT OPTION ---------------------------- //
+
 export function selectSortOption(sortOption) {
-  return {
-    type: SELECT_SORT_OPTION,
-    payload: sortOption
+  return (dispatch, getState) => {
+    dispatch({ type: SELECT_SORT_OPTION, sortOption });
+    return dispatch(fetchPatients());
   };
 }
 
+// ------------------------- SET SORT ASCENDING ---------------------------- //
+
 export function setSortAscending(bool) {
-  return {
-    type: SET_SORT_ASCENDING,
-    payload: bool
+  return (dispatch, getState) => {
+    dispatch({ type: SET_SORT_ASCENDING, bool });
+    return dispatch(fetchPatients());
   };
 }

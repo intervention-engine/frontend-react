@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux';
+
 import {
   SELECT_SORT_OPTION,
   SET_SORT_ASCENDING
@@ -15,14 +17,31 @@ export const sortOptions = [
 const DEFAULT_SORT_OPTION = sortOptions[0];
 const DEFAULT_SORT_ASCENDING = sortOptions[0].defaultSortAscending;
 
-export default function sortReducer(state = { sortOption: DEFAULT_SORT_OPTION,
-                                              sortAscending: DEFAULT_SORT_ASCENDING }, action)  {
-  switch (action.type) {
-  case SELECT_SORT_OPTION:
-    return { ...state, sortOption: action.payload, sortAscending: action.payload.defaultSortAscending };
-  case SET_SORT_ASCENDING:
-    return { ...state, sortAscending: action.payload};
-  default:
-    return state;
+// ------------------------- SELECT SORT OPTION ---------------------------- //
+
+function selectedSortOption(state = DEFAULT_SORT_OPTION, action) {
+  switch(action.type) {
+    case SELECT_SORT_OPTION:
+      return action.sortOption;
+    default:
+      return state;
   }
 }
+
+// ------------------------- SET SORT ASCENDING ---------------------------- //
+
+function sortAscending(state = DEFAULT_SORT_ASCENDING, action) {
+  switch(action.type) {
+    case SET_SORT_ASCENDING:
+      return action.bool;
+    default:
+      return state;
+  }
+}
+
+const rootReducer = combineReducers({
+  selectedSortOption,
+  sortAscending
+});
+
+export default rootReducer;

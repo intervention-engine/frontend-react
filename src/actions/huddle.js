@@ -142,10 +142,7 @@ function shouldFetchHuddles(state, careTeam) {
   }
 
   let huddles = state.huddle.huddlesByCareTeam[careTeam];
-  console.debug('huddles: ', huddles);
-  if (!huddles) {
-    return true;
-  } else if (huddles.isFetching) {
+  if (huddles && huddles.isFetching) {
     return false;
   } else {
     return true;
@@ -153,11 +150,11 @@ function shouldFetchHuddles(state, careTeam) {
 }
 
 export function fetchHuddlesIfNeeded(careTeam) {
-  return (dispatch, getState) => { // getState lets you choose what to dispatch next
+  return (dispatch, getState) => {
     if (shouldFetchHuddles(getState(), careTeam)) {
-      return dispatch(fetchHuddles(careTeam)) // dispatch a thunk from thunk
+      return dispatch(fetchHuddles(careTeam))
     } else {
-      return Promise.resolve(); // let the calling code know there's nothing to wait for
+      return Promise.resolve();
     }
   }
 }

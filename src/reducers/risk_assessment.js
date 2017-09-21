@@ -1,22 +1,54 @@
+import { combineReducers } from 'redux';
+
 import {
-  FETCH_RISK_ASSESSMENTS_FULFILLED,
-  SELECT_RISK_ASSESSMENT,
-  FETCH_RISK_ASSESSMENT_BREAKDOWN_FULFILLED
+  REQUEST_RISK_ASSESSMENTS,
+  RECEIVE_RISK_ASSESSMENTS,
+  REQUEST_RISK_BREAKDOWN,
+  RECEIVE_RISK_BREAKDOWN,
+  SELECT_RISK_ASSESSMENT
 } from '../actions/types';
 
-export default function riskServiceReducer(state = { riskAssessments: [],
-                                                     selectedRiskAssessment: null,
-                                                     riskAssessmentBreakdown: null }, action)  {
-  switch (action.type) {
-    case FETCH_RISK_ASSESSMENTS_FULFILLED:
-      let riskAssessments = action.payload.data || [];
-      let selectedRiskAssessment = riskAssessments.length === 0 ? null : riskAssessments[riskAssessments.length - 1];
-      return { ...state, riskAssessments, selectedRiskAssessment };
-    case SELECT_RISK_ASSESSMENT:
-      return { ...state, selectedRiskAssessment: action.payload };
-    case FETCH_RISK_ASSESSMENT_BREAKDOWN_FULFILLED:
-      return { ...state, riskAssessmentBreakdown: action.payload.data };
+// ------------------------- RISK ASSESSMENTS ------------------------------ //
+
+function riskAssessments(state = { isFetching: false, items: [] }, action) {
+  switch(action.type) {
+    case REQUEST_RISK_ASSESSMENTS:
+      return Object.assign({}, state, { isFetching: true });
+    case RECEIVE_RISK_ASSESSMENTS:
+      return Object.assign({}, state, { isFetching: false, items: action.riskAssessments });
     default:
       return state;
   }
 }
+
+// ------------------------- RISK BREAKDOWN -------------------------------- //
+
+function riskBreakdown(state = { isFetching: false, items: [] }, action) {
+  switch(action.type) {
+    case REQUEST_RISK_BREAKDOWN:
+      return Object.assign({}, state, { isFetching: true });
+    case RECEIVE_RISK_BREAKDOWN:
+      return Object.assign({}, state, { isFetching: false, items: action.riskBreakdown });
+    default:
+      return state;
+  }
+}
+
+// ------------------------- SELECT RISK ASSESSMENT ------------------------ //
+
+function selectedRiskAssessment(state = null, action) {
+  switch(action.type) {
+    case SELECT_RISK_ASSESSMENT:
+      return action.riskAssessment;
+    default:
+      return state;
+  }
+}
+
+const rootReducer = combineReducers({
+  riskAssessments,
+  riskBreakdown,
+  selectedRiskAssessment
+});
+
+export default rootReducer;
