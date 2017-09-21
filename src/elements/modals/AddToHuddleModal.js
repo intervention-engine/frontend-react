@@ -7,7 +7,7 @@ import HuddlePikaday from '../pikaday/HuddlePikaday';
 import getPatientHuddles from '../../utils/get_patient_huddles';
 
 import patientProps from '../../prop-types/patient';
-import huddleGroupProps from '../../prop-types/huddle_group';
+import huddleProps from '../../prop-types/huddle';
 
 export default class AddToHuddleModal extends Component {
   constructor(...args) {
@@ -117,7 +117,7 @@ AddToHuddleModal.displayName = 'AddToHuddleModal';
 
 AddToHuddleModal.propTypes = {
   patient: patientProps,
-  huddles: PropTypes.arrayOf(huddleGroupProps),
+  huddles: PropTypes.arrayOf(huddleProps),
   selectedDate: PropTypes.object,
   addPatientToHuddle: PropTypes.func.isRequired
 };

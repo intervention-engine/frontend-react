@@ -9,7 +9,7 @@ import PatientList from '../components/PatientList/PatientList';
 import patientProps from '../prop-types/patient';
 import patientsMetaProps from '../prop-types/patients_meta';
 import populationProps from '../prop-types/population';
-import huddleGroupProps from '../prop-types/huddle_group';
+import careTeamProps from '../prop-types/huddle';
 import huddleProps from '../prop-types/huddle';
 import riskServiceProps from '../prop-types/risk_service';
 import sortProps from '../prop-types/sort';
@@ -20,13 +20,14 @@ import { fetchPatients, setPatientSearch, selectPage } from '../actions/patient'
 import { fetchPopulations, selectPopulation, unselectPopulation,
          changePopulationSelectorType } from '../actions/population';
 import { fetchRiskServices, selectRiskService } from '../actions/risk_service';
-import { fetchHuddles, selectHuddleGroup, selectHuddle } from '../actions/huddle';
+import { fetchCareTeams, selectCareTeam, fetchHuddlesIfNeeded, selectHuddle } from '../actions/huddle';
 import { selectSortOption, setSortAscending } from '../actions/sort';
 
 class Patients extends Component {
   componentWillMount() {
     // if (this.props.populations == null) { this.props.fetchPopulations(); }
-    if (this.props.huddles == null) { this.props.fetchHuddles(); }
+    if (this.props.careTeams.length === 0) { this.props.fetchCareTeams(); }
+    if (this.props.huddles == null) { this.props.fetchHuddles(); } // TODO: add careteam id
     if (this.props.riskServices.length === 0) { this.props.fetchRiskServices(); }
   }
 
@@ -54,8 +55,6 @@ class Patients extends Component {
     }
   }
 
-  get
-
   render() {
     return (
       <div className="patients container">
@@ -69,8 +68,9 @@ class Patients extends Component {
                      populations={this.props.populations}
                      selectedPopulations={this.props.selectedPopulations}
                      populationSelectorType={this.props.populationSelectorType}
+                     careTeams={this.props.careTeams}
+                     selectedCareTeam={this.props.selectedCareTeam}
                      huddles={this.props.huddles}
-                     selectedHuddleGroup={this.props.selectedHuddleGroup}
                      selectedHuddle={this.props.selectedHuddle}
                      riskServices={this.props.riskServices}
                      selectedRiskService={this.props.selectedRiskService}
@@ -83,7 +83,7 @@ class Patients extends Component {
                      unselectPopulation={this.props.unselectPopulation}
                      changePopulationSelectorType={this.props.changePopulationSelectorType}
                      selectRiskService={this.props.selectRiskService}
-                     selectHuddleGroup={this.props.selectHuddleGroup}
+                     selectCareTeam={this.props.selectCareTeam}
                      selectHuddle={this.props.selectHuddle}
                      selectSortOption={this.props.selectSortOption}
                      setSortAscending={this.props.setSortAscending} />
@@ -104,8 +104,9 @@ Patients.propTypes = {
   populations: PropTypes.arrayOf(populationProps),
   selectedPopulations: PropTypes.arrayOf(populationProps).isRequired,
   populationSelectorType: PropTypes.string.isRequired,
-  huddles: PropTypes.arrayOf(huddleGroupProps),
-  selectedHuddleGroup: huddleGroupProps,
+  careTeams: PropTypes.arrayOf(careTeamProps),
+  selectedCareTeam: careTeamProps,
+  huddles: PropTypes.arrayOf(huddleProps),
   selectedHuddle: huddleProps,
   riskServices: PropTypes.arrayOf(riskServiceProps),
   selectedRiskService: riskServiceProps,
@@ -113,6 +114,7 @@ Patients.propTypes = {
   sortAscending: PropTypes.bool.isRequired,
   fetchPatients: PropTypes.func.isRequired,
   fetchPopulations: PropTypes.func.isRequired,
+  fetchCareTeams: PropTypes.func.isRequired,
   fetchHuddles: PropTypes.func.isRequired,
   fetchRiskServices: PropTypes.func.isRequired,
   setPatientSearch: PropTypes.func.isRequired,
@@ -121,7 +123,7 @@ Patients.propTypes = {
   unselectPopulation: PropTypes.func.isRequired,
   changePopulationSelectorType: PropTypes.func.isRequired,
   selectRiskService: PropTypes.func.isRequired,
-  selectHuddleGroup: PropTypes.func.isRequired,
+  selectCareTeam: PropTypes.func.isRequired,
   selectHuddle: PropTypes.func.isRequired,
   selectSortOption: PropTypes.func.isRequired,
   setSortAscending: PropTypes.func.isRequired
@@ -131,7 +133,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     fetchPatients,
     fetchPopulations,
-    fetchHuddles,
+    fetchCareTeams,
+    fetchHuddles: fetchHuddlesIfNeeded,
     fetchRiskServices,
     setPatientSearch,
     selectPage,
@@ -139,7 +142,7 @@ function mapDispatchToProps(dispatch) {
     unselectPopulation,
     changePopulationSelectorType,
     selectRiskService,
-    selectHuddleGroup,
+    selectCareTeam,
     selectHuddle,
     selectSortOption,
     setSortAscending
@@ -157,8 +160,12 @@ export function mapStateToProps(state) {
     populations: state.population.populations,
     selectedPopulations: state.population.selectedPopulations,
     populationSelectorType: state.population.populationSelectorType,
-    huddles: state.huddle.huddles,
-    selectedHuddleGroup: state.huddle.selectedHuddleGroup,
+    // careTeams: state.huddle.careTeams,
+    careTeams: state.huddle.careTeams.items,
+    // selectedCareTeam: state.huddle.selectedCareTeam,
+    selectedCareTeam: state.huddle.selectedCareTeam,
+    // huddles: state.huddle.huddles,
+    huddles: state.huddle.huddlesByCareTeam[state.huddle.selectedCareTeam] ? state.huddle.huddlesByCareTeam[state.huddle.selectedCareTeam].items : [],
     selectedHuddle: state.huddle.selectedHuddle,
     riskServices: state.riskService.riskServices,
     selectedRiskService: state.riskService.selectedRiskService,

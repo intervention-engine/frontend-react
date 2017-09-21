@@ -6,7 +6,7 @@ import PatientListResults from './PatientListResults/PatientListResults';
 import patientProps from '../../prop-types/patient';
 import patientsMetaProps from '../../prop-types/patients_meta';
 import populationProps from '../../prop-types/population';
-import huddleGroupProps from '../../prop-types/huddle_group';
+import careTeamProps from '../../prop-types/care_team';
 import huddleProps from '../../prop-types/huddle';
 import riskServiceProps from '../../prop-types/risk_service';
 import sortProps from '../../prop-types/sort';
@@ -18,8 +18,9 @@ export default class PatientList extends Component {
         <PatientListSelectors populations={this.props.populations}
                               selectedPopulations={this.props.selectedPopulations}
                               populationSelectorType={this.props.populationSelectorType}
+                              careTeams={this.props.careTeams}
+                              selectedCareTeam={this.props.selectedCareTeam}
                               huddles={this.props.huddles}
-                              selectedHuddleGroup={this.props.selectedHuddleGroup}
                               selectedHuddle={this.props.selectedHuddle}
                               riskServices={this.props.riskServices}
                               selectedRiskService={this.props.selectedRiskService}
@@ -30,7 +31,7 @@ export default class PatientList extends Component {
                               unselectPopulation={this.props.unselectPopulation}
                               changePopulationSelectorType={this.props.changePopulationSelectorType}
                               selectRiskService={this.props.selectRiskService}
-                              selectHuddleGroup={this.props.selectHuddleGroup}
+                              selectCareTeam={this.props.selectCareTeam}
                               selectHuddle={this.props.selectHuddle}
                               selectSortOption={this.props.selectSortOption}
                               setSortAscending={this.props.setSortAscending} />
@@ -67,8 +68,9 @@ PatientList.propTypes = {
   populations: PropTypes.arrayOf(populationProps),
   selectedPopulations: PropTypes.arrayOf(populationProps).isRequired,
   populationSelectorType: PropTypes.string.isRequired,
-  huddles: PropTypes.arrayOf(huddleGroupProps),
-  selectedHuddleGroup: huddleGroupProps,
+  careTeams: PropTypes.arrayOf(careTeamProps),
+  selectedCareTeam: careTeamProps,
+  huddles: PropTypes.arrayOf(huddleProps),
   selectedHuddle: huddleProps,
   riskServices: PropTypes.arrayOf(riskServiceProps).isRequired,
   selectedRiskService: riskServiceProps,
@@ -81,7 +83,7 @@ PatientList.propTypes = {
   unselectPopulation: PropTypes.func.isRequired,
   changePopulationSelectorType: PropTypes.func.isRequired,
   selectRiskService: PropTypes.func.isRequired,
-  selectHuddleGroup: PropTypes.func.isRequired,
+  selectCareTeam: PropTypes.func.isRequired,
   selectHuddle: PropTypes.func.isRequired,
   selectSortOption: PropTypes.func.isRequired,
   setSortAscending: PropTypes.func.isRequired

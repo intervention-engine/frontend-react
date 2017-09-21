@@ -8,8 +8,7 @@ import PatientViewRiskAsterChart from './PatientViewRiskAsterChart/PatientViewRi
 import PatientViewTimeline from './PatientViewTimeline/PatientViewTimeline';
 
 import patientProps from '../../prop-types/patient';
-import careTeamProps from '../../propTypes/care_team';
-import huddleGroupProps from '../../prop-types/huddle_group';
+import careTeamProps from '../../prop-types/care_team';
 import huddleProps from '../../prop-types/huddle';
 import riskServiceProps from '../../prop-types/risk_service';
 import riskAssessmentProps from '../../prop-types/risk_assessment';
@@ -47,11 +46,13 @@ export default class PatientView extends Component {
               <div className="patient-panel-body-section col-xs-3">
                 <PatientViewStats patient={this.props.patient}
                                   careTeams={this.props.careTeams}
+                                  selectedCareTeam={this.props.selectedCareTeam}
                                   huddles={this.props.huddles}
                                   selectedHuddle={this.props.selectedHuddle}
                                   riskServices={this.props.riskServices}
                                   riskAssessments={this.props.riskAssessments}
                                   selectedRiskService={this.props.selectedRiskService}
+                                  selectCareTeam={this.props.selectCareTeam}
                                   selectHuddle={this.props.selectHuddle}
                                   selectRiskService={this.props.selectRiskService}
                                   addPatientToHuddle={this.props.addPatientToHuddle} />
@@ -77,14 +78,16 @@ PatientView.displayName = 'PatientView';
 
 PatientView.propTypes = {
   patient: patientProps,
-  careTeams: careTeamProps,
-  huddles: PropTypes.arrayOf(huddleGroupProps),
+  careTeams: PropTypes.arrayOf(careTeamProps),
+  selectedCareTeam: careTeamProps,
+  huddles: PropTypes.arrayOf(huddleProps),
   selectedHuddle: huddleProps,
   riskServices: PropTypes.arrayOf(riskServiceProps),
   riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
   selectedRiskAssessment: riskAssessmentProps,
   riskAssessmentBreakdown: PropTypes.arrayOf(riskAssessmentBreakdownProps),
   selectedRiskService: riskServiceProps.isRequired,
+  selectCareTeam: PropTypes.func.isRequired,
   selectHuddle: PropTypes.func.isRequired,
   selectRiskService: PropTypes.func.isRequired,
   addPatientToHuddle: PropTypes.func.isRequired,

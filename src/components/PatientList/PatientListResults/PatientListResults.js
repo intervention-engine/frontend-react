@@ -3,35 +3,25 @@ import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames';
 import ReactPaginate from 'react-paginate';
 import { param } from 'jquery';
-// import equal from 'deep-equal';
+import equal from 'deep-equal';
 
 import PatientListResultsItem from './PatientListResultsItem';
 
 import patientProps from '../../../prop-types/patient';
 import patientsMetaProps from '../../../prop-types/patients_meta';
 import populationProps from '../../../prop-types/population';
-import huddleGroupProps from '../../../prop-types/huddle_group';
 import huddleProps from '../../../prop-types/huddle';
 import riskServiceProps from '../../../prop-types/risk_service';
 import sortProps from '../../../prop-types/sort';
-
-// import nextHuddleForPatients from '../../../utils/next_huddle_for_patients';
 
 export default class PatientListResults extends Component {
   constructor(...args) {
     super(...args);
 
     this.state = {
-      searchExpanded: false,
-      // nextHuddleForPatients: nextHuddleForPatients(this.props.huddles)
+      searchExpanded: false
     };
   }
-
-  // componentWillReceiveProps(nextProps) {
-    // if (!equal(nextProps.huddles, this.props.huddles)) {
-    //   this.setState({ nextHuddleForPatients: nextHuddleForPatients(nextProps.huddles) });
-    // }
-  // }
 
   openPatientPrintList(event) {
     event.preventDefault();
@@ -77,7 +67,6 @@ export default class PatientListResults extends Component {
         <PatientListResultsItem key={patient.id}
                                 patient={patient}
                                 huddles={this.props.huddles}
-                                nextHuddles={this.state.nextHuddleForPatients}
                                 selectedRiskService={this.props.selectedRiskService} />
       );
     }
@@ -138,7 +127,7 @@ PatientListResults.propTypes = {
   pageNum: PropTypes.number.isRequired,
   selectedPopulations: PropTypes.arrayOf(populationProps).isRequired,
   populationSelectorType: PropTypes.string.isRequired,
-  huddles: PropTypes.arrayOf(huddleGroupProps),
+  huddles: PropTypes.arrayOf(huddleProps),
   selectedHuddle: huddleProps,
   selectedRiskService: riskServiceProps,
   sortOption: sortProps.isRequired,

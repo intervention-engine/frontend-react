@@ -9,7 +9,7 @@ import { getPatientAgeIcon, getPatientGenderIcon/*, getHuddleReasonIcon*/ } from
 
 import patientProps from '../../../prop-types/patient';
 import riskAssessmentProps from '../../../prop-types/risk_assessment';
-import huddleGroupProps from '../../../prop-types/huddle_group';
+import huddleProps from '../../../prop-types/huddle';
 
 export default class PatientViewBannerSummary extends Component {
   renderedNextHuddle() {
@@ -84,7 +84,7 @@ PatientViewBannerSummary.displayName = 'PatientViewBannerSummary';
 PatientViewBannerSummary.propTypes = {
   patient: patientProps,
   riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
-  huddles: PropTypes.arrayOf(huddleGroupProps),
+  huddles: PropTypes.arrayOf(huddleProps),
   selectedRiskAssessment: riskAssessmentProps,
   selectRiskAssessment: PropTypes.func.isRequired
 };

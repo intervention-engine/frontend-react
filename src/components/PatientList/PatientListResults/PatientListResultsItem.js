@@ -9,20 +9,29 @@ import sortByDate from '../../../utils/sort_by_date';
 import { getHuddleReasonIcon, getPatientAgeIcon, getPatientGenderIcon } from '../../../utils/icon';
 
 import patientProps from '../../../prop-types/patient';
-import huddleGroupProps from '../../../prop-types/huddle_group';
+import huddleProps from '../../../prop-types/huddle';
 import riskServiceProps from '../../../prop-types/risk_service';
 
 export default class PatientListResultsItem extends Component {
-  renderedNextHuddle(patient) {
-    if(!this.props.nextHuddles) { return null; }
-    let nextHuddle = this.props.nextHuddles[patient.id];
-    if (nextHuddle == null) { return; }
+  renderedNextHuddle() {
+    // let nextHuddle = this.props.patients.next_huddle; // TODO: add
+    let nextHuddle = { // TODO: remove block
+      huddle_id: '576c9bbf8bd4d4bdc2ac4189',
+      huddle_date: '2017-10-02',
+      care_team_name: 'Care Team A',
+      reason: 'Risk Score Warrants Discussion',
+      reason_type: 'RISK_SCORE',
+      reviewed: false,
+      reviewed_at: null
+    };
+
+    if(!nextHuddle) { return; }
 
     return (
-      <NextHuddleDate huddleIconName={getHuddleReasonIcon(nextHuddle.huddlePatient.reason.code)}
-                      huddleGroupName={nextHuddle.huddleGroup.name}
-                      huddleReason={nextHuddle.huddlePatient.reason.text}
-                      huddleDate={nextHuddle.huddle.datetime} />
+      <NextHuddleDate huddleIconName={getHuddleReasonIcon(nextHuddle.reason_type)}
+                      huddleGroupName={nextHuddle.care_team_name}
+                      huddleReason={nextHuddle.reason}
+                      huddleDate={nextHuddle.huddle_date} />
     );
   }
 
@@ -40,10 +49,10 @@ export default class PatientListResultsItem extends Component {
     return patientHuddles.sort(sortByDate('datetime'));
   }
 
-  renderedRisk(patient) {
-    if (patient.recent_risk_assessment == null) { return; }
+  renderedRisk() {
+    if (this.props.patient.recent_risk_assessment == null) { return; }
 
-    let risk = patient.recent_risk_assessment.value;
+    let risk = this.props.patient.recent_risk_assessment.value;
     let maxRisk = 4; // TODO: get from backend
     let barWidth = Math.floor(100 / maxRisk * risk);
     let riskBarWidth = { width: `${barWidth}px` };
@@ -85,11 +94,11 @@ export default class PatientListResultsItem extends Component {
                 </div>
 
                 <div className="col-md-3 patient-next-huddle-date">
-                  {this.renderedNextHuddle(this.props.patient, this.props.huddles)}
+                  {this.renderedNextHuddle()}
                 </div>
 
                 <div className="col-md-4 patient-risk-bar-container">
-                  {this.renderedRisk(this.props.patient)}
+                  {this.renderedRisk()}
                 </div>
               </div>
             </div>
@@ -102,8 +111,7 @@ export default class PatientListResultsItem extends Component {
 
 PatientListResultsItem.propTypes = {
   patient: patientProps.isRequired,
-  huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
-  nextHuddles: PropTypes.object,
+  huddles: PropTypes.arrayOf(huddleProps),
   selectedRiskService: riskServiceProps,
 };
 

@@ -4,7 +4,7 @@ import moment from 'moment';
 import Pikaday from 'pikaday';
 import _ from 'lodash';
 
-import huddleGroupProps from '../../../../../prop-types/huddle_group';
+import careTeamProps from '../../../../../prop-types/care_team';
 import huddleProps from '../../../../../prop-types/huddle';
 
 export default class HuddleFilterDateSelector extends Component {
@@ -48,38 +48,39 @@ export default class HuddleFilterDateSelector extends Component {
   }
 
   minDate() {
-    let huddle = _.head(_.sortBy(this.props.selectedHuddleGroup.dates, 'datetime'));
-    if (huddle) {
-      return moment(huddle.datetime).toDate();
+    let firstHuddle = _.head(_.sortBy(this.props.huddles, 'date'));
+    if (firstHuddle) {
+      return moment(firstHuddle.date).toDate();
     }
   }
 
   maxDate() {
-    let huddle = _.last(_.sortBy(this.props.selectedHuddleGroup.dates, 'datetime'));
-    if (huddle) {
-      return moment(huddle.datetime).toDate();
+    let lastHuddle = _.last(_.sortBy(this.props.huddles, 'date'));
+    if (lastHuddle) {
+      return moment(lastHuddle.date).toDate();
     }
   }
 
   dateMap() {
-    let huddles = this.props.selectedHuddleGroup.dates;
+    let huddles = this.props.huddles;
     let map = {};
 
     for (let i = 0, huddle = huddles[i]; i < huddles.length; huddle = huddles[++i]) {
-      map[moment(huddle.datetime).format('YYYY-MM-DD')] = huddle;
+      map[moment(huddle.date).format('YYYY-MM-DD')] = huddle;
     }
+
     return map;
   }
 
-  formattedDate(datetime) {
-    return moment(datetime).format('ddd, MMM Do YYYY');
+  formattedDate(date) {
+    return moment(date).format('ddd, MMM Do YYYY');
   }
 
   render() {
     return (
       <div className="huddle-filter-date-selector" ref="root">
         <span className="huddle-date">
-          {this.props.selectedHuddle ? this.formattedDate(this.props.selectedHuddle.datetime) : 'No Upcoming Huddles'}
+          {this.props.selectedHuddle ? this.formattedDate(this.props.selectedHuddle.date) : 'No Upcoming Huddles'}
         </span>
 
         <FontAwesome name="chevron-down" />
@@ -93,7 +94,7 @@ export default class HuddleFilterDateSelector extends Component {
 HuddleFilterDateSelector.displayName = 'HuddleFilterDateSelector';
 
 HuddleFilterDateSelector.propTypes = {
-  selectedHuddleGroup: huddleGroupProps,
+  huddles: PropTypes.arrayOf(huddleProps),
   selectedHuddle: huddleProps,
   selectHuddle: PropTypes.func.isRequired
 };

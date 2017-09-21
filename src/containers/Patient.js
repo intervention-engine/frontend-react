@@ -8,14 +8,14 @@ import PageHeader from '../components/Header/PageHeader';
 import PatientView from '../components/PatientView/PatientView';
 
 import patientProps from '../prop-types/patient';
-import huddleGroupProps from '../prop-types/huddle_group';
+import careTeamProps from '../prop-types/care_team';
 import huddleProps from '../prop-types/huddle';
 import riskServiceProps from '../prop-types/risk_service';
 import riskAssessmentProps from '../prop-types/risk_assessment';
 import riskAssessmentBreakdownProps from '../prop-types/risk_assessment_breakdown';
 
 import { fetchPatient } from '../actions/patient';
-import { fetchHuddles, selectHuddle, addPatientToHuddle } from '../actions/huddle';
+import { fetchCareTeams, selectCareTeam, fetchHuddles, selectHuddle, addPatientToHuddle } from '../actions/huddle';
 import { fetchRiskServices, selectRiskService } from '../actions/risk_service';
 import { fetchRiskAssessments, fetchRiskAssessmentBreakdown, selectRiskAssessment } from '../actions/risk_assessment';
 
@@ -72,13 +72,17 @@ export class Patient extends Component {
         <PageHeader title="Patients"/>
 
         <PatientView patient={this.props.selectedPatient}
+                     careTeams={this.props.careTeams}
+                     selectedCareTeam={this.props.selectedCareTeam}
                      huddles={this.props.huddles}
+                     fetchHuddles={this.props.fetchHuddles}
                      selectedHuddle={this.props.selectedHuddle}
                      riskServices={this.props.riskServices}
                      selectedRiskService={this.props.selectedRiskService}
                      riskAssessments={this.props.riskAssessments}
                      selectedRiskAssessment={this.props.selectedRiskAssessment}
                      riskAssessmentBreakdown={this.props.riskAssessmentBreakdown}
+                     selectCareTeam={this.props.selectCareTeam}
                      selectHuddle={this.props.selectHuddle}
                      selectRiskService={this.props.selectRiskService}
                      addPatientToHuddle={this.props.addPatientToHuddle}
@@ -92,7 +96,9 @@ Patient.propTypes = {
   params: PropTypes.shape({ patient_id: PropTypes.string }).isRequired,
   patient: patientProps,
   selectedPatient: patientProps,
-  huddles: PropTypes.arrayOf(huddleGroupProps),
+  careTeams: PropTypes.arrayOf(careTeamProps),
+  selectedCareTeam: careTeamProps,
+  huddles: PropTypes.arrayOf(huddleProps),
   selectedHuddle: huddleProps,
   riskServices: PropTypes.arrayOf(riskServiceProps),
   selectedRiskService: riskServiceProps,
@@ -100,6 +106,8 @@ Patient.propTypes = {
   selectedRiskAssessment: riskAssessmentProps,
   riskAssessmentBreakdown: PropTypes.arrayOf(riskAssessmentBreakdownProps),
   fetchPatient: PropTypes.func.isRequired,
+  fetchCareTeams: PropTypes.func.isRequired,
+  selectCareTeam: PropTypes.func.isRequired,
   fetchHuddles: PropTypes.func.isRequired,
   selectHuddle: PropTypes.func.isRequired,
   addPatientToHuddle: PropTypes.func.isRequired,
@@ -113,6 +121,8 @@ Patient.propTypes = {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     fetchPatient,
+    fetchCareTeams,
+    selectCareTeam,
     fetchHuddles,
     selectHuddle,
     addPatientToHuddle,
@@ -128,6 +138,7 @@ export function mapStateToProps(state) {
   return {
     selectedPatient: state.patient.selectedPatient,
     careTeams: state.huddle.careTeams,
+    selectedCareTeam: state.huddle.selectedCareTeam,
     huddles: state.huddle.huddles,
     selectedHuddle: state.huddle.selectedHuddle,
     riskServices: state.riskService.riskServices,

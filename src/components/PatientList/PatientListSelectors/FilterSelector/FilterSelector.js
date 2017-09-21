@@ -5,7 +5,7 @@ import HuddleFilterSelector from './HuddleFilterSelector/HuddleFilterSelector';
 import CollapsiblePanel from '../../../../elements/CollapsiblePanel';
 
 import populationProps from '../../../../prop-types/population';
-import huddleGroupProps from '../../../../prop-types/huddle_group';
+import careTeamProps from '../../../../prop-types/care_team';
 import huddleProps from '../../../../prop-types/huddle';
 
 export default class FilterSelector extends Component {
@@ -22,10 +22,11 @@ export default class FilterSelector extends Component {
         </CollapsiblePanel>
 
         <CollapsiblePanel panelTitle="Huddles" isNested={true}>
-          <HuddleFilterSelector huddles={this.props.huddles}
-                                selectedHuddleGroup={this.props.selectedHuddleGroup}
+          <HuddleFilterSelector careTeams={this.props.careTeams}
+                                selectedCareTeam={this.props.selectedCareTeam}
+                                selectCareTeam={this.props.selectCareTeam}
+                                huddles={this.props.huddles}
                                 selectedHuddle={this.props.selectedHuddle}
-                                selectHuddleGroup={this.props.selectHuddleGroup}
                                 selectHuddle={this.props.selectHuddle} />
         </CollapsiblePanel>
       </div>
@@ -39,12 +40,13 @@ FilterSelector.propTypes = {
   populations: PropTypes.arrayOf(populationProps),
   selectedPopulations: PropTypes.arrayOf(populationProps).isRequired,
   populationSelectorType: PropTypes.string.isRequired,
-  huddles: PropTypes.arrayOf(huddleGroupProps),
-  selectedHuddleGroup: huddleGroupProps,
+  careTeams: PropTypes.arrayOf(careTeamProps),
+  selectedCareTeam: careTeamProps,
+  huddles: PropTypes.arrayOf(huddleProps),
   selectedHuddle: huddleProps,
   selectPopulation: PropTypes.func.isRequired,
   unselectPopulation: PropTypes.func.isRequired,
   changePopulationSelectorType: PropTypes.func.isRequired,
-  selectHuddleGroup: PropTypes.func.isRequired,
+  selectCareTeam: PropTypes.func.isRequired,
   selectHuddle: PropTypes.func.isRequired
 };

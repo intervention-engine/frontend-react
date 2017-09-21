@@ -2,60 +2,67 @@ import React, { Component, PropTypes } from 'react';
 
 import HuddleFilterDateSelector from './HuddleFilterDateSelector';
 
-import huddleGroupProps from '../../../../../prop-types/huddle_group';
 import huddleProps from '../../../../../prop-types/huddle';
+import careTeamProps from '../../../../../prop-types/care_team';
 
 export default class HuddleFilterSelector extends Component {
-  isSelected(huddleGroup) {
-    return this.props.selectedHuddleGroup === huddleGroup;
+  isSelected(careTeam) {
+    return this.props.selectedCareTeam === careTeam;
   }
 
-  handleInputChange(huddleGroup) {
-    if (this.props.selectedHuddleGroup === huddleGroup) {
-      this.props.selectHuddleGroup(null);
+  handleInputChange(careTeam) {
+    if (this.props.selectedCareTeam === careTeam) {
+      this.props.selectCareTeam(null);
       return;
     }
 
-    this.props.selectHuddleGroup(huddleGroup);
+    this.props.selectCareTeam(careTeam);
   }
 
-  renderedHuddleDate(huddleGroup) {
-    if (!this.isSelected(huddleGroup) || huddleGroup.dates.length === 0) {
+  renderedHuddleDate(careTeam) {
+    // console.debug('!this.isSelected(careTeam): ', !this.isSelected(careTeam));
+    // console.debug('!this.props.huddles: ', !this.props.huddles);
+    // console.debug('this.props.huddles.length === 0: ', this.props.huddles.length === 0);
+    // console.debug('this.props.selectedCareTeam !== careTeam: ', this.props.selectedCareTeam !== careTeam);
+
+    if (!this.props.huddles ||
+        this.props.huddles.length === 0 ||
+        this.props.selectedCareTeam !== careTeam) {
       return;
     }
 
     return (
-      <HuddleFilterDateSelector selectedHuddle={this.props.selectedHuddle}
-                                selectedHuddleGroup={this.props.selectedHuddleGroup}
+      <HuddleFilterDateSelector huddles={this.props.huddles}
+                                selectedHuddle={this.props.selectedHuddle}
                                 selectHuddle={this.props.selectHuddle} />
     );
   }
 
-  renderedHuddles() {
-    if (this.props.huddles) {
-      return this.props.huddles.map((huddle) => this.renderedHuddle(huddle));
+  renderedCareTeams() {
+    if (this.props.careTeams) {
+      return this.props.careTeams.map((careTeam) => this.renderedCareTeam(careTeam));
     }
   }
 
-  renderedHuddle(huddleGroup) {
+  renderedCareTeam(careTeam) {
     return (
-      <div key={huddleGroup.id} className="huddleGroup">
+      <div key={careTeam.id} className="careTeam">
         <div className="control-group">
-          <label htmlFor={`huddleGroup-radio-${huddleGroup.id}`}
+          <label htmlFor={`careTeam-radio-${careTeam.id}`}
                  className={`control control-radio`}>
-            <span className="huddleGroup-name">{huddleGroup.name}</span>
+            <span className="careTeam-name">{careTeam.name}</span>
 
             <input type="radio"
-                   name="huddleGroup"
-                   id={`huddleGroup-radio-${huddleGroup.id}`}
-                   value={huddleGroup.id}
-                   checked={this.isSelected(huddleGroup)}
-                   onChange={() => this.handleInputChange(huddleGroup)} />
+                   name="careTeam"
+                   id={`careTeam-radio-${careTeam.id}`}
+                   value={careTeam.id}
+                   checked={this.isSelected(careTeam)}
+                   onChange={() => this.handleInputChange(careTeam)} />
 
             <div className="control-indicator"></div>
           </label>
 
-          {this.renderedHuddleDate(huddleGroup)}
+          {this.renderedHuddleDate(careTeam)}
         </div>
       </div>
     );
@@ -65,7 +72,7 @@ export default class HuddleFilterSelector extends Component {
     return (
       <div className="huddle-filter-selector">
         <form className="form-horizontal form-group-striped">
-          {this.renderedHuddles()}
+          {this.renderedCareTeams()}
         </form>
       </div>
     );
@@ -75,9 +82,10 @@ export default class HuddleFilterSelector extends Component {
 HuddleFilterSelector.displayName = 'HuddleFilterSelector';
 
 HuddleFilterSelector.propTypes = {
-  huddles: PropTypes.arrayOf(huddleGroupProps),
-  selectedHuddleGroup: huddleGroupProps,
+  careTeams: PropTypes.arrayOf(careTeamProps),
+  selectedCareTeam: careTeamProps,
+  huddles: PropTypes.arrayOf(huddleProps),
   selectedHuddle: huddleProps,
-  selectHuddleGroup: PropTypes.func.isRequired,
+  selectCareTeam: PropTypes.func.isRequired,
   selectHuddle: PropTypes.func.isRequired
 };

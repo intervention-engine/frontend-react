@@ -7,7 +7,7 @@ import FontAwesome from 'react-fontawesome';
 import PageHeader from '../components/Header/PageHeader';
 
 import populationProps from '../prop-types/population';
-import huddleGroupProps from '../prop-types/huddle_group';
+import huddleProps from '../prop-types/huddle';
 import riskAssessmentProps from '../prop-types/risk_assessment';
 import patientProps from '../prop-types/patient';
 
@@ -276,7 +276,7 @@ PrintPatientList.displayName = 'PrintPatientList';
 
 PrintPatientList.propTypes = {
   populations: PropTypes.arrayOf(populationProps).isRequired,
-  huddles: PropTypes.arrayOf(huddleGroupProps).isRequired,
+  huddles: PropTypes.arrayOf(huddleProps).isRequired,
   riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired,
   patients: PropTypes.arrayOf(patientProps).isRequired,
   fetchPopulations: PropTypes.func.isRequired,

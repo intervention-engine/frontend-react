@@ -4,7 +4,7 @@ import PatientViewBannerSummary from './PatientViewBannerSummary';
 
 import patientProps from '../../../prop-types/patient';
 import riskAssessmentProps from '../../../prop-types/risk_assessment';
-import huddleGroupProps from '../../../prop-types/huddle_group';
+import huddleProps from '../../../prop-types/huddle';
 import riskServiceProps from '../../../prop-types/risk_service';
 
 export default class PatientViewBanner extends Component {
@@ -27,7 +27,7 @@ PatientViewBanner.displayName = 'PatientViewBanner';
 
 PatientViewBanner.propTypes = {
   patient: patientProps,
-  huddles: PropTypes.arrayOf(huddleGroupProps),
+  huddles: PropTypes.arrayOf(huddleProps),
   riskAssessments: PropTypes.arrayOf(riskAssessmentProps),
   selectedRiskAssessment: riskAssessmentProps,
   selectedRiskService: riskServiceProps,

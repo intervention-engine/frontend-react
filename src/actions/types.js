@@ -9,12 +9,13 @@ export const CHANGE_POPULATION_SELECTOR_TYPE = 'CHANGE_POPULATION_SELECTOR_TYPE'
 
 // ------------------------- HUDDLE ---------------------------------------- //
 
-export const FETCH_HUDDLES = 'FETCH_HUDDLES';
-export const FETCH_HUDDLES_FULFILLED = 'FETCH_HUDDLES_FULFILLED';
-export const FETCH_HUDDLES_RESOLVED = 'FETCH_HUDDLES_RESOLVED';
-export const SELECT_HUDDLE_GROUP = 'SELECT_HUDDLE_GROUP';
+export const REQUEST_CARE_TEAMS = 'REQUEST_CARE_TEAMS';
+export const RECEIVE_CARE_TEAMS = 'RECEIVE_CARE_TEAMS';
+export const SELECT_CARE_TEAM = 'SELECT_CARE_TEAM';
+export const REQUEST_HUDDLES = 'REQUEST_HUDDLES';
+export const RECEIVE_HUDDLES = 'RECEIVE_HUDDLES';
 export const SELECT_HUDDLE = 'SELECT_HUDDLE';
-export const ADD_PATIENT_TO_HUDDLE = 'ADD_PATIENT_TO_HUDDLE';
+// export const ADD_PATIENT_TO_HUDDLE = 'ADD_PATIENT_TO_HUDDLE';
 
 // ------------------------- RISK SERVICE/ASSESSMENT ----------------------- //
 

@@ -10,10 +10,9 @@ import HuddlePikaday from '../../../elements/pikaday/HuddlePikaday';
 
 // import getPatientHuddles from '../../../utils/get_patient_huddles';
 
-import careTeamProps from '../../../propTypes/care_team';
+import careTeamProps from '../../../prop-types/care_team';
 import huddleProps from '../../../prop-types/huddle';
 import patientProps from '../../../prop-types/patient';
-import huddleGroupProps from '../../../prop-types/huddle_group';
 
 export default class PatientViewStatsHuddles extends Component {
   constructor(...args) {
@@ -109,6 +108,19 @@ export default class PatientViewStatsHuddles extends Component {
     this.props.selectHuddle(this.selectedPatientHuddle(selectedDate));
   }
 
+  isSelected(careTeam) {
+    return this.props.selectedCareTeam === careTeam;
+  }
+
+  handleInputChange(careTeam) {
+    if (this.props.selectedCareTeam === careTeam) {
+      this.props.selectCareTeam(null);
+      return;
+    }
+
+    this.props.selectCareTeam(careTeam);
+  }
+
   renderedCareTeams() {
     if (this.props.careTeams == null) { return; }
 
@@ -202,9 +214,11 @@ PatientViewStatsHuddles.displayName = 'PatientViewStatsHuddles';
 
 PatientViewStatsHuddles.propTypes = {
   patient: patientProps,
-  careTeams: careTeamProps,
-  huddles: PropTypes.arrayOf(huddleGroupProps),
+  careTeams: PropTypes.arrayOf(careTeamProps),
+  selectedCareTeam: careTeamProps,
+  huddles: PropTypes.arrayOf(huddleProps),
   selectedHuddle: huddleProps,
+  selectCareTeam: PropTypes.func.isRequired,
   selectHuddle: PropTypes.func.isRequired,
   addPatientToHuddle: PropTypes.func.isRequired
 };
