@@ -33,11 +33,24 @@ export function fetchPatients() {
 
     let sortDir = state.sort.sortAscending ? '' : '-';
     if (state.sort.selectedSortOption.invert) { sortDir = sortDir === '' ? '-' : ''; }
+
     let params = {
       sort_by: `${sortDir}${state.sort.selectedSortOption.sortKey}`,
       page: state.patient.selectedPage.currentPage,
       per_page: 10
     };
+
+    // filter by selected care team if huddle not selected
+    if (state.huddle.selectedCareTeam != null && state.huddle.selectedHuddle == null) {
+      params.care_team_id = state.huddle.selectedCareTeam.id;
+    }
+
+    // filter by selected huddle
+    if (state.huddle.selectedHuddle != null) {
+      params.huddle_id = state.huddle.selectedHuddle.id;
+    }
+
+    // filter by search term
     if (state.patient.patientSearch != null && state.patient.patientSearch !== '') {
       params.search_term = state.patient.patientSearch;
     }
@@ -114,7 +127,7 @@ function shouldFetchPatient(state) {
 export function fetchPatientIfNeeded() {
   return (dispatch, getState) => {
     if (shouldFetchPatient(getState())) {
-      return dispatch(fetchPatient())
+      return dispatch(fetchPatient());
     } else {
       return Promise.resolve();
     }

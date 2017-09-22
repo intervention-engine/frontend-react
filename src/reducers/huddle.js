@@ -80,7 +80,7 @@ const rootReducer = combineReducers({
 
 export default rootReducer;
 
-function firstHuddle(huddles) {
+export function firstHuddle(huddles) {
   return _.head(_.sortBy(huddles.filter((huddle) => isTodayOrAfter(huddle.datetime)), 'datetime'));
 }
 

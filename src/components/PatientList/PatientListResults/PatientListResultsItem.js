@@ -13,18 +13,7 @@ import huddleProps from '../../../prop-types/huddle';
 import riskServiceProps from '../../../prop-types/risk_service';
 
 export default class PatientListResultsItem extends Component {
-  renderedNextHuddle() {
-    // let nextHuddle = this.props.patients.next_huddle; // TODO: add
-    let nextHuddle = { // TODO: remove block
-      huddle_id: '576c9bbf8bd4d4bdc2ac4189',
-      huddle_date: '2017-10-02',
-      care_team_name: 'Care Team A',
-      reason: 'Risk Score Warrants Discussion',
-      reason_type: 'RISK_SCORE',
-      reviewed: false,
-      reviewed_at: null
-    };
-
+  renderedNextHuddle(nextHuddle) {
     if(!nextHuddle) { return; }
 
     return (
@@ -99,7 +88,7 @@ export default class PatientListResultsItem extends Component {
                 </div>
 
                 <div className="col-md-3 patient-next-huddle-date">
-                  {this.renderedNextHuddle()}
+                  {this.renderedNextHuddle(this.props.patient.next_huddle)}
                 </div>
 
                 <div className="col-md-4 patient-risk-bar-container">

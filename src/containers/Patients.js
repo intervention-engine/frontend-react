@@ -26,7 +26,6 @@ import { selectSortOption, setSortAscending } from '../actions/sort';
 
 class Patients extends Component {
   componentWillMount() {
-    if (this.props.patients.length === 0) { this.props.fetchPatients(); }
     if (this.props.careTeams.length === 0) { this.props.fetchCareTeams(); }
     if (this.props.huddles.length === 0) { this.props.fetchHuddles(); } // TODO: add careteam id
     if (this.props.riskServices.length === 0) { this.props.fetchRiskServices(); }

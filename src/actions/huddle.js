@@ -1,5 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import Promise from 'promise';
+import { firstHuddle } from '../reducers/huddle';
+import { fetchPatientsIfNeeded } from './patient';
 
 import {
   REQUEST_CARE_TEAMS,
@@ -12,46 +14,6 @@ import {
 } from './types';
 
 // import huddleToFhir from '../utils/huddle_to_fhir';
-
-// TODO: remove
-let TEST_HUDDLES = [
-  {
-    id: '576c9bbf8bd4d4bdc2ac4189',
-    date: '2017-10-02',
-    care_team_id: '5927702e8bd4d41e975c0e2d',
-    patients: [
-      { id: '576c9bcb8bd4d4bdc2ac4197', reason: 'Risk Score Warrants Discussion', reason_type: 'RISK_SCORE', reviewed: false, reviewed_at: null },
-      { id: '576c9bcc8bd4d4bdc2ac41b5', reason: 'Risk Score Warrants Discussion', reason_type: 'RISK_SCORE', reviewed: false, reviewed_at: null }
-    ]
-  },
-  {
-    id: '576c9bbf8bd4d4bdc2ac4190',
-    date: '2017-10-09',
-    care_team_id: '5927702e8bd4d41e975c0e2d',
-    patients: [
-      { id: '576c9bcb8bd4d4bdc2ac4197', reason: 'Risk Score Warrants Discussion', reason_type: 'RISK_SCORE', reviewed: false, reviewed_at: null },
-      { id: '576c9bcc8bd4d4bdc2ac41b5', reason: 'Risk Score Warrants Discussion', reason_type: 'RISK_SCORE', reviewed: false, reviewed_at: null }
-    ]
-  },
-  {
-    id: '576c9bbf8bd4d4bdc2ac4191',
-    date: '2017-10-03',
-    care_team_id: '5927702e8bd4d41e975c0e2e',
-    patients: [
-      { id: '576c9bcb8bd4d4bdc2ac4197', reason: 'Risk Score Warrants Discussion', reason_type: 'RISK_SCORE', reviewed: false, reviewed_at: null },
-      { id: '576c9bcc8bd4d4bdc2ac41b5', reason: 'Risk Score Warrants Discussion', reason_type: 'RISK_SCORE', reviewed: false, reviewed_at: null }
-    ]
-  },
-  {
-    id: '576c9bbf8bd4d4bdc2ac4192',
-    date: '2017-10-10',
-    care_team_id: '5927702e8bd4d41e975c0e2e',
-    patients: [
-      { id: '576c9bcb8bd4d4bdc2ac4197', reason: 'Risk Score Warrants Discussion', reason_type: 'RISK_SCORE', reviewed: false, reviewed_at: null },
-      { id: '576c9bcc8bd4d4bdc2ac41b5', reason: 'Risk Score Warrants Discussion', reason_type: 'RISK_SCORE', reviewed: false, reviewed_at: null }
-    ]
-  }
-];
 
 // ------------------------- CARE TEAMS ------------------------------------ //
 
@@ -126,13 +88,13 @@ export function fetchHuddles(careTeam) {
   return dispatch => {
     dispatch(requestHuddles(careTeam));
 
-    // const FETCH_HUDDLES_URL = `${FHIR_SERVER}/api/care_teams/${careTeam.id}/huddles`; // TODO: add block
-    // return fetch(FETCH_HUDDLES_URL)
-    //   .then(response => response.json(), error => console.log('An error occured.', error))
-    //   .then(json => dispatch(receiveHuddles(careTeam, json)));
-
-    let huddles = TEST_HUDDLES.filter((huddle) => huddle.care_team_id === careTeam.id); // TODO: remove block
-    return Promise.resolve().then(() => dispatch(receiveHuddles(careTeam, huddles)));
+    return fetch(`${FHIR_SERVER}/api/care_teams/${careTeam.id}/huddles`)
+      .then((response) => {
+        return response.json().then((json) => {
+          dispatch(receiveHuddles(careTeam, json));
+          dispatch(selectHuddle(firstHuddle(json)));
+        });
+      });
   }
 }
 
@@ -160,10 +122,10 @@ export function fetchHuddlesIfNeeded(careTeam) {
 }
 
 export function selectHuddle(huddle) {
-  return {
-    type: SELECT_HUDDLE,
-    huddle
-  }
+  return dispatch => {
+    dispatch({ type: SELECT_HUDDLE, huddle });
+    dispatch(fetchPatientsIfNeeded());
+  };
 }
 
 // export function addPatientToHuddle({ patient, huddleGroup, date, reason }) {
