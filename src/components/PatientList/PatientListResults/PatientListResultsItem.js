@@ -6,11 +6,13 @@ import NextHuddleDate from '../../../elements/NextHuddleDate';
 
 import { isTodayOrAfter } from '../../../reducers/huddle';
 import sortByDate from '../../../utils/sort_by_date';
+import param from '../../../utils/param';
 import { getHuddleReasonIcon, getPatientAgeIcon, getPatientGenderIcon } from '../../../utils/icon';
 
 import patientProps from '../../../prop-types/patient';
 import huddleProps from '../../../prop-types/huddle';
 import riskServiceProps from '../../../prop-types/risk_service';
+import careTeamProps from '../../../prop-types/care_team';
 
 export default class PatientListResultsItem extends Component {
   renderedNextHuddle(nextHuddle) {
@@ -56,10 +58,11 @@ export default class PatientListResultsItem extends Component {
   }
 
   render() {
-    let linkHref = `/patients/${this.props.patient.id}`;
-    if (this.props.selectedRiskService) {
-      linkHref = `${linkHref}?riskService=${this.props.selectedRiskService.id}`;
-    }
+    let params = {};
+    if (this.props.selectedRiskService) { params.riskService = this.props.selectedRiskService.id; }
+    if (this.props.selectedCareTeam) { params.careTeamId = this.props.selectedCareTeam.id; }
+
+    let linkHref = `/patients/${this.props.patient.id}?${param(params, true)}`;
 
     return (
       <Link className="patient-list-results-item" to={linkHref}>
@@ -107,6 +110,7 @@ PatientListResultsItem.propTypes = {
   patient: patientProps.isRequired,
   huddles: PropTypes.arrayOf(huddleProps),
   selectedRiskService: riskServiceProps,
+  selectedCareTeam: careTeamProps
 };
 
 PatientListResultsItem.displayName = 'PatientListResultsItem';

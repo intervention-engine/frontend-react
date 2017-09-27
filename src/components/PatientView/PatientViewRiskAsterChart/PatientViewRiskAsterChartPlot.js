@@ -67,7 +67,7 @@ export default class PatientViewRiskAsterChartPlot extends Component {
   }
 
   render() {
-    if (this.state.data === null) { return <div></div>; }
+    if (this.state.data == null) { return <div></div>; }
 
     let totalWeight = this.state.data.reduce((sum, slice) => sum + slice.weight, 0);
 

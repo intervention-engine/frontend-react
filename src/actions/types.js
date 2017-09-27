@@ -24,7 +24,7 @@ export const SELECT_CARE_TEAM = 'SELECT_CARE_TEAM';
 export const REQUEST_HUDDLES = 'REQUEST_HUDDLES';
 export const RECEIVE_HUDDLES = 'RECEIVE_HUDDLES';
 export const SELECT_HUDDLE = 'SELECT_HUDDLE';
-// export const ADD_PATIENT_TO_HUDDLE = 'ADD_PATIENT_TO_HUDDLE';
+export const ADD_PATIENT_TO_HUDDLE = 'ADD_PATIENT_TO_HUDDLE';
 
 // ------------------------- RISK SERVICE/ASSESSMENT ----------------------- //
 

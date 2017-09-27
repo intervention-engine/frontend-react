@@ -17,6 +17,15 @@ const patientProps = {
     state: PropTypes.string.isRequired,
     postalCode: PropTypes.string
   }).isRequired,
+  next_huddle: PropTypes.shape({
+    care_team_name: PropTypes.string.isRequired,
+    huddle_date: PropTypes.string.isRequired,
+    huddle_id: PropTypes.string.isRequired,
+    reason: PropTypes.string.isRequired,
+    reason_type: PropTypes.string.isRequired,
+    reviewed: PropTypes.bool.isRequired,
+    reviewed_at: PropTypes.string
+  }),
   recent_risk_assessment: PropTypes.shape({
     date: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,

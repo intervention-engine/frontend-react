@@ -1,5 +1,5 @@
 import { expect, renderComponent } from '../../../test_helper';
-import { patientTestObject1, huddleGroupTestObject1, riskServiceTestObject1,
+import { patientTestObject1, careTeamTestObject1, riskServiceTestObject1,
          riskAssessmentTestObject1, huddleTestObject } from '../../../test_props';
 import PatientViewStats from '../../../../src/components/PatientView/PatientViewStats/PatientViewStats';
 
@@ -9,7 +9,7 @@ describe('Patient View Stats' , () => {
   beforeEach(() => {
     let props = {
       patient: patientTestObject1,
-      huddles: [ huddleGroupTestObject1 ],
+      huddles: [ careTeamTestObject1 ],
       selectedHuddle: huddleTestObject,
       riskServices: [ riskServiceTestObject1 ],
       riskAssessments: [ riskAssessmentTestObject1 ],

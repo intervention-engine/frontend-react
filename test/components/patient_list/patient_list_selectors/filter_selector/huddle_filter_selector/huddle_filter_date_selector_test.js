@@ -1,5 +1,5 @@
 import { expect, renderComponent } from '../../../../../test_helper';
-import { huddleGroupTestObject1, huddleTestObject } from '../../../../../test_props';
+import { huddleTestObject } from '../../../../../test_props';
 import HuddleFilterDateSelector from '../../../../../../src/components/PatientList/PatientListSelectors/FilterSelector/HuddleFilterSelector/HuddleFilterDateSelector';
 
 describe('HuddleFilterDateSelector' , () => {
@@ -7,9 +7,9 @@ describe('HuddleFilterDateSelector' , () => {
 
   beforeEach(() => {
     let props = {
+      huddles: [ huddleTestObject ],
       selectedHuddle: huddleTestObject,
-      selectedHuddleGroup: huddleGroupTestObject1,
-      selectHuddle: () => null
+      filterPatientsByHuddle: () => null
     };
 
     component = renderComponent(HuddleFilterDateSelector, props);

@@ -8,7 +8,8 @@ import {
   SELECT_CARE_TEAM,
   REQUEST_HUDDLES,
   RECEIVE_HUDDLES,
-  SELECT_HUDDLE
+  SELECT_HUDDLE,
+  ADD_PATIENT_TO_HUDDLE
 } from '../actions/types';
 
 // ------------------------- CARE TEAMS ------------------------------------ //
@@ -53,12 +54,14 @@ function huddlesByCareTeam(state = {}, action) {
     case RECEIVE_HUDDLES:
     case REQUEST_HUDDLES:
       return Object.assign({}, state, {
-        [action.careTeam]: huddles(state[action.careTeam], action)
-      })
+        [action.careTeam.id]: huddles(state[action.careTeam], action)
+      });
     default:
       return state;
   }
 }
+
+// ------------------------- SELECT HUDDLE --------------------------------- //
 
 function selectedHuddle(state = null, action) {
   switch(action.type) {
@@ -71,11 +74,31 @@ function selectedHuddle(state = null, action) {
   }
 }
 
+// ------------------------- ADD PATIENT TO HUDDLE ------------------------- //
+
+function addedPatientToHuddle(state = null, action) {
+  switch(action.type) {
+    case ADD_PATIENT_TO_HUDDLE:
+      for (let huddle in state.huddle.huddles) {
+        if (huddle.id === action.json.id) {
+          // remove old huddle
+          _.remove(state.huddle.huddles, (huddle) => huddle.id !== action.json.id);
+          // add in huddle with new patient
+          state.huddle.huddles.push(action.json);
+        }
+      }
+      return state.huddle.huddles;
+    default:
+      return state;
+  }
+}
+
 const rootReducer = combineReducers({
   huddlesByCareTeam,
   selectedCareTeam,
   careTeams,
-  selectedHuddle
+  selectedHuddle,
+  addedPatientToHuddle
 });
 
 export default rootReducer;

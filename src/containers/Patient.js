@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FontAwesome from 'react-fontawesome';
-import Promise from 'promise';
+import queryString from 'query-string';
 
 import PageHeader from '../components/Header/PageHeader';
 import PatientView from '../components/PatientView/PatientView';
@@ -14,52 +14,21 @@ import riskServiceProps from '../prop-types/risk_service';
 import riskAssessmentProps from '../prop-types/risk_assessment';
 import riskAssessmentBreakdownProps from '../prop-types/risk_assessment_breakdown';
 
-import { fetchPatient } from '../actions/patient';
-import { fetchCareTeams, selectCareTeam, fetchHuddles, selectHuddle, addPatientToHuddle } from '../actions/huddle';
-import { fetchRiskServices, selectRiskService } from '../actions/risk_service';
-import { fetchRiskAssessments, fetchRiskAssessmentBreakdown, selectRiskAssessment } from '../actions/risk_assessment';
+import { loadPatient } from '../actions/patient';
+import { selectCareTeam, selectHuddle, addPatientToHuddle } from '../actions/huddle';
+import { selectRiskService } from '../actions/risk_service';
+import { selectRiskAssessment } from '../actions/risk_assessment';
 
 export class Patient extends Component {
-  constructor(...args) {
-    super(...args);
+  componentDidMount() {
+    let patientId = this.props.params.patient_id;
+    let { riskService, careTeamId } = queryString.parse(this.props.location.search);
 
-    this.state = {
-      loading: false
-    };
-  }
-
-  componentWillMount() {
-    if (this.props.selectedPatient == null ||
-        this.props.params.patient_id !== this.props.selectedPatient.id) {
-      // --patient not yet fetched--
-      this.setState({ loading: true });
-      // fetch patient and patient data
-      let patientPromise = this.props.fetchPatient(this.props.params.patient_id);
-      let riskServicePromise = this.props.fetchRiskServices();
-
-      Promise.all([patientPromise, riskServicePromise]).then(() => {
-        this.setState({ loading: false });
-        this.fetchPatientData();
-      });
-    } else {
-      // --patient already fetched--
-      this.fetchPatientData();
-    }
-  }
-
-  fetchPatientData() {
-    this.props.fetchRiskAssessments(this.props.selectedPatient.id, this.props.selectedRiskService.id).then(() => {
-      this.props.fetchRiskAssessmentBreakdown(this.props.selectedRiskAssessment.id);
-    });
-  }
-
-  selectRiskAssessment(riskAssessment) {
-    this.props.selectRiskAssessment(riskAssessment);
-    this.props.fetchRiskAssessmentBreakdown(riskAssessment.id);
+    this.props.loadPatient(patientId, careTeamId, riskService);
   }
 
   render() {
-    if (this.state.loading) {
+    if (this.props.selectedPatient == null || this.props.riskAssessmentBreakdownFetching) {
       return (
         <div className="loading text-center container">
           <FontAwesome name="spinner" size="3x" spin pulse />
@@ -75,7 +44,6 @@ export class Patient extends Component {
                      careTeams={this.props.careTeams}
                      selectedCareTeam={this.props.selectedCareTeam}
                      huddles={this.props.huddles}
-                     fetchHuddles={this.props.fetchHuddles}
                      selectedHuddle={this.props.selectedHuddle}
                      riskServices={this.props.riskServices}
                      selectedRiskService={this.props.selectedRiskService}
@@ -86,15 +54,17 @@ export class Patient extends Component {
                      selectHuddle={this.props.selectHuddle}
                      selectRiskService={this.props.selectRiskService}
                      addPatientToHuddle={this.props.addPatientToHuddle}
-                     selectRiskAssessment={this.selectRiskAssessment.bind(this)} />
+                     selectRiskAssessment={this.props.selectRiskAssessment} />
       </div>
     );
   }
 }
 
 Patient.propTypes = {
+  location: PropTypes.object.isRequired,
   params: PropTypes.shape({ patient_id: PropTypes.string }).isRequired,
   patient: patientProps,
+  loading: PropTypes.bool,
   selectedPatient: patientProps,
   careTeams: PropTypes.arrayOf(careTeamProps),
   selectedCareTeam: careTeamProps,
@@ -105,47 +75,44 @@ Patient.propTypes = {
   riskAssessments: PropTypes.arrayOf(riskAssessmentProps).isRequired,
   selectedRiskAssessment: riskAssessmentProps,
   riskAssessmentBreakdown: PropTypes.arrayOf(riskAssessmentBreakdownProps),
-  fetchPatient: PropTypes.func.isRequired,
-  fetchCareTeams: PropTypes.func.isRequired,
+  loadPatient: PropTypes.func.isRequired,
   selectCareTeam: PropTypes.func.isRequired,
-  fetchHuddles: PropTypes.func.isRequired,
   selectHuddle: PropTypes.func.isRequired,
   addPatientToHuddle: PropTypes.func.isRequired,
-  fetchRiskServices: PropTypes.func.isRequired,
-  fetchRiskAssessments: PropTypes.func.isRequired,
   selectRiskService: PropTypes.func.isRequired,
   selectRiskAssessment: PropTypes.func.isRequired,
-  fetchRiskAssessmentBreakdown: PropTypes.func.isRequired
+  riskAssessmentBreakdownFetching: PropTypes.bool
 };
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    fetchPatient,
-    fetchCareTeams,
+    loadPatient,
     selectCareTeam,
-    fetchHuddles,
     selectHuddle,
     addPatientToHuddle,
-    fetchRiskServices,
-    fetchRiskAssessments,
-    fetchRiskAssessmentBreakdown,
     selectRiskService,
     selectRiskAssessment
   }, dispatch);
 }
 
 export function mapStateToProps(state) {
+  let huddles = [];
+  if (state.huddle.selectedCareTeam && state.huddle.huddlesByCareTeam[state.huddle.selectedCareTeam.id]) {
+    huddles = state.huddle.huddlesByCareTeam[state.huddle.selectedCareTeam.id].items;
+  }
+
   return {
-    selectedPatient: state.patient.selectedPatient,
-    careTeams: state.huddle.careTeams,
+    selectedPatient: state.patient.selectedPatient.patient,
+    careTeams: state.huddle.careTeams.items,
     selectedCareTeam: state.huddle.selectedCareTeam,
-    huddles: state.huddle.huddles,
+    huddles,
     selectedHuddle: state.huddle.selectedHuddle,
-    riskServices: state.riskService.riskServices,
+    riskServices: state.riskService.riskServices.items,
     selectedRiskService: state.riskService.selectedRiskService,
-    riskAssessments: state.riskAssessment.riskAssessments,
+    riskAssessments: state.riskAssessment.riskAssessments.items,
     selectedRiskAssessment: state.riskAssessment.selectedRiskAssessment,
-    riskAssessmentBreakdown: state.riskAssessment.riskAssessmentBreakdown
+    riskAssessmentBreakdown: state.riskAssessment.riskBreakdown.items,
+    riskAssessmentBreakdownFetching: state.riskAssessment.riskBreakdown.isFetching
   };
 }
 

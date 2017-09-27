@@ -27,7 +27,8 @@ export default class FilterSelector extends Component {
                                 selectCareTeam={this.props.selectCareTeam}
                                 huddles={this.props.huddles}
                                 selectedHuddle={this.props.selectedHuddle}
-                                selectHuddle={this.props.selectHuddle} />
+                                filterPatientsByHuddle={this.props.filterPatientsByHuddle}
+                                filterPatientsByFirstHuddle={this.props.filterPatientsByFirstHuddle} />
         </CollapsiblePanel>
       </div>
     );
@@ -48,5 +49,6 @@ FilterSelector.propTypes = {
   unselectPopulation: PropTypes.func.isRequired,
   changePopulationSelectorType: PropTypes.func.isRequired,
   selectCareTeam: PropTypes.func.isRequired,
-  selectHuddle: PropTypes.func.isRequired
+  filterPatientsByHuddle: PropTypes.func.isRequired,
+  filterPatientsByFirstHuddle: PropTypes.func.isRequired
 };

@@ -1,5 +1,5 @@
 import { renderComponent , expect } from '../../../test_helper';
-import { populationsTestObject1, huddleGroupTestObject1, huddleTestObject,
+import { populationsTestObject1, careTeamTestObject1, huddleTestObject,
          riskServiceTestObject1, sortOptionTestObject1 } from '../../../test_props';
 import PatientListSelectors from '../../../../src/components/PatientList/PatientListSelectors/PatientListSelectors';
 
@@ -11,8 +11,8 @@ describe('PatientListSelectors' , () => {
       populations: [ populationsTestObject1 ],
       selectedPopulations: [ populationsTestObject1 ],
       populationSelectorType: 'union',
-      huddles: [ huddleGroupTestObject1 ],
-      selectedHuddleGroup: huddleGroupTestObject1,
+      huddles: [ careTeamTestObject1 ],
+      selectedHuddleGroup: careTeamTestObject1,
       selectedHuddle: huddleTestObject,
       riskServices: [ riskServiceTestObject1 ],
       selectedRiskService: riskServiceTestObject1,

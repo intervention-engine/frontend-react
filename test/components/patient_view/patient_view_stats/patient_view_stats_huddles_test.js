@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { expect, renderComponent } from '../../../test_helper';
-import { patientTestObject1, huddleGroupTestObject1, huddleTestObject } from '../../../test_props';
+import { patientTestObject1, careTeamTestObject1, huddleTestObject } from '../../../test_props';
 import PatientViewStatsHuddles from '../../../../src/components/PatientView/PatientViewStats/PatientViewStatsHuddles';
 
 describe('Patient View Stats Huddles' , () => {
@@ -9,7 +9,7 @@ describe('Patient View Stats Huddles' , () => {
   beforeEach(() => {
     let props = {
       patient: patientTestObject1,
-      huddles: [ huddleGroupTestObject1 ],
+      huddles: [ careTeamTestObject1 ],
       selectedHuddle: huddleTestObject,
       selectHuddle: () => null,
       addPatientToHuddle: () => null

@@ -1,5 +1,5 @@
 import { expect, renderComponent } from '../../../test_helper';
-import { patientTestObject1, huddleGroupTestObject1, nextHuddlesObject, riskServiceTestObject1 } from '../../../test_props';
+import { patientTestObject1, huddleTestObject, careTeamTestObject1, riskServiceTestObject1 } from '../../../test_props';
 import PatientListResultsItem from '../../../../src/components/PatientList/PatientListResults/PatientListResultsItem';
 
 describe('Patient List Results Item', () => {
@@ -9,9 +9,9 @@ describe('Patient List Results Item', () => {
     let props = {
       key: '1',
       patient: patientTestObject1,
-      huddles: [ huddleGroupTestObject1 ],
+      huddles: [ huddleTestObject ],
       selectedRiskService: riskServiceTestObject1,
-      nextHuddles: nextHuddlesObject
+      selectedCareTeam: careTeamTestObject1
     }
 
     component = renderComponent(PatientListResultsItem, props);
@@ -37,7 +37,7 @@ describe('Patient List Results Item', () => {
     expect(component.find('.patient-next-huddle-date')).to.have.text(' Jan 1, 2099');
     expect(component.find('.patient-next-huddle-date span').first()).to.have.class('fa-pie-chart');
     expect(component.find('.patient-next-huddle-date span').first()).to.have.attr('data-tip', 'Risk Score Warrants Discussion');
-    expect(component.find('.patient-next-huddle-date span:eq(1)')).to.have.attr('data-tip', 'Sample Huddle Group 1');
+    expect(component.find('.patient-next-huddle-date span:eq(1)')).to.have.attr('data-tip', 'Care Team A');
   });
 
   it('displays the correct patient risk', () => {

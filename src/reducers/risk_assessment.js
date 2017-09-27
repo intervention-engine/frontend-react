@@ -40,6 +40,8 @@ function selectedRiskAssessment(state = null, action) {
   switch(action.type) {
     case SELECT_RISK_ASSESSMENT:
       return action.riskAssessment;
+    case RECEIVE_RISK_ASSESSMENTS:
+      return action.riskAssessments[0];
     default:
       return state;
   }

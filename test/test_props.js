@@ -5,6 +5,13 @@ export const patientTestObject1 = {
   'name': { 'family': 'Doe', 'given': 'Jane', 'full': 'Doe, Jane' },
   'address': { 'street': ['123 Any Street'], 'city': 'Metropolis',
                'state': 'MA', 'postalCode': '00000' },
+  'next_huddle': { 'care_team_name': 'Care Team A',
+                   'huddle_date': '2099-01-01',
+                   'huddle_id': '5',
+                   'reason': 'Risk Score Warrants Discussion',
+                   'reason_type': 'RISK_SCORE',
+                   'reviewed': false,
+                   'reviewed_at': null },
   'recent_risk_assessment': { date: '2000-01-01', id: 'pr1', risk_service_id: 'rs1', value: 3 }
 };
 
@@ -13,13 +20,24 @@ export const patientTestObject2 = {
   'name': { 'family': 'Smith', 'given': 'John', 'full': 'Smith, John' },
   'address': { 'street': ['456 Any Street'], 'city': 'Cityland',
                'state': 'MA', 'postalCode': '00001' },
+  'next_huddle': { 'care_team_name': 'Care Team A',
+                   'huddle_date': '2099-01-01',
+                   'huddle_id': '5',
+                   'reason': 'Manually Added',
+                   'reason_type': 'MANUAL_ADDITION',
+                   'reviewed': false,
+                   'reviewed_at': null },
   'recent_risk_assessment': { date: '2001-01-01', id: 'pr2', risk_service_id: 'rs1', value: 2 }
 };
 
-export const patientsMetaTestObject = {
+export const patientMetaTestObject = {
   'total': 2,
-  'link': [ { 'relation': 'Sample relation',
-              'url': 'Sample URL' } ]
+  'pageNum': 1
+}
+
+export const selectedPageTestObject = {
+  'pageNum': 1,
+  'currentPage': 1
 };
 
 // ------------------------- POPULATIONS ----------------------------------- //
@@ -54,39 +72,35 @@ export const populationsTestObject2 = {
 
 export const huddleTestObject = {
   'id': '5',
-  'name': 'Sample Huddle Group 1',
-  'datetime': '2099-01-01',
-  'practioner': 'SamplePractioner',
-  'patients': [ { 'id': '1',
-                  'reason': { 'code': 'RISK_SCORE',
-                              'text': 'Risk Score Warrants Discussion' },
-                  'reviewed': null },
-                { 'id': '2',
-                  'reason': { 'code': 'RECENT_ENCOUNTER',
-                              'text': 'Recent Encounter Warrants Discussion' },
-                  'reviewed': null } ]
+  'date': '2099-01-01',
+  'care_team_id': 'cta',
+  'patients': [
+    { 'id': '1',
+      'reason': 'Risk Score Warrants Discussion',
+      'reason_type': 'RISK_SCORE',
+      'reviewed': false,
+      'reviewed_at': null
+    },
+    { 'id': '2',
+      'reason': 'Recent Encounter Warrants Discussion',
+      'reason_type': 'RECENT_ENCOUNTER',
+      'reviewed': false,
+      'reviewed_at': null
+    }
+  ]
 };
 
-export const huddleGroupTestObject1 = {
+export const careTeamTestObject1 = {
   'id': '6',
-  'name': 'Sample Huddle Group 1',
-  'dates': [ huddleTestObject ]
+  'name': 'Care Team A',
+  'leader': 'Leader A'
 };
 
-export const huddleGroupTestObject2 = {
+export const careTeamTestObject2 = {
   'id': '7',
-  'name': 'Sample Huddle Group 2',
-  'dates': [ huddleTestObject ]
+  'name': 'Care Team B',
+  'leader': 'Leader B'
 };
-
-export const nextHuddlesObject = {
-  '1': { 'huddle': huddleTestObject,
-         'huddleGroup': huddleGroupTestObject1,
-         'huddlePatient': { 'id': '1',
-                            'reason': { 'code': 'RISK_SCORE',
-                                        'text': 'Risk Score Warrants Discussion' },
-                            'reviewed': null } }
-}
 
 // ------------------------- RISK SERVICES/ASSESSMENTS --------------------- //
 

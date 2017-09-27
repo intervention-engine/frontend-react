@@ -61,6 +61,8 @@ function patientSearch(state = '', action) {
 
 function selectedPage(state = { pageNum: 1, currentPage: 1 }, action) {
   switch(action.type) {
+    case SET_PATIENT_SEARCH:
+      return { ...state, currentPage: 1 };
     case SELECT_PAGE:
       return Object.assign({}, state, { currentPage: action.page });
     case RECEIVE_PATIENTS:

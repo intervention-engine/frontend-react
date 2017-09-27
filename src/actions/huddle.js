@@ -1,7 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import Promise from 'promise';
 import { firstHuddle } from '../reducers/huddle';
-import { fetchPatientsIfNeeded } from './patient';
 
 import {
   REQUEST_CARE_TEAMS,
@@ -9,11 +8,9 @@ import {
   SELECT_CARE_TEAM,
   REQUEST_HUDDLES,
   RECEIVE_HUDDLES,
-  SELECT_HUDDLE
-//   ADD_PATIENT_TO_HUDDLE
+  SELECT_HUDDLE,
+  ADD_PATIENT_TO_HUDDLE
 } from './types';
-
-// import huddleToFhir from '../utils/huddle_to_fhir';
 
 // ------------------------- CARE TEAMS ------------------------------------ //
 
@@ -30,19 +27,24 @@ function receiveCareTeams(careTeams) {
   };
 }
 
-export function fetchCareTeams() {
+export function fetchCareTeams(careTeamId) {
   return dispatch => {
     dispatch(requestCareTeams());
 
     return fetch(`${FHIR_SERVER}/api/care_teams`)
-      .then(response => response.json(), error => console.log('An error occured.', error))
+      .then(response => response.json())
       .then(json => dispatch(receiveCareTeams(json)))
-      .then(({ careTeams }) => dispatch(selectCareTeam(careTeams[0])));
-  }
+      .then(({ careTeams }) => {
+        let careTeam = careTeamId ? careTeams.find((t) => t.id === careTeamId) : null;
+
+        return dispatch(selectCareTeam(careTeam || careTeams[0]));
+      });
+  };
 }
 
 function shouldFetchCareTeams(state) {
-  const careTeams = state.careTeams;
+  let careTeams = state.careTeams;
+
   if (!careTeams) {
     return true;
   } else if (careTeams.isFetching) {
@@ -50,20 +52,22 @@ function shouldFetchCareTeams(state) {
   }
 }
 
-export function fetchCareTeamsIfNeeded() {
-  return (dispatch, getState) => { // getState lets you choose what to dispatch next
+export function fetchCareTeamsIfNeeded(careTeamId) {
+  return (dispatch, getState) => {                  // getState lets you choose what to dispatch next
     if (shouldFetchCareTeams(getState())) {
-      return dispatch(fetchCareTeams()) // dispatch a thunk from thunk
+      return dispatch(fetchCareTeams(careTeamId));  // dispatch a thunk from thunk
     } else {
-      return Promise.resolve(); // let the calling code know there's nothing to wait for
+      return Promise.resolve();                     // let the calling code know there's nothing to wait for
     }
-  }
+  };
 }
 
+// ------------------------- SELECT CARE TEAM ------------------------------ //
+
 export function selectCareTeam(careTeam) {
-  return dispatch => {
-    dispatch({ type: SELECT_CARE_TEAM, careTeam });
-    dispatch(fetchHuddlesIfNeeded(careTeam));
+  return {
+    type: SELECT_CARE_TEAM,
+    careTeam
   };
 }
 
@@ -95,15 +99,13 @@ export function fetchHuddles(careTeam) {
           dispatch(selectHuddle(firstHuddle(json)));
         });
       });
-  }
+  };
 }
 
 function shouldFetchHuddles(state, careTeam) {
-  if (careTeam == null) {
-    return false;
-  }
+  if (careTeam == null) { return false; } // don't fetch if careTeam isn't selected
 
-  let huddles = state.huddle.huddlesByCareTeam[careTeam];
+  let huddles = state.huddle.huddlesByCareTeam[careTeam.id];
   if (huddles && huddles.isFetching) {
     return false;
   } else {
@@ -114,47 +116,36 @@ function shouldFetchHuddles(state, careTeam) {
 export function fetchHuddlesIfNeeded(careTeam) {
   return (dispatch, getState) => {
     if (shouldFetchHuddles(getState(), careTeam)) {
-      return dispatch(fetchHuddles(careTeam))
+      return dispatch(fetchHuddles(careTeam));
     } else {
       return Promise.resolve();
     }
-  }
-}
-
-export function selectHuddle(huddle) {
-  return dispatch => {
-    dispatch({ type: SELECT_HUDDLE, huddle });
-    dispatch(fetchPatientsIfNeeded());
   };
 }
 
-// export function addPatientToHuddle({ patient, huddleGroup, date, reason }) {
-//   let existingHuddle = huddleGroup.dates.find((huddle) => moment(huddle.datetime).isSame(date, 'day'));
-//   let patientObject = {
-//     id: patient.id,
-//     reason: {
-//       code: 'MANUAL_ADDITION',
-//       text: reason
-//     }
-//   };
+// ------------------------- SELECT HUDDLE --------------------------------- //
 
-//   let payload = huddleToFhir({
-//     id: existingHuddle ? existingHuddle.id : null,
-//     datetime: moment(date).format('YYYY-MM-DD'),
-//     name: huddleGroup.name,
-//     practioner: 'Practitioner/1',
-//     patients: [patientObject].concat(existingHuddle ? existingHuddle.patients : [])
-//   });
+export function selectHuddle(huddle) {
+  return {
+    type: SELECT_HUDDLE,
+    huddle
+  };
+}
 
-//   let method = existingHuddle ? 'put' : 'post';
-//   let url = `${FHIR_SERVER}/Group${existingHuddle ? `/${payload.id}` : ''}`;
+// ------------------------- ADD PATIENT TO HUDDLE ------------------------- //
 
-//   return {
-//     type: ADD_PATIENT_TO_HUDDLE,
-//     payload: axios[method](url, JSON.stringify(payload), {
-//       headers: {
-//         'content-type': 'application/json; charset=UTF-8'
-//       }
-//     })
-//   };
-// }
+export function addPatientToHuddle(payload) {
+  let { patient_id, huddle_id, reason, date, careTeam } = payload;
+
+  return dispatch => {
+    return fetch(`${FHIR_SERVER}/api/care_teams/${careTeam.id}/huddles`, {
+                 method: 'post',
+                 body: JSON.stringify({ patient_id, huddle_id, reason, date }),
+                 headers: new Headers({ 'content-type': 'application/json; charset=utf-8' })})
+      .then((response) => {
+        return response.json().then((json) => {
+          dispatch({ type: ADD_PATIENT_TO_HUDDLE, json });
+        });
+      });
+  };
+}

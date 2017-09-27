@@ -25,7 +25,6 @@ export default class PatientListSelectors extends Component {
           <FilterSelector populations={this.props.populations}
                           selectedPopulations={this.props.selectedPopulations}
                           populationSelectorType={this.props.populationSelectorType}
-                          selectedHuddleGroup={this.props.selectedHuddleGroup}
                           careTeams={this.props.careTeams}
                           selectedCareTeam={this.props.selectedCareTeam}
                           huddles={this.props.huddles}
@@ -34,7 +33,8 @@ export default class PatientListSelectors extends Component {
                           unselectPopulation={this.props.unselectPopulation}
                           changePopulationSelectorType={this.props.changePopulationSelectorType}
                           selectCareTeam={this.props.selectCareTeam}
-                          selectHuddle={this.props.selectHuddle} />
+                          filterPatientsByHuddle={this.props.filterPatientsByHuddle}
+                          filterPatientsByFirstHuddle={this.props.filterPatientsByFirstHuddle} />
         </CollapsiblePanel>
 
         <CollapsiblePanel panelTitle="Sort">
@@ -69,7 +69,8 @@ PatientListSelectors.propTypes = {
   changePopulationSelectorType: PropTypes.func.isRequired,
   selectRiskService: PropTypes.func.isRequired,
   selectCareTeam: PropTypes.func.isRequired,
-  selectHuddle: PropTypes.func.isRequired,
+  filterPatientsByHuddle: PropTypes.func.isRequired,
+  filterPatientsByFirstHuddle: PropTypes.func.isRequired,
   selectSortOption: PropTypes.func.isRequired,
   setSortAscending: PropTypes.func.isRequired
 };

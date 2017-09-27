@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import equal from 'deep-equal';
 
 import PageHeader from '../components/Header/PageHeader';
 import PatientList from '../components/PatientList/PatientList';
@@ -15,21 +14,18 @@ import riskServiceProps from '../prop-types/risk_service';
 import sortProps from '../prop-types/sort';
 
 import { sortOptions } from '../reducers/sort';
-import { PATIENTS_PER_PAGE } from '../reducers/patient';
 
-import { fetchPatientsIfNeeded, setPatientSearch, selectPage } from '../actions/patient';
+import { loadPatients, filterPatientsByHuddle, filterPatientsByFirstHuddle,
+         setPatientSearch, selectPage } from '../actions/patient';
 import { fetchPopulations, selectPopulation, unselectPopulation,
          changePopulationSelectorType } from '../actions/population';
 import { fetchRiskServicesIfNeeded, selectRiskService } from '../actions/risk_service';
-import { fetchCareTeamsIfNeeded, selectCareTeam, fetchHuddlesIfNeeded, selectHuddle } from '../actions/huddle';
+import { fetchCareTeamsIfNeeded, selectCareTeam, fetchHuddlesIfNeeded } from '../actions/huddle';
 import { selectSortOption, setSortAscending } from '../actions/sort';
 
 class Patients extends Component {
-  componentWillMount() {
-    if (this.props.careTeams.length === 0) { this.props.fetchCareTeams(); }
-    if (this.props.huddles.length === 0) { this.props.fetchHuddles(); } // TODO: add careteam id
-    if (this.props.riskServices.length === 0) { this.props.fetchRiskServices(); }
-    // if (this.props.populations == null) { this.props.fetchPopulations(); }
+  componentDidMount() {
+    this.props.loadPatients();
   }
 
   render() {
@@ -60,7 +56,8 @@ class Patients extends Component {
                      changePopulationSelectorType={this.props.changePopulationSelectorType}
                      selectRiskService={this.props.selectRiskService}
                      selectCareTeam={this.props.selectCareTeam}
-                     selectHuddle={this.props.selectHuddle}
+                     filterPatientsByHuddle={this.props.filterPatientsByHuddle}
+                     filterPatientsByFirstHuddle={this.props.filterPatientsByFirstHuddle}
                      selectSortOption={this.props.selectSortOption}
                      setSortAscending={this.props.setSortAscending} />
       </div>
@@ -87,7 +84,9 @@ Patients.propTypes = {
   selectedRiskService: riskServiceProps,
   sortOption: sortProps.isRequired,
   sortAscending: PropTypes.bool.isRequired,
-  fetchPatients: PropTypes.func.isRequired,
+  loadPatients: PropTypes.func.isRequired,
+  filterPatientsByHuddle: PropTypes.func.isRequired,
+  filterPatientsByFirstHuddle: PropTypes.func.isRequired,
   fetchPopulations: PropTypes.func.isRequired,
   fetchCareTeams: PropTypes.func.isRequired,
   fetchHuddles: PropTypes.func.isRequired,
@@ -99,14 +98,15 @@ Patients.propTypes = {
   changePopulationSelectorType: PropTypes.func.isRequired,
   selectRiskService: PropTypes.func.isRequired,
   selectCareTeam: PropTypes.func.isRequired,
-  selectHuddle: PropTypes.func.isRequired,
   selectSortOption: PropTypes.func.isRequired,
   setSortAscending: PropTypes.func.isRequired
 };
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    fetchPatients: fetchPatientsIfNeeded,
+    loadPatients,
+    filterPatientsByHuddle,
+    filterPatientsByFirstHuddle,
     fetchPopulations,
     fetchCareTeams: fetchCareTeamsIfNeeded,
     fetchHuddles: fetchHuddlesIfNeeded,
@@ -118,13 +118,17 @@ function mapDispatchToProps(dispatch) {
     changePopulationSelectorType,
     selectRiskService,
     selectCareTeam,
-    selectHuddle,
     selectSortOption,
     setSortAscending
   }, dispatch);
 }
 
 export function mapStateToProps(state) {
+  let huddles = [];
+  if (state.huddle.selectedCareTeam && state.huddle.huddlesByCareTeam[state.huddle.selectedCareTeam.id]) {
+    huddles = state.huddle.huddlesByCareTeam[state.huddle.selectedCareTeam.id].items;
+  }
+
   return {
     patients: state.patient.patients.items,
     patientsMeta: state.patient.patients.meta,
@@ -136,7 +140,7 @@ export function mapStateToProps(state) {
     populationSelectorType: state.population.populationSelectorType,
     careTeams: state.huddle.careTeams.items,
     selectedCareTeam: state.huddle.selectedCareTeam,
-    huddles: state.huddle.huddlesByCareTeam[state.huddle.selectedCareTeam] ? state.huddle.huddlesByCareTeam[state.huddle.selectedCareTeam].items : [],
+    huddles,
     selectedHuddle: state.huddle.selectedHuddle,
     riskServices: state.riskService.riskServices.items,
     selectedRiskService: state.riskService.selectedRiskService,

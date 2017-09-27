@@ -26,10 +26,10 @@ export function fetchRiskServices() {
     dispatch(requestRiskServices());
 
     return fetch(`${FHIR_SERVER}/api/risk_services`)
-      .then(response => response.json(), error => console.log('An error occured.', error))
+      .then(response => response.json())
       .then(json => dispatch(receiveRiskServices(json)))
       .then(({ riskServices }) => dispatch(selectRiskService(riskServices[0])));
-  }
+  };
 }
 
 function shouldFetchRiskServices(state) {
@@ -45,11 +45,11 @@ function shouldFetchRiskServices(state) {
 export function fetchRiskServicesIfNeeded() {
   return (dispatch, getState) => {
     if (shouldFetchRiskServices(getState())) {
-      return dispatch(fetchRiskServices())
+      return dispatch(fetchRiskServices());
     } else {
       return Promise.resolve();
     }
-  }
+  };
 }
 
 // ------------------------- SELECT RISK SERVICE --------------------------- //

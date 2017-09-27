@@ -3,7 +3,6 @@ import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames';
 import ReactPaginate from 'react-paginate';
 import { param } from 'jquery';
-import equal from 'deep-equal';
 
 import PatientListResultsItem from './PatientListResultsItem';
 
@@ -13,6 +12,7 @@ import populationProps from '../../../prop-types/population';
 import huddleProps from '../../../prop-types/huddle';
 import riskServiceProps from '../../../prop-types/risk_service';
 import sortProps from '../../../prop-types/sort';
+import careTeamProps from '../../../prop-types/care_team';
 
 export default class PatientListResults extends Component {
   constructor(...args) {
@@ -67,7 +67,8 @@ export default class PatientListResults extends Component {
         <PatientListResultsItem key={patient.id}
                                 patient={patient}
                                 huddles={this.props.huddles}
-                                selectedRiskService={this.props.selectedRiskService} />
+                                selectedRiskService={this.props.selectedRiskService}
+                                selectedCareTeam={this.props.selectedCareTeam} />
       );
     }
   }
@@ -133,5 +134,6 @@ PatientListResults.propTypes = {
   sortOption: sortProps.isRequired,
   sortAscending: PropTypes.bool.isRequired,
   setPatientSearch: PropTypes.func.isRequired,
-  selectPage: PropTypes.func.isRequired
+  selectPage: PropTypes.func.isRequired,
+  selectedCareTeam: careTeamProps
 };

@@ -28,10 +28,10 @@ export function fetchRiskAssessments(patientId, riskServiceId) {
     dispatch(requestRiskAssessments());
 
     return fetch(`${FHIR_SERVER}/api/patients/${patientId}/risk_assessments?risk_service_id=${riskServiceId}`)
-      .then(response => response.json(), error => console.log('An error occured.', error))
+      .then(response => response.json())
       .then(json => dispatch(receiveRiskAssessments(json)))
-      .then(({ riskAssessments }) => dispatch(selectRiskAssessment(riskAssessments[0])));
-  }
+      .then(({ riskAssessments }) => { dispatch(selectRiskAssessment(riskAssessments[0])); });
+  };
 }
 
 function shouldFetchRiskAssessments(state) {
@@ -51,7 +51,7 @@ export function fetchRiskAssessmentsIfNeeded(patientId, riskServiceId) {
     } else {
       return Promise.resolve();
     }
-  }
+  };
 }
 
 // ------------------------- RISK BREAKDOWN -------------------------------- //
@@ -74,9 +74,9 @@ export function fetchRiskBreakdown(riskAssessmentId) {
     dispatch(requestRiskBreakdown());
 
     return fetch(`${FHIR_SERVER}/api/risk_assessments/${riskAssessmentId}/breakdown`)
-      .then(response => response.json(), error => console.log('An error occured.', error))
+      .then(response => response.json())
       .then(json => dispatch(receiveRiskBreakdown(json)));
-  }
+  };
 }
 
 function shouldFetchRiskBreakdown(state) {
@@ -96,7 +96,7 @@ export function fetchRiskBreakdownIfNeeded(riskAssessmentId) {
     } else {
       return Promise.resolve();
     }
-  }
+  };
 }
 
 // ------------------------- SELECT RISK ASSESSMENT --------------------------- //

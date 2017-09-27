@@ -16,7 +16,7 @@ export default class HuddleFilterSelector extends Component {
       return;
     }
 
-    this.props.selectCareTeam(careTeam);
+    this.props.filterPatientsByFirstHuddle(careTeam);
   }
 
   renderedHuddleDate(careTeam) {
@@ -29,7 +29,7 @@ export default class HuddleFilterSelector extends Component {
     return (
       <HuddleFilterDateSelector huddles={this.props.huddles}
                                 selectedHuddle={this.props.selectedHuddle}
-                                selectHuddle={this.props.selectHuddle} />
+                                filterPatientsByHuddle={this.props.filterPatientsByHuddle} />
     );
   }
 
@@ -82,5 +82,6 @@ HuddleFilterSelector.propTypes = {
   huddles: PropTypes.arrayOf(huddleProps),
   selectedHuddle: huddleProps,
   selectCareTeam: PropTypes.func.isRequired,
-  selectHuddle: PropTypes.func.isRequired
+  filterPatientsByHuddle: PropTypes.func.isRequired,
+  filterPatientsByFirstHuddle: PropTypes.func.isRequired
 };

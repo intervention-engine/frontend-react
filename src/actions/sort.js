@@ -8,7 +8,7 @@ import {
 // ------------------------- SELECT SORT OPTION ---------------------------- //
 
 export function selectSortOption(sortOption) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({ type: SELECT_SORT_OPTION, sortOption });
     return dispatch(fetchPatients());
   };
@@ -17,7 +17,7 @@ export function selectSortOption(sortOption) {
 // ------------------------- SET SORT ASCENDING ---------------------------- //
 
 export function setSortAscending(bool) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({ type: SET_SORT_ASCENDING, bool });
     return dispatch(fetchPatients());
   };

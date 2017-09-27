@@ -32,7 +32,8 @@ export default class PatientList extends Component {
                               changePopulationSelectorType={this.props.changePopulationSelectorType}
                               selectRiskService={this.props.selectRiskService}
                               selectCareTeam={this.props.selectCareTeam}
-                              selectHuddle={this.props.selectHuddle}
+                              filterPatientsByHuddle={this.props.filterPatientsByHuddle}
+                              filterPatientsByFirstHuddle={this.props.filterPatientsByFirstHuddle}
                               selectSortOption={this.props.selectSortOption}
                               setSortAscending={this.props.setSortAscending} />
 
@@ -46,6 +47,7 @@ export default class PatientList extends Component {
                             huddles={this.props.huddles}
                             selectedHuddle={this.props.selectedHuddle}
                             selectedRiskService={this.props.selectedRiskService}
+                            selectedCareTeam={this.props.selectedCareTeam}
                             sortOption={this.props.sortOption}
                             sortAscending={this.props.sortAscending}
                             setPatientSearch={this.props.setPatientSearch}
@@ -82,7 +84,8 @@ PatientList.propTypes = {
   changePopulationSelectorType: PropTypes.func.isRequired,
   selectRiskService: PropTypes.func.isRequired,
   selectCareTeam: PropTypes.func.isRequired,
-  selectHuddle: PropTypes.func.isRequired,
+  filterPatientsByHuddle: PropTypes.func.isRequired,
+  filterPatientsByFirstHuddle: PropTypes.func.isRequired,
   selectSortOption: PropTypes.func.isRequired,
   setSortAscending: PropTypes.func.isRequired
 };

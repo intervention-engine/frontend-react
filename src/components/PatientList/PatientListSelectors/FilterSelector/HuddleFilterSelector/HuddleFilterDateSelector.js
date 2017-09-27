@@ -4,7 +4,6 @@ import moment from 'moment';
 import Pikaday from 'pikaday';
 import _ from 'lodash';
 
-import careTeamProps from '../../../../../prop-types/care_team';
 import huddleProps from '../../../../../prop-types/huddle';
 
 export default class HuddleFilterDateSelector extends Component {
@@ -35,7 +34,7 @@ export default class HuddleFilterDateSelector extends Component {
         return this.state.dateMap[moment(date).format('YYYY-MM-DD')] == null;
       },
       onSelect: (date) => {
-        this.props.selectHuddle(this.state.dateMap[moment(date).format('YYYY-MM-DD')]);
+        this.props.filterPatientsByHuddle(this.state.dateMap[moment(date).format('YYYY-MM-DD')]);
       }
     });
   }
@@ -96,5 +95,5 @@ HuddleFilterDateSelector.displayName = 'HuddleFilterDateSelector';
 HuddleFilterDateSelector.propTypes = {
   huddles: PropTypes.arrayOf(huddleProps),
   selectedHuddle: huddleProps,
-  selectHuddle: PropTypes.func.isRequired
+  filterPatientsByHuddle: PropTypes.func.isRequired
 };

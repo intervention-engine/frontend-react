@@ -1,20 +1,22 @@
 import { expect, renderComponent } from '../../../../../test_helper';
-import { huddleGroupTestObject1, huddleGroupTestObject2, huddleTestObject } from '../../../../../test_props';
+import { careTeamTestObject1, careTeamTestObject2, huddleTestObject } from '../../../../../test_props';
 import HuddleFilterSelector from '../../../../../../src/components/PatientList/PatientListSelectors/FilterSelector/HuddleFilterSelector/HuddleFilterSelector';
 
 describe('HuddleFilterSelector' , () => {
   let component;
-  let selectedHuddleGroup;
+  let selectedCareTeam;
 
   beforeEach(() => {
-    selectedHuddleGroup = huddleGroupTestObject1;
+    selectedCareTeam = careTeamTestObject1;
 
     let props = {
-      huddles: [ huddleGroupTestObject1, huddleGroupTestObject2 ],
-      selectedHuddleGroup,
+      careTeams: [ careTeamTestObject1, careTeamTestObject2 ],
+      selectedCareTeam,
+      huddles: [ huddleTestObject ],
       selectedHuddle: huddleTestObject,
-      selectHuddleGroup(huddleGroup) { selectedHuddleGroup = huddleGroup; },
-      selectHuddle: () => null
+      selectCareTeam(careTeam) { selectedCareTeam = careTeam; },
+      filterPatientsByHuddle: () => null,
+      filterPatientsByFirstHuddle: (careTeam) => { selectedCareTeam = careTeam; }
     };
 
     component = renderComponent(HuddleFilterSelector, props);
@@ -24,12 +26,12 @@ describe('HuddleFilterSelector' , () => {
     expect(component).to.have.class('huddle-filter-selector');
   });
 
-  it('displays the correct huddle group name', () => {
-    expect(component.find(".huddleGroup-name").first()).to.have.text('Sample Huddle Group 1');
+  it('displays the correct care team name', () => {
+    expect(component.find(".careTeam-name").first()).to.have.text('Care Team A');
   });
 
-  it('can select a huddle group', () => {
+  it('can select a care team', () => {
     component.find('input[type=radio]:eq(1)').simulate('change');
-    expect(selectedHuddleGroup).to.eq(huddleGroupTestObject2);
+    expect(selectedCareTeam).to.eq(careTeamTestObject2);
   });
 });

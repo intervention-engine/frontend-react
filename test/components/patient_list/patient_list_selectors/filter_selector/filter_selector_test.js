@@ -1,5 +1,5 @@
 import { renderComponent , expect } from '../../../../test_helper';
-import { populationsTestObject1, huddleGroupTestObject1, huddleTestObject } from '../../../../test_props';
+import { populationsTestObject1, careTeamTestObject1, huddleTestObject } from '../../../../test_props';
 import FilterSelector from '../../../../../src/components/PatientList/PatientListSelectors/FilterSelector/FilterSelector';
 
 describe('FilterSelector' , () => {
@@ -10,14 +10,16 @@ describe('FilterSelector' , () => {
       populations: [ populationsTestObject1 ],
       selectedPopulations: [ populationsTestObject1 ],
       populationSelectorType: 'union',
-      selectedHuddleGroup: huddleGroupTestObject1,
-      huddles: [ huddleGroupTestObject1 ],
+      careTeams: [ careTeamTestObject1 ],
+      selectedCareTeam: careTeamTestObject1,
+      huddles: [ huddleTestObject ],
       selectedHuddle: huddleTestObject,
       selectPopulation: () => null,
       unselectPopulation: () => null,
       changePopulationSelectorType: () => null,
-      selectHuddleGroup: () => null,
-      selectHuddle: () => null
+      selectCareTeam: () => null,
+      filterPatientsByHuddle: () => null,
+      filterPatientsByFirstHuddle: () => null
     };
 
     component = renderComponent(FilterSelector, props);
