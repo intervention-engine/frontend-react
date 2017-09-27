@@ -23,12 +23,12 @@ function riskAssessments(state = { isFetching: false, items: [] }, action) {
 
 // ------------------------- RISK BREAKDOWN -------------------------------- //
 
-function riskBreakdown(state = { isFetching: false, items: [] }, action) {
+function riskBreakdown(state = { isFetching: false, initialLoad: true, items: [] }, action) {
   switch(action.type) {
     case REQUEST_RISK_BREAKDOWN:
       return Object.assign({}, state, { isFetching: true });
     case RECEIVE_RISK_BREAKDOWN:
-      return Object.assign({}, state, { isFetching: false, items: action.riskBreakdown });
+      return Object.assign({}, state, { isFetching: false, initialLoad: false, items: action.riskBreakdown });
     default:
       return state;
   }

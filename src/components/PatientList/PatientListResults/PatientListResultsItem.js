@@ -74,7 +74,7 @@ export default class PatientListResultsItem extends Component {
 
             <div className="media-body">
               <div className="row">
-                <div className="patient-name col-xs-12">{this.props.patient.name.full}</div>
+                <div className="patient-name col-xs-12">{this.props.patient.name.family}, {this.props.patient.name.given}</div>
               </div>
 
               <div className="row">

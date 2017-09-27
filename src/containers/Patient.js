@@ -15,7 +15,7 @@ import riskAssessmentProps from '../prop-types/risk_assessment';
 import riskAssessmentBreakdownProps from '../prop-types/risk_assessment_breakdown';
 
 import { loadPatient } from '../actions/patient';
-import { selectCareTeam, selectHuddle, addPatientToHuddle } from '../actions/huddle';
+import { selectCareTeamFetchHuddles, selectHuddle, addPatientToHuddle } from '../actions/huddle';
 import { selectRiskService } from '../actions/risk_service';
 import { selectRiskAssessment } from '../actions/risk_assessment';
 
@@ -28,7 +28,7 @@ export class Patient extends Component {
   }
 
   render() {
-    if (this.props.selectedPatient == null || this.props.riskAssessmentBreakdownFetching) {
+    if (this.props.selectedPatient == null || this.props.riskAssessmentBreakdownLoading == true) {
       return (
         <div className="loading text-center container">
           <FontAwesome name="spinner" size="3x" spin pulse />
@@ -81,13 +81,13 @@ Patient.propTypes = {
   addPatientToHuddle: PropTypes.func.isRequired,
   selectRiskService: PropTypes.func.isRequired,
   selectRiskAssessment: PropTypes.func.isRequired,
-  riskAssessmentBreakdownFetching: PropTypes.bool
+  riskAssessmentBreakdownLoading: PropTypes.bool
 };
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     loadPatient,
-    selectCareTeam,
+    selectCareTeam: selectCareTeamFetchHuddles,
     selectHuddle,
     addPatientToHuddle,
     selectRiskService,
@@ -112,7 +112,7 @@ export function mapStateToProps(state) {
     riskAssessments: state.riskAssessment.riskAssessments.items,
     selectedRiskAssessment: state.riskAssessment.selectedRiskAssessment,
     riskAssessmentBreakdown: state.riskAssessment.riskBreakdown.items,
-    riskAssessmentBreakdownFetching: state.riskAssessment.riskBreakdown.isFetching
+    riskAssessmentBreakdownLoading: state.riskAssessment.riskBreakdown.initialLoad
   };
 }
 

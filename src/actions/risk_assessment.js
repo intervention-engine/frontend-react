@@ -102,8 +102,8 @@ export function fetchRiskBreakdownIfNeeded(riskAssessmentId) {
 // ------------------------- SELECT RISK ASSESSMENT --------------------------- //
 
 export function selectRiskAssessment(riskAssessment) {
-  return {
-    type: SELECT_RISK_ASSESSMENT,
-    riskAssessment
+  return dispatch => {
+    dispatch({ type: SELECT_RISK_ASSESSMENT, riskAssessment});
+    return dispatch(fetchRiskBreakdownIfNeeded(riskAssessment.id));
   };
 }

@@ -123,6 +123,13 @@ export function fetchHuddlesIfNeeded(careTeam) {
   };
 }
 
+export function selectCareTeamFetchHuddles(careTeam) {
+  return dispatch => {
+    dispatch(selectCareTeam(careTeam));
+    return dispatch(fetchHuddlesIfNeeded(careTeam));
+  };
+}
+
 // ------------------------- SELECT HUDDLE --------------------------------- //
 
 export function selectHuddle(huddle) {

@@ -30,7 +30,7 @@ describe('Patient' , () => {
       addPatientToHuddle: () => null,
       selectRiskService: () => null,
       selectRiskAssessment: () => null,
-      riskAssessmentBreakdownFetching: false
+      riskAssessmentBreakdownLoading: false
     };
 
     component = renderComponent(Patient, props);
@@ -73,7 +73,7 @@ describe('Patient' , () => {
         },
         riskAssessment: {
           riskAssessments: { isFetching: false, items: [ riskAssessmentTestObject1 ] },
-          riskBreakdown: { isFetching: false, items: riskAssessmentBreakdownObject },
+          riskBreakdown: { isFetching: false, initialLoad: false, items: riskAssessmentBreakdownObject },
           selectedRiskAssessment: riskAssessmentTestObject1
         },
         sort: {
@@ -95,7 +95,7 @@ describe('Patient' , () => {
       expect(stateProps.riskAssessments.length).to.equal(1);
       expect(stateProps.selectedRiskAssessment.id).to.equal('ra1');
       expect(stateProps.riskAssessmentBreakdown.length).to.equal(4);
-      expect(stateProps.riskAssessmentBreakdownFetching).to.equal(false);
+      expect(stateProps.riskAssessmentBreakdownLoading).to.equal(false);
     });
   });
 });

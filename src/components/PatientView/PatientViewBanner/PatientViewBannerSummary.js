@@ -1,30 +1,25 @@
 import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
 
-// import NextHuddleDate from '../../../elements/NextHuddleDate';
+import NextHuddleDate from '../../../elements/NextHuddleDate';
 import PatientViewBannerRiskChart from './PatientViewBannerRiskChart';
 
-import { getPatientAgeIcon, getPatientGenderIcon/*, getHuddleReasonIcon*/ } from '../../../utils/icon';
-// import nextHuddleForPatients from '../../../utils/next_huddle_for_patients';
+import { getPatientAgeIcon, getPatientGenderIcon, getHuddleReasonIcon } from '../../../utils/icon';
 
 import patientProps from '../../../prop-types/patient';
 import riskAssessmentProps from '../../../prop-types/risk_assessment';
 import huddleProps from '../../../prop-types/huddle';
 
 export default class PatientViewBannerSummary extends Component {
-  renderedNextHuddle() {
-    return;
-    // if (this.props.huddles == null) { return; }
-    // let nextHuddles = nextHuddleForPatients(this.props.huddles);
-    // let nextHuddle = nextHuddles[this.props.patient.id];
-    // if (nextHuddle == null) { return; }
-    //
-    // return (
-    //   <NextHuddleDate huddleIconName={getHuddleReasonIcon(nextHuddle.huddlePatient.reason.code)}
-    //                   huddleGroupName={nextHuddle.huddleGroup.name}
-    //                   huddleReason={nextHuddle.huddlePatient.reason.text}
-    //                   huddleDate={nextHuddle.huddle.datetime} />
-    // );
+  renderedNextHuddle(nextHuddle) {
+    if(!nextHuddle) { return; }
+
+    return (
+      <NextHuddleDate huddleIconName={getHuddleReasonIcon(nextHuddle.reason_type)}
+                      huddleGroupName={nextHuddle.care_team_name}
+                      huddleReason={nextHuddle.reason}
+                      huddleDate={nextHuddle.huddle_date} />
+    );
   }
 
   renderedRisk() {
@@ -39,7 +34,7 @@ export default class PatientViewBannerSummary extends Component {
 
     let fullName = '';
     if (this.props.patient.name) {
-      fullName = this.props.patient.name.full;
+      fullName = `${this.props.patient.name.family}, ${this.props.patient.name.given}`;
     }
 
     return (
@@ -62,7 +57,7 @@ export default class PatientViewBannerSummary extends Component {
           </span>
 
           <span className="patient-stats-next-huddle">
-            {this.renderedNextHuddle()}
+            {this.renderedNextHuddle(this.props.patient.next_huddle)}
           </span>
         </div>
 

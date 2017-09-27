@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
-import equal from 'deep-equal';
 import FontAwesome from 'react-fontawesome';
 
 import CollapsiblePanel from '../../../elements/CollapsiblePanel';
@@ -8,7 +7,7 @@ import BootstrapModal from '../../../elements/modals/BootstrapModal';
 import AddToHuddleModal from '../../../elements/modals/AddToHuddleModal';
 import HuddlePikaday from '../../../elements/pikaday/HuddlePikaday';
 
-// import getPatientHuddles from '../../../utils/get_patient_huddles';
+import getPatientHuddles from '../../../utils/get_patient_huddles';
 
 import careTeamProps from '../../../prop-types/care_team';
 import huddleProps from '../../../prop-types/huddle';
@@ -19,7 +18,7 @@ export default class PatientViewStatsHuddles extends Component {
     super(...args);
 
     this.state = {
-      patientHuddles: [],                       // array of all huddles the patient is in
+      patientHuddles: getPatientHuddles(this.props.patient, this.props.huddles, this.props.selectedCareTeam),
       selectedDate: new Date(),                 // date selected on huddle calendar
       selectedPatientHuddle: null,              // patient huddle for selected day
       selectedPatientHuddlePatientInfo: null,   // patient info for selected patient huddle
@@ -31,30 +30,37 @@ export default class PatientViewStatsHuddles extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!equal(nextProps.patient, this.props.patient) ||
-        !equal(nextProps.huddles, this.props.huddles)) {
-      this.updateHuddles(nextProps.patient, nextProps.huddles, this.state.selectedDate);
-    }
+    // console.debug('-------- Huddles: ', this.props.huddles);
+
+    this.setState({
+      patientHuddles: getPatientHuddles(nextProps.patient, nextProps.huddles, nextProps.selectedCareTeam)
+    });
+
+    // if (!equal(nextProps.patient, this.props.patient) ||
+    //     !equal(nextProps.huddles, this.props.huddles) ||
+    //     !equal(nextProps.selectedCareTeam, this.props.selectedCareTeam)) {
+    //   this.updateHuddles(nextProps.patient, nextProps.huddles, nextProps.selectedCareTeam, this.state.selectedDate);
+    // }
   }
 
   // used in componentWillReceiveProps to update patientHuddles, selectedPatientHuddle,
   // and selectedPatientHuddlePatientInfo state
-  updateHuddles(patient, huddles, selectedDate) {
-    `This function is currently disabled, updateHuddles(${patient}, ${huddles}, ${selectedDate});`;
-    return;
-    // let patientHuddles = getPatientHuddles(patient, huddles);
-    //
-    // let selectedPatientHuddle;
-    // if (patientHuddles != null) {
-    //   selectedPatientHuddle = this.selectedPatientHuddle(selectedDate, patientHuddles);
-    // }
-    //
-    // let selectedPatientHuddlePatientInfo;
-    // if (selectedPatientHuddle != null) {
-    //   selectedPatientHuddlePatientInfo = selectedPatientHuddle.patients.find((patient) => patient.id === this.props.patient.id);
-    // }
-    //
-    // this.setState({ patientHuddles, selectedPatientHuddle, selectedPatientHuddlePatientInfo });
+  updateHuddles(patient, huddles, careTeam, selectedDate) {
+    let patientHuddles = getPatientHuddles(patient, huddles, careTeam);
+    let _selectedDate = selectedDate == null ? this.state.selectedDate : selectedDate;
+
+    let selectedPatientHuddle;
+    if (patientHuddles != null) {
+      selectedPatientHuddle = this.selectedPatientHuddle(_selectedDate, patientHuddles);
+    }
+
+    let selectedPatientHuddlePatientInfo;
+    if (selectedPatientHuddle != null) {
+      selectedPatientHuddlePatientInfo = selectedPatientHuddle.patients.find((patient) => patient.id === this.props.patient.id);
+    }
+
+    this.setState({ patientHuddles, selectedPatientHuddle, selectedPatientHuddlePatientInfo });
+    return patientHuddles;
   }
 
   // used in updateHuddles to select huddle for patient on the given selected date
@@ -104,7 +110,7 @@ export default class PatientViewStatsHuddles extends Component {
 
   selectDate(selectedDate) {
     this.setState({ selectedDate });
-    this.updateHuddles(this.props.patient, this.props.huddles, selectedDate);
+    this.updateHuddles(this.props.patient, this.props.huddles, this.props.selectedCareTeam, selectedDate);
     this.props.selectHuddle(this.selectedPatientHuddle(selectedDate));
   }
 
@@ -119,6 +125,9 @@ export default class PatientViewStatsHuddles extends Component {
     }
 
     this.props.selectCareTeam(careTeam);
+    // this.setState({
+    //   patientHuddles: this.updateHuddles(this.props.patient, this.props.huddles, this.props.selectedCareTeam)
+    // });
   }
 
   renderedCareTeams() {

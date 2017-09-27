@@ -48,6 +48,8 @@ export default class HuddlePikaday extends Component {
     if (this.refs.pikadayContainer) {
       this.refs.pikadayContainer.appendChild(this.picker.el);
     }
+
+    this.setPikadayStyles();
   }
 
   componentDidUpdate() {
@@ -74,7 +76,7 @@ export default class HuddlePikaday extends Component {
 
     let patientHuddles = this.props.patientHuddles;
     for (let i = 0; i < patientHuddles.length; i++) {
-      let date = moment(patientHuddles[i].datetime);
+      let date = moment(patientHuddles[i].date);
       let year = date.year();
       let month = date.month();
       let day = date.date();
